@@ -1,0 +1,12 @@
+# Personal / session files — never commit these
+.github-token
+CLAUDE.md
+TASKS.md
+dashboard.html
+KDP-Listing-Optimization-Power-Automate.md
+memory/
+faithmining-repo/
+
+# OS junk
+.DS_Store
+Thumbs.db
