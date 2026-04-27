@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faith Mining Solo Pool — Bitcoin Solo Mining Pool (Coming Soon)</title>
+  <meta name="description" content="A Bitcoin solo mining pool built by Faith Mining LLC. Transparent fees, real numbers, no fluff. Coming soon.">
+  <link rel="canonical" href="https://solo.faithmining.net/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:             #0C0C0F;
+      --bg-surface:     #141418;
+      --bg-elevated:    #1C1C23;
+      --bg-hover:       #22222B;
+      --border:         rgba(255, 255, 255, 0.06);
+      --border-strong:  rgba(255, 255, 255, 0.12);
+      --border-orange:  rgba(247, 147, 26, 0.35);
+      --text:           #EDEDF0;
+      --text-secondary: #9292A0;
+      --text-muted:     #4A4A5A;
+      --orange:         #F7931A;
+      --orange-light:   #FFA733;
+      --orange-glow:    rgba(247, 147, 26, 0.10);
+      --orange-glow-md: rgba(247, 147, 26, 0.20);
+      --font:           'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono:      'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+      --radius:         10px;
+      --radius-lg:      14px;
+      --radius-xl:      20px;
+      --transition:     150ms ease;
+      --shadow:         0 4px 12px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+    /* ── Header ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(12, 12, 15, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+    }
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo:hover { color: var(--text); }
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--orange);
+      border-radius: 9px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: 800;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      animation: logo-glow 2.5s ease-in-out infinite;
+    }
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .nav-link:hover { color: var(--text); }
+
+    /* ── Main ── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 0;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--orange);
+      background: var(--orange-glow);
+      border: 1px solid var(--border-orange);
+      padding: 4px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5.5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--orange); }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 48px;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── Status card ── */
+    .status-card {
+      display: inline-block;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-orange);
+      border-radius: var(--radius-xl);
+      padding: 32px 48px;
+      margin-bottom: 48px;
+      text-align: center;
+      animation: border-glow 3s ease-in-out infinite;
+    }
+    .status-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--orange);
+      font-family: var(--font-mono);
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: dot-ping 1.5s ease-out infinite;
+    }
+    .status-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    /* ── What to expect ── */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 48px;
+      text-align: left;
+    }
+    .feature-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+    .feature-icon {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+    .feature-card h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .feature-card p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── CTA ── */
+    .cta-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: #000;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 11px 22px;
+      border-radius: var(--radius);
+      transition: background var(--transition);
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: var(--orange-light); color: #000; }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 11px 22px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-strong);
+      transition: background var(--transition), color var(--transition);
+      text-decoration: none;
+    }
+    .btn-ghost:hover { background: var(--bg-hover); color: var(--text); }
+
+    /* ── Footer ── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 0.8rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    /* ── Glow animations ── */
+    @keyframes logo-glow {
+      0%, 100% { box-shadow: 0 0 6px rgba(247,147,26,0.35), 0 0 14px rgba(247,147,26,0.12); }
+      50%       { box-shadow: 0 0 16px rgba(247,147,26,0.75), 0 0 32px rgba(247,147,26,0.28); }
+    }
+    @keyframes border-glow {
+      0%, 100% { box-shadow: 0 0 8px rgba(247,147,26,0.08); border-color: rgba(247,147,26,0.25); }
+      50%       { box-shadow: 0 0 24px rgba(247,147,26,0.22); border-color: rgba(247,147,26,0.60); }
+    }
+    @keyframes dot-ping {
+      0%   { box-shadow: 0 0 0 0 rgba(247,147,26,0.7); opacity: 1; }
+      70%  { box-shadow: 0 0 0 8px rgba(247,147,26,0); opacity: 0.7; }
+      100% { box-shadow: 0 0 0 0 rgba(247,147,26,0); opacity: 1; }
+    }
+
+    /* ── Kit email capture overrides ── */
+    .notify-wrapper {
+      max-width: 480px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .notify-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .formkit-form[data-uid="f09be61346"] {
+      max-width: 100% !important;
+      background: transparent !important;
+    }
+    .formkit-form[data-uid="f09be61346"] .formkit-input {
+      background: var(--bg-elevated) !important;
+      color: var(--text) !important;
+      border-color: var(--border-strong) !important;
+      border-radius: var(--radius) !important;
+      font-family: var(--font) !important;
+      font-size: 0.95rem !important;
+    }
+    .formkit-form[data-uid="f09be61346"] .formkit-input:focus {
+      border-color: var(--orange) !important;
+      box-shadow: 0 0 0 3px var(--orange-glow-md) !important;
+    }
+    .formkit-form[data-uid="f09be61346"] .formkit-input::placeholder {
+      color: var(--text-muted) !important;
+      opacity: 1 !important;
+    }
+    .formkit-form[data-uid="f09be61346"] .formkit-submit {
+      background-color: var(--orange) !important;
+      border-radius: var(--radius) !important;
+      font-family: var(--font) !important;
+      font-weight: 600 !important;
+      color: #000 !important;
+      margin-bottom: 8px !important;
+    }
+    .formkit-form[data-uid="f09be61346"] .formkit-powered-by-convertkit-container {
+      justify-content: center !important;
+      opacity: 0.3 !important;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      main { padding: 56px 0; }
+      .features { grid-template-columns: 1fr; }
+      .status-card { padding: 24px 28px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="https://faithmining.net" class="logo">
+        <span class="logo-mark">F</span>
+        Faith Mining
+      </a>
+      <nav>
+        <a href="https://faithmining.net" class="nav-link">Main site →</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <div class="container">
+      <div class="hero">
+
+        <div class="hero-eyebrow">⛏ Faith Mining Solo Pool</div>
+        <h1>Bitcoin Solo Mining.<br><span>Built right. Coming soon.</span></h1>
+        <p class="hero-sub">A transparent, low-fee Bitcoin solo mining pool built by a real operator. No mystery fees, no black-box payouts — just honest infrastructure for serious miners chasing the block.</p>
+
+        <div style="display:flex;justify-content:center;margin-bottom:48px;">
+          <div class="status-card">
+            <div class="status-label">Current Status</div>
+            <div class="status-badge"><span class="status-dot"></span>Under Construction</div>
+            <div class="status-sub">Pool setup & configuration in progress</div>
+          </div>
+        </div>
+
+        <div class="features">
+          <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>True Solo Mining</h3>
+            <p>Point your ASIC directly at the pool. You find a block, you keep the full reward. No shared splits, no PPLNS math.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Real Transparency</h3>
+            <p>Live hashrate, worker stats, and block history — all visible. Real numbers from a real operation, no smoke and mirrors.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Built for ASICs</h3>
+            <p>Standard Stratum protocol. Works with any ASIC out of the box — Antminer, Whatsminer, Avalon, and more.</p>
+          </div>
+        </div>
+
+        <div class="notify-wrapper">
+          <p class="notify-label">Get notified when it's live</p>
+          <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+          <form action="https://app.kit.com/forms/9372458/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="9372458" data-uid="f09be61346" data-format="inline" data-version="5" data-options="{&quot;settings&quot;:{&quot;after_subscribe&quot;:{&quot;action&quot;:&quot;message&quot;,&quot;success_message&quot;:&quot;You're on the list! We'll notify you when the pool goes live.&quot;,&quot;redirect_url&quot;:&quot;&quot;},&quot;analytics&quot;:{&quot;google&quot;:null,&quot;fathom&quot;:null,&quot;facebook&quot;:null,&quot;segment&quot;:null,&quot;pinterest&quot;:null,&quot;sparkloop&quot;:null,&quot;googletagmanager&quot;:null},&quot;modal&quot;:{&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15},&quot;powered_by&quot;:{&quot;show&quot;:true,&quot;url&quot;:&quot;https://kit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic&quot;},&quot;recaptcha&quot;:{&quot;enabled&quot;:false},&quot;return_visitor&quot;:{&quot;action&quot;:&quot;show&quot;,&quot;custom_content&quot;:&quot;&quot;},&quot;slide_in&quot;:{&quot;display_in&quot;:&quot;bottom_right&quot;,&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15},&quot;sticky_bar&quot;:{&quot;display_in&quot;:&quot;top&quot;,&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15}},&quot;version&quot;:&quot;5&quot;}" min-width="400 500 600 700 800"><div data-style="clean"><ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul><div data-element="fields" data-stacked="false" class="seva-fields formkit-fields"><div class="formkit-field"><input class="formkit-input" name="email_address" aria-label="Email Address" placeholder="Email Address" required="" type="email"></div><button data-element="submit" class="formkit-submit formkit-submit"><div class="formkit-spinner"><div></div><div></div><div></div></div><span class="">Notify me when it's live</span></button></div><div class="formkit-powered-by-convertkit-container"><a href="https://kit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic" data-element="powered-by" class="formkit-powered-by-convertkit" data-variant="dark" target="_blank" rel="nofollow noopener">Built with Kit</a></div></div><style>.formkit-form[data-uid="f09be61346"] *{box-sizing:border-box;}.formkit-form[data-uid="f09be61346"]{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}.formkit-form[data-uid="f09be61346"] .formkit-input,.formkit-form[data-uid="f09be61346"] .formkit-select,.formkit-form[data-uid="f09be61346"] .formkit-checkboxes{width:100%;}.formkit-form[data-uid="f09be61346"] .formkit-button,.formkit-form[data-uid="f09be61346"] .formkit-submit{border:0;border-radius:5px;color:#ffffff;cursor:pointer;display:inline-block;text-align:center;font-size:15px;font-weight:500;cursor:pointer;margin-bottom:15px;overflow:hidden;padding:0;position:relative;vertical-align:middle;}.formkit-form[data-uid="f09be61346"] .formkit-button > span,.formkit-form[data-uid="f09be61346"] .formkit-submit > span{display:block;-webkit-transition:all 300ms ease-in-out;transition:all 300ms ease-in-out;padding:12px 24px;}.formkit-form[data-uid="f09be61346"] .formkit-input{background:#ffffff;font-size:15px;padding:12px;border:1px solid #e3e3e3;-webkit-flex:1 0 auto;-ms-flex:1 0 auto;flex:1 0 auto;line-height:1.4;margin:0;}.formkit-form[data-uid="f09be61346"] .formkit-alert{background:#f9fafb;border:1px solid #e3e3e3;border-radius:5px;-webkit-flex:1 0 auto;-ms-flex:1 0 auto;flex:1 0 auto;list-style:none;margin:25px auto;padding:12px;text-align:center;width:100%;}.formkit-form[data-uid="f09be61346"] .formkit-alert:empty{display:none;}.formkit-form[data-uid="f09be61346"] .formkit-alert-success{background:#d3fbeb;border-color:#10bf7a;color:#0c905c;}.formkit-form[data-uid="f09be61346"] .formkit-alert-error{background:#fde8e2;border-color:#f2643b;color:#ea4110;}.formkit-form[data-uid="f09be61346"] .formkit-spinner{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:0px;width:0px;margin:0 auto;position:absolute;top:0;left:0;right:0;width:0px;overflow:hidden;text-align:center;-webkit-transition:all 300ms ease-in-out;transition:all 300ms ease-in-out;}.formkit-form[data-uid="f09be61346"] .formkit-spinner > div{margin:auto;width:12px;height:12px;background-color:#fff;opacity:0.3;border-radius:100%;display:inline-block;-webkit-animation:formkit-bouncedelay-formkit-form-data-uid-f09be61346- 1.4s infinite ease-in-out both;animation:formkit-bouncedelay-formkit-form-data-uid-f09be61346- 1.4s infinite ease-in-out both;}.formkit-form[data-uid="f09be61346"] .formkit-spinner > div:nth-child(1){-webkit-animation-delay:-0.32s;animation-delay:-0.32s;}.formkit-form[data-uid="f09be61346"] .formkit-spinner > div:nth-child(2){-webkit-animation-delay:-0.16s;animation-delay:-0.16s;}.formkit-form[data-uid="f09be61346"] .formkit-submit[data-active] .formkit-spinner{opacity:1;height:100%;width:50px;}.formkit-form[data-uid="f09be61346"] .formkit-submit[data-active] .formkit-spinner ~ span{opacity:0;}.formkit-form[data-uid="f09be61346"] .formkit-powered-by-convertkit-container{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%;margin:10px 0;position:relative;}.formkit-form[data-uid="f09be61346"]{max-width:700px;}.formkit-form[data-uid="f09be61346"] [data-style="clean"]{width:100%;}.formkit-form[data-uid="f09be61346"] .formkit-fields{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;margin:0 auto;}.formkit-form[data-uid="f09be61346"] .formkit-field,.formkit-form[data-uid="f09be61346"] .formkit-submit{margin:0 0 15px 0;-webkit-flex:1 0 100%;-ms-flex:1 0 100%;flex:1 0 100%;}.formkit-form[data-uid="f09be61346"] .formkit-powered-by-convertkit-container{margin:0;}@-webkit-keyframes formkit-bouncedelay-formkit-form-data-uid-f09be61346-{0%,80%,100%{-webkit-transform:scale(0);-ms-transform:scale(0);transform:scale(0);}40%{-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1);}}@keyframes formkit-bouncedelay-formkit-form-data-uid-f09be61346-{0%,80%,100%{-webkit-transform:scale(0);-ms-transform:scale(0);transform:scale(0);}40%{-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1);}}</style></form>
+          <div style="margin-top:20px;">
+            <a href="https://tools.faithmining.net" class="btn-ghost">Try the free mining tools</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© <span id="year"></span> Faith Mining LLC</p>
+      <nav class="footer-links">
+        <a href="https://faithmining.net">faithmining.net</a>
+        <a href="https://tools.faithmining.net">Tools</a>
+        <a href="https://solo.faithmining.net">Solo Pool</a>
+        <a href="https://www.youtube.com/@FaithMiningLabs">YouTube</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

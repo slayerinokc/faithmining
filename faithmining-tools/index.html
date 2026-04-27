@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faith Mining Tools — Free Calculators for Bitcoin Miners</title>
+  <meta name="description" content="Free, no-login calculators and utilities for Bitcoin miners. Payback period, break-even analysis, hashrate conversion, and more. Built by Faith Mining LLC.">
+  <link rel="canonical" href="https://tools.faithmining.net/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/design-system.css">
+
+  <style>
+    /* ── Page chrome ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(12, 12, 15, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 56px;
+    }
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo:hover { text-decoration: none; color: var(--text); }
+    .logo-mark {
+      width: 30px;
+      height: 30px;
+      background: var(--orange);
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: 800;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      animation: logo-glow 2.5s ease-in-out infinite;
+    }
+    .nav-link {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .nav-link:hover { color: var(--text); text-decoration: none; }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 72px 0 56px;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--orange);
+      background: var(--orange-glow);
+      border: 1px solid var(--border-orange);
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: var(--space-5);
+    }
+    .hero h1 {
+      font-size: clamp(1.9rem, 5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text);
+      margin: 0 0 var(--space-4);
+      letter-spacing: -0.02em;
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto var(--space-8);
+      line-height: 1.65;
+    }
+    .hero-pills {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 100px;
+    }
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+
+    /* ── Tool grid ── */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: var(--space-4);
+    }
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-4);
+      margin-bottom: var(--space-12);
+    }
+    .tool-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      transition: border-color var(--transition), background var(--transition), transform 150ms ease, box-shadow 150ms ease;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+    .tool-card.live:hover {
+      border-color: var(--border-orange);
+      background: var(--bg-elevated);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+    }
+    .tool-card.coming-soon {
+      opacity: 0.5;
+      cursor: default;
+    }
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: var(--space-4);
+    }
+    .tool-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--orange-glow);
+      border: 1px solid var(--border-orange);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .tool-card h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 var(--space-2);
+      line-height: 1.3;
+    }
+    .tool-card p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin: 0 0 var(--space-5);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+    .card-cta {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--orange);
+    }
+    .tool-card.coming-soon .card-cta {
+      color: var(--text-muted);
+    }
+    .card-arrow {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: transform var(--transition);
+    }
+    .tool-card.live:hover .card-arrow {
+      transform: translateX(3px);
+      color: var(--orange);
+    }
+
+    /* ── About strip ── */
+    .about-strip {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-5);
+      margin-bottom: var(--space-12);
+    }
+    .about-avatar {
+      width: 44px;
+      height: 44px;
+      background: var(--orange-glow-md);
+      border: 1px solid var(--border-orange);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+    .about-strip h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 4px;
+    }
+    .about-strip p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: var(--space-8) 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+    .footer-copy {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .footer-links {
+      display: flex;
+      gap: var(--space-5);
+    }
+    .footer-links a {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--text-secondary); text-decoration: none; }
+
+    /* ── Glow animations ── */
+    @keyframes logo-glow {
+      0%, 100% { box-shadow: 0 0 6px rgba(247,147,26,0.35), 0 0 14px rgba(247,147,26,0.12); }
+      50%       { box-shadow: 0 0 16px rgba(247,147,26,0.75), 0 0 32px rgba(247,147,26,0.28); }
+    }
+    @keyframes badge-glow {
+      0%, 100% { box-shadow: 0 0 4px rgba(247,147,26,0.15); }
+      50%       { box-shadow: 0 0 12px rgba(247,147,26,0.50); }
+    }
+    .badge-orange { animation: badge-glow 2.5s ease-in-out infinite; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 48px 0 40px; }
+      .about-strip { flex-direction: column; gap: var(--space-3); }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">F</span>
+        Faith Mining Tools
+      </a>
+      <nav>
+        <a href="https://faithmining.net" class="nav-link">Main site →</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <div class="container">
+      <section class="hero">
+        <div class="hero-eyebrow">⛏ Free Bitcoin Mining Tools</div>
+        <h1>Free calculators for<br>serious Bitcoin miners</h1>
+        <p class="hero-sub">No login. No subscription. No junk. Real math built by a real operator running a live mining operation.</p>
+        <div class="hero-pills">
+          <span class="pill"><span class="pill-dot"></span>Live BTC price &amp; difficulty</span>
+          <span class="pill">No account required</span>
+          <span class="pill">Built by a miner, for miners</span>
+        </div>
+      </section>
+
+      <!-- Tools -->
+      <p class="section-label">Available tools</p>
+      <div class="tool-grid">
+
+        <a href="/bitcoin-miner-roi/" class="tool-card live">
+          <div class="card-top">
+            <div class="tool-icon">📊</div>
+            <span class="badge badge-orange">Live</span>
+          </div>
+          <h2>Bitcoin Miner ROI Calculator</h2>
+          <p>Payback period, break-even BTC price, and break-even difficulty for any ASIC. Live price and difficulty pulled automatically. Includes sensitivity table and 10 current-gen presets.</p>
+          <div class="card-footer">
+            <span class="card-cta">Open calculator</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <div class="tool-card coming-soon">
+          <div class="card-top">
+            <div class="tool-icon" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);">⚡</div>
+            <span class="badge badge-muted">Coming soon</span>
+          </div>
+          <h2>Hashrate Converter</h2>
+          <p>Convert between H/s, KH/s, MH/s, GH/s, TH/s, PH/s, and EH/s — with quick comparison to common ASIC models.</p>
+          <div class="card-footer">
+            <span class="card-cta">Coming Week 3</span>
+          </div>
+        </div>
+
+        <div class="tool-card coming-soon">
+          <div class="card-top">
+            <div class="tool-icon" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);">⚖️</div>
+            <span class="badge badge-muted">Coming soon</span>
+          </div>
+          <h2>Mining Profitability Comparator</h2>
+          <p>Side-by-side profitability comparison across multiple ASIC models at your electricity rate. Instant model-vs-model analysis.</p>
+          <div class="card-footer">
+            <span class="card-cta">Coming soon</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- About strip -->
+      <div class="about-strip">
+        <div class="about-avatar">CJ</div>
+        <div>
+          <h3>Built by Chris Johnson — Faith Mining LLC</h3>
+          <p>A normal, hard working middle-class guy running a Bitcoin mining operation on the side. I built these tools because the existing ones are either paywalled, ad-choked, or just wrong. Everything here is free, open, and built on real numbers from a real operation. Questions or feedback? <a href="mailto:info@faithmining.net">info@faithmining.net</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© <span id="year"></span> Faith Mining LLC</p>
+      <nav class="footer-links">
+        <a href="https://faithmining.net">faithmining.net</a>
+        <a href="https://tools.faithmining.net">Tools</a>
+        <a href="https://solo.faithmining.net">Solo Pool</a>
+        <a href="https://www.youtube.com/@FaithMiningLabs">YouTube</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
