@@ -1,0 +1,5 @@
+name = "faithmining-tools"
+compatibility_date = "2025-04-26"
+
+[assets]
+directory = "."
