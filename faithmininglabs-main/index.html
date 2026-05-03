@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faith Mining Labs — AI Automation for Real Operators</title>
+  <meta name="description" content="Faith Mining Labs helps real-world operators use AI agents, automation, crypto tools, and digital systems to build smarter income streams. No hype. Just real systems.">
+  <link rel="canonical" href="https://faithmininglabs.com/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --bg:          #06090F;
+      --bg-surface:  #0C1220;
+      --bg-elevated: #111827;
+      --border:      rgba(0, 140, 255, 0.10);
+      --border-gold: rgba(245, 192, 48, 0.15);
+
+      --text:        #E2E8F4;
+      --text-2:      #7B8FAB;
+      --text-3:      #3D4F68;
+
+      --blue:        #0070FF;
+      --blue-light:  #3D95FF;
+      --cyan:        #00C8FF;
+      --cyan-light:  #60DEFF;
+      --gold:        #F5C030;
+      --gold-light:  #FFD96A;
+
+      --grad-primary: linear-gradient(135deg, #0070FF 0%, #00C8FF 100%);
+      --grad-gold:    linear-gradient(135deg, #F5C030 0%, #FFD96A 100%);
+      --glow-blue:    0 0 40px rgba(0, 112, 255, 0.3);
+      --glow-cyan:    0 0 40px rgba(0, 200, 255, 0.2);
+
+      --font:   'Inter', -apple-system, sans-serif;
+      --mono:   'JetBrains Mono', monospace;
+      --radius: 12px;
+      --trans:  0.2s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: var(--cyan); text-decoration: none; transition: color var(--trans); }
+    a:hover { color: var(--cyan-light); }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Header ── */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(6, 9, 15, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1rem; color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .logo-mark {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: var(--grad-primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 800; color: #fff;
+      box-shadow: var(--glow-blue);
+    }
+    .logo-text span { color: var(--cyan); }
+    .site-nav { display: flex; align-items: center; gap: 28px; }
+    .site-nav a {
+      font-size: 0.875rem; font-weight: 500; color: var(--text-2);
+      transition: color var(--trans);
+    }
+    .site-nav a:hover { color: var(--text); }
+    .nav-cta {
+      padding: 7px 16px; border-radius: 8px;
+      background: var(--grad-primary);
+      color: #fff !important; font-weight: 600; font-size: 0.82rem;
+      box-shadow: var(--glow-blue);
+      transition: opacity var(--trans) !important;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative; overflow: hidden;
+      padding: 100px 0 90px;
+      text-align: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 600px;
+      background: radial-gradient(ellipse, rgba(0, 112, 255, 0.22) 0%, rgba(0, 200, 255, 0.08) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 14px; border-radius: 100px;
+      border: 1px solid rgba(0, 200, 255, 0.25);
+      background: rgba(0, 112, 255, 0.08);
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+      color: var(--cyan); text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1.1; margin-bottom: 20px;
+      background: linear-gradient(160deg, #ffffff 30%, var(--cyan) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--text-2); max-width: 600px;
+      margin: 0 auto 36px; line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; border-radius: 10px;
+      background: var(--grad-primary); color: #fff;
+      font-weight: 700; font-size: 0.95rem;
+      box-shadow: var(--glow-blue);
+      transition: transform var(--trans), box-shadow var(--trans);
+    }
+    .btn-primary:hover {
+      color: #fff; transform: translateY(-2px);
+      box-shadow: 0 0 60px rgba(0, 112, 255, 0.45);
+    }
+    .btn-primary svg { width: 18px; height: 18px; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; border-radius: 10px;
+      border: 1px solid var(--border); color: var(--text-2);
+      font-weight: 600; font-size: 0.95rem;
+      transition: border-color var(--trans), color var(--trans);
+    }
+    .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    .hero-label {
+      margin-top: 24px; font-size: 0.78rem; color: var(--text-3);
+      font-family: var(--mono);
+    }
+
+    /* ── Section headers ── */
+    .section-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px;
+    }
+    .section-sub { color: var(--text-2); font-size: 1rem; max-width: 520px; line-height: 1.7; }
+
+    /* ── Pillars ── */
+    .pillars { padding: 80px 0; }
+    .pillars-header { margin-bottom: 52px; }
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .pillar-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: border-color var(--trans), transform var(--trans);
+    }
+    .pillar-card:hover { border-color: rgba(0, 200, 255, 0.3); transform: translateY(-3px); }
+    .pillar-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px; font-size: 1.3rem;
+    }
+    .pillar-icon.blue  { background: rgba(0, 112, 255, 0.12); }
+    .pillar-icon.cyan  { background: rgba(0, 200, 255, 0.10); }
+    .pillar-icon.gold  { background: rgba(245, 192, 48, 0.10); }
+    .pillar-icon.green { background: rgba(0, 210, 140, 0.10); }
+    .pillar-card h3 {
+      font-size: 1rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em;
+    }
+    .pillar-card p { font-size: 0.88rem; color: var(--text-2); line-height: 1.65; }
+
+    /* ── What to expect ── */
+    .expect { padding: 80px 0; border-top: 1px solid var(--border); }
+    .expect-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .expect-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
+    .expect-list li {
+      display: flex; gap: 12px; align-items: flex-start;
+      font-size: 0.93rem; color: var(--text-2); line-height: 1.6;
+    }
+    .check {
+      flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(0, 200, 255, 0.1); border: 1px solid rgba(0, 200, 255, 0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; color: var(--cyan); margin-top: 2px;
+    }
+    .terminal {
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .terminal-bar {
+      padding: 10px 16px; display: flex; align-items: center; gap: 6px;
+      background: var(--bg-elevated); border-bottom: 1px solid var(--border);
+    }
+    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-dot.red   { background: #FF5F57; }
+    .terminal-dot.yel   { background: #FFBD2E; }
+    .terminal-dot.grn   { background: #28C840; }
+    .terminal-body { padding: 20px; font-family: var(--mono); font-size: 0.8rem; line-height: 2; }
+    .t-dim  { color: var(--text-3); }
+    .t-blue { color: var(--blue-light); }
+    .t-cyan { color: var(--cyan); }
+    .t-gold { color: var(--gold); }
+    .t-grn  { color: #4ADE80; }
+    .t-cursor { display: inline-block; width: 8px; height: 14px; background: var(--cyan); vertical-align: middle; animation: blink 1.2s step-end infinite; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* ── Story / About ── */
+    .story {
+      padding: 80px 0; border-top: 1px solid var(--border);
+    }
+    .story-inner {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px; padding: 48px;
+      position: relative; overflow: hidden;
+    }
+    .story-inner::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(245, 192, 48, 0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .story-inner blockquote {
+      font-size: 1.15rem; color: var(--text-2); line-height: 1.8;
+      max-width: 680px; font-style: italic;
+      border-left: 3px solid var(--gold); padding-left: 20px;
+      margin-top: 20px;
+    }
+    .story-inner blockquote strong { color: var(--gold); font-style: normal; }
+
+    /* ── CTA section ── */
+    .cta-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .cta-box {
+      text-align: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 64px 40px;
+      position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(0, 112, 255, 0.15), transparent 65%);
+      pointer-events: none;
+    }
+    .cta-box h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px;
+    }
+    .cta-box p { color: var(--text-2); font-size: 1rem; max-width: 480px; margin: 0 auto 32px; }
+    .sub-count {
+      margin-top: 18px; font-size: 0.78rem; color: var(--text-3); font-family: var(--mono);
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      border-top: 1px solid var(--border); padding: 28px 0;
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy { font-size: 0.82rem; color: var(--text-3); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.82rem; color: var(--text-3); transition: color var(--trans); }
+    .footer-links a:hover { color: var(--text-2); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .site-nav .nav-hide { display: none; }
+      .hero { padding: 72px 0 64px; }
+      .expect-inner { grid-template-columns: 1fr; gap: 40px; }
+      .story-inner { padding: 32px 24px; }
+      .cta-box { padding: 48px 24px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">FML</span>
+        <span class="logo-text">Faith Mining <span>Labs</span></span>
+      </a>
+      <nav class="site-nav">
+        <a href="https://faithmining.net" class="nav-hide">Faith Mining</a>
+        <a href="https://tools.faithmining.net" class="nav-hide">Tools</a>
+        <a href="mailto:info@faithmining.net" class="nav-hide">Contact</a>
+        <a href="https://www.youtube.com/@FaithMiningLabs?sub_confirmation=1" class="nav-cta" target="_blank" rel="noopener">
+          Subscribe →
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">AI &nbsp;·&nbsp; Automation &nbsp;·&nbsp; Agents &nbsp;·&nbsp; Digital Income</div>
+      <h1>AI Automation<br>for Real Operators</h1>
+      <p class="hero-sub">
+        I test AI agents, automation workflows, crypto tools, and digital income systems in the real world — then show you exactly what works, what breaks, and what's worth your time.
+      </p>
+      <div class="hero-actions">
+        <a href="https://www.youtube.com/@FaithMiningLabs?sub_confirmation=1" class="btn-primary" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.04 0 12 0 12s0 3.96.5 5.81a3.02 3.02 0 0 0 2.12 2.14C4.46 20.5 12 20.5 12 20.5s7.54 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.96 24 12 24 12s0-3.96-.5-5.81zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
+          Subscribe on YouTube
+        </a>
+        <a href="https://tools.faithmining.net" class="btn-ghost">
+          Try the Mining Tools →
+        </a>
+      </div>
+      <p class="hero-label">// No hype. No guru act. Just real systems being built.</p>
+    </div>
+  </section>
+
+  <!-- Pillars -->
+  <section class="pillars">
+    <div class="container">
+      <div class="pillars-header">
+        <p class="section-label">What we cover</p>
+        <h2 class="section-title">Real workflows. Real results.</h2>
+        <p class="section-sub">Every video is a hands-on experiment — building, breaking, and improving actual systems across four core disciplines.</p>
+      </div>
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-icon blue">🤖</div>
+          <h3>AI Agents</h3>
+          <p>Building and deploying autonomous AI agents with Claude, ChatGPT, and Gemini to automate real business workflows — not just demos.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-icon cyan">⚙️</div>
+          <h3>Automation Systems</h3>
+          <p>End-to-end automation pipelines using n8n, Make, Zapier, and custom code. If it can be automated, we're testing it.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-icon gold">⛏️</div>
+          <h3>Crypto & Mining Tools</h3>
+          <p>ROI calculators, solo mining pool experiments, and honest breakdowns of what's actually profitable in the Bitcoin mining space.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-icon green">💰</div>
+          <h3>Digital Income Systems</h3>
+          <p>Documenting the real journey of replacing a salary with digital income — KDP, affiliate systems, ad revenue, and more.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What to Expect -->
+  <section class="expect">
+    <div class="container">
+      <div class="expect-inner">
+        <div>
+          <p class="section-label">What to expect</p>
+          <h2 class="section-title">Practical builds,<br>honest lessons.</h2>
+          <ul class="expect-list">
+            <li>
+              <span class="check">✓</span>
+              <span>Workflow breakdowns you can actually replicate — with the tools, prompts, and configs shown.</span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span>Tool reviews from someone using them in a real business, not just kicking the tires.</span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span>Mining automation experiments with live data from a real solo pool at solo.faithmining.net.</span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span>Transparent income reporting — what's working, what failed, and what's next.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yel"></span>
+            <span class="terminal-dot grn"></span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="t-dim">$</span> <span class="t-blue">run</span> <span class="t-cyan">income-pipeline</span></div>
+            <div><span class="t-dim">→</span> Loading AI agent workflows...</div>
+            <div><span class="t-dim">→</span> Connecting solo mining pool...</div>
+            <div><span class="t-dim">→</span> Fetching BTC price: <span class="t-gold">$94,812</span></div>
+            <div><span class="t-dim">→</span> Affiliate links: <span class="t-cyan">active</span></div>
+            <div><span class="t-dim">→</span> KDP royalties: <span class="t-cyan">calculating</span></div>
+            <div><span class="t-grn">✓</span> Systems running. Gap to close: <span class="t-gold">$8,019/mo</span></div>
+            <div><span class="t-dim">$</span> <span class="t-cursor"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="story">
+    <div class="container">
+      <div class="story-inner">
+        <p class="section-label">The story behind the name</p>
+        <h2 class="section-title">Named after Faith.</h2>
+        <blockquote>
+          Faith Mining Labs is named after my daughter, Faith — a reminder to stay the course and build something real. I'm an IT Specialist by day, building this on the side with one goal: replace my salary with systems I built myself. <strong>No hype. No guru act.</strong> Just AI systems being tested, built, fixed, and improved — one video at a time.
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <p class="section-label">Join the channel</p>
+        <h2>Watch the build happen in real time.</h2>
+        <p>Subscribe to @FaithMiningLabs and follow along as I automate, test, break, and build digital income systems from scratch.</p>
+        <a href="https://www.youtube.com/@FaithMiningLabs?sub_confirmation=1" class="btn-primary" target="_blank" rel="noopener" style="display:inline-flex;">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.04 0 12 0 12s0 3.96.5 5.81a3.02 3.02 0 0 0 2.12 2.14C4.46 20.5 12 20.5 12 20.5s7.54 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.96 24 12 24 12s0-3.96-.5-5.81zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
+          Subscribe on YouTube
+        </a>
+        <p class="sub-count">// @FaithMiningLabs · youtube.com/@FaithMiningLabs</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© <span id="year"></span> Faith Mining LLC &nbsp;·&nbsp; <a href="mailto:info@faithmining.net" style="color:inherit;">info@faithmining.net</a></p>
+      <nav class="footer-links">
+        <a href="https://faithmining.net">faithmining.net</a>
+        <a href="https://tools.faithmining.net">Tools</a>
+        <a href="https://solo.faithmining.net">Solo Pool</a>
+        <a href="https://faithmining.net/privacy">Privacy Policy</a>
+        <a href="https://faithmining.net/terms">Terms of Use</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
