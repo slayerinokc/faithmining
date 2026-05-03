@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Is Solo Bitcoin Mining — And Is It Worth It? — Faith Mining</title>
+  <meta name="description" content="Pool mining vs. solo Bitcoin mining explained honestly. The math behind the lottery, the real risks, and when solo mining actually makes sense.">
+  <link rel="canonical" href="https://faithmining.net/blog/what-is-solo-bitcoin-mining">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733; --orange-glow: rgba(247,147,26,0.10);
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo:hover { color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color var(--transition); }
+    .nav-link:hover { color: var(--text); }
+
+    .article-hero { padding: 64px 0 48px; text-align: center; position: relative; }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse at center top, rgba(247,147,26,0.15) 0%, rgba(247,147,26,0.05) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .article-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); background: var(--orange-glow); border: 1px solid var(--border-orange); padding: 4px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .article-hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; max-width: 780px; margin-left: auto; margin-right: auto; }
+    .article-meta { display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 0.82rem; color: var(--text-muted); flex-wrap: wrap; }
+
+    .article-body { padding: 0 0 80px; }
+    .prose h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin: 48px 0 16px; line-height: 1.3; }
+    .prose h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+    .prose p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .prose p strong { color: var(--text); font-weight: 600; }
+    .prose ul, .prose ol { padding-left: 24px; margin-bottom: 20px; }
+    .prose li { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 8px; }
+    .prose li strong { color: var(--text); }
+
+    .callout-box { background: var(--bg-surface); border-left: 3px solid var(--orange); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 32px 0; }
+    .callout-box p { margin: 0; font-size: 0.95rem; }
+
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0; }
+    .comparison-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+    .comparison-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 14px; }
+    .comparison-card.pool h3 { color: #60A5FA; }
+    .comparison-card.solo h3 { color: var(--orange); }
+    .comparison-card ul { padding-left: 16px; }
+    .comparison-card li { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; }
+
+    .ad-unit { margin: 40px 0; text-align: center; }
+    .ad-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 6px; }
+
+    .cta-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 32px; margin: 48px 0; text-align: center; }
+    .cta-box h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .cta-box p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #000; font-weight: 600; font-size: 0.95rem; padding: 11px 22px; border-radius: var(--radius); transition: background var(--transition); }
+    .btn-primary:hover { background: var(--orange-light); color: #000; }
+
+    .related-section { border-top: 1px solid var(--border); padding: 48px 0; }
+    .related-section h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 20px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .related-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: border-color var(--transition); }
+    .related-card:hover { border-color: var(--border-orange); }
+    .related-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+    .related-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+    .site-footer { border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.8rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    @media (max-width: 640px) {
+      .article-hero { padding: 48px 0 36px; }
+      .comparison-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">F</span>
+        Faith Mining
+      </a>
+      <nav style="display:flex;gap:24px;align-items:center;">
+        <a href="/blog/mining-payback-period" class="nav-link">Payback Guide</a>
+        <a href="https://tools.faithmining.net" class="nav-link">Tools →</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-hero">
+    <div class="container">
+      <div class="article-eyebrow">🎯 Mining Guide</div>
+      <h1>What Is Solo Bitcoin Mining — And Is It Worth It?</h1>
+      <div class="article-meta">
+        <span>✍️ Chris Johnson — Faith Mining LLC</span>
+        <span>📅 April 2025</span>
+        <span>⏱ 6 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <div class="container">
+      <div class="prose">
+
+        <p>Every Bitcoin miner eventually asks the same question: should I mine in a pool, or go solo? The answer depends entirely on your hashrate, your risk tolerance, and whether you actually understand what you're signing up for. This guide explains both approaches honestly — including the parts that solo mining advocates tend to gloss over.</p>
+
+        <h2>How Bitcoin Mining Works (The Quick Version)</h2>
+
+        <p>Bitcoin miners compete to find a hash — a number — that falls below a target set by the network. The process is essentially a lottery: you generate billions of random guesses per second (that's what your hashrate measures), and occasionally one of those guesses wins. The winner gets to add the next block to the blockchain and collects the block reward — currently <strong>3.125 BTC</strong> after the April 2024 halving — plus any transaction fees in that block.</p>
+
+        <p>The network adjusts the difficulty of this lottery every 2,016 blocks (roughly every two weeks) to keep the average block time at 10 minutes regardless of how much total hashrate is competing. As of early 2025, the total network hashrate is around 800–850 exahashes per second (EH/s).</p>
+
+        <h2>Pool Mining vs. Solo Mining</h2>
+
+        <div class="comparison-grid">
+          <div class="comparison-card pool">
+            <h3>🔵 Pool Mining</h3>
+            <ul>
+              <li>Combine hashrate with thousands of other miners</li>
+              <li>Share block rewards proportionally to contribution</li>
+              <li>Steady, predictable daily payouts</li>
+              <li>Pool takes a small fee (typically 1–3%)</li>
+              <li>Your hashrate matters, but variance is smoothed out</li>
+            </ul>
+          </div>
+          <div class="comparison-card solo">
+            <h3>🟠 Solo Mining</h3>
+            <ul>
+              <li>Your miner competes against the entire network alone</li>
+              <li>Find a block → keep the entire reward (3.125 BTC+)</li>
+              <li>No fees (or very minimal on a solo pool)</li>
+              <li>Can go months or years without finding a block</li>
+              <li>Variance is extreme — especially at lower hashrates</li>
+            </ul>
+          </div>
+        </div>
+
+        <p>The key insight: <strong>the expected value is essentially the same.</strong> Whether you pool mine or solo mine, the long-run BTC you earn per unit of hashrate is approximately equal (minus pool fees). The difference is entirely about variance — how smooth or lumpy your earnings are.</p>
+
+        <div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <h2>The Lottery Math — What Are Your Actual Odds?</h2>
+
+        <p>This is where solo mining gets brutally honest. Let's calculate the expected time to find a block for a single Antminer S21 Pro at 234 TH/s against a network running at 800 EH/s.</p>
+
+        <p>Your share of the network hashrate: 234 TH/s ÷ 800,000,000 TH/s = <strong>0.0000293%</strong></p>
+
+        <p>At 6 blocks per hour (144 per day), your expected time to find one block:</p>
+
+        <div class="callout-box">
+          <p>Expected days to find a block = 1 ÷ (0.000000293 × 144) ≈ <strong>23,700 days — about 65 years.</strong></p>
+        </div>
+
+        <p>That's not a typo. A single S21 Pro solo mining against today's network would statistically take 65 years to find a block. You might get lucky and find one in a week — or go 130 years without one. That's what variance means at low hashrates.</p>
+
+        <p>To get your expected time down to a more reasonable range, you need serious hashrate. At 10 PH/s (roughly 43 S21 Pros), the expected time drops to about 550 days. At 100 PH/s, you're looking at ~55 days on average. Still high variance, but starting to become a real strategy.</p>
+
+        <h2>When Solo Mining Actually Makes Sense</h2>
+
+        <p>Solo mining isn't irrational — it's just a specific bet. Here are the cases where it genuinely makes sense:</p>
+
+        <ul>
+          <li><strong>You have significant hashrate.</strong> If you're running multiple petahashes, the variance becomes manageable enough that solo mining is a legitimate strategy. Below a few petahashes, you're playing a very long lottery.</li>
+          <li><strong>You're playing for the jackpot.</strong> Some miners specifically <em>want</em> the all-or-nothing nature of solo mining. Finding a block at 3.125 BTC (currently worth ~$260,000+) is a life-changing event for a small operation. Some people find that exciting and are willing to accept lower expected utility for higher potential upside.</li>
+          <li><strong>You have a very long time horizon.</strong> If you plan to mine for 10+ years and don't need the income, the variance matters less over long time periods.</li>
+          <li><strong>You're philosophically opposed to pools.</strong> Large mining pools represent a centralization risk to Bitcoin. Some miners solo mine as a matter of principle, accepting lower expected income to support network decentralization.</li>
+        </ul>
+
+        <h2>What Is a Solo Pool?</h2>
+
+        <p>A solo pool is a middle-ground infrastructure: you connect your miner to a pool's stratum server (just like regular pool mining), but instead of sharing block rewards with other miners, you keep the entire reward if your submitted share is the winning block. The pool provides the infrastructure — block templates, a node connection, job distribution — and typically charges a small fee (1% or less) for this service.</p>
+
+        <p>The advantage over truly solo mining yourself is that you don't need to run your own Bitcoin node, manage your own stratum server, or handle the technical overhead. The variance is identical — you're still waiting on the same lottery — but the setup is turnkey.</p>
+
+        <p>This is exactly what Faith Mining Solo Pool is being built to provide: a transparent, honest solo pool for operators who understand the math and want to play the long game.</p>
+
+        <h2>The Bottom Line</h2>
+
+        <p>Solo mining is not for everyone, and anyone telling you otherwise is selling something. If you have less than a few petahashes of hashrate and need your mining income to cover electricity or hardware costs, pool mine. The steady, predictable income is worth the 1–2% fee.</p>
+
+        <p>If you have significant hashrate, a long time horizon, and genuinely understand that you might not find a block for years — solo mining is a legitimate and exciting strategy. Just go in with eyes open.</p>
+
+        <div class="cta-box">
+          <h3>Faith Mining Solo Pool — coming soon</h3>
+          <p>A transparent, low-fee Bitcoin solo pool built by a real operator. Get notified when it goes live.</p>
+          <a href="https://solo.faithmining.net" class="btn-primary">Visit solo.faithmining.net →</a>
+        </div>
+
+        <div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+      </div>
+
+      <div class="related-section">
+        <h3>More from Faith Mining</h3>
+        <div class="related-grid">
+          <a href="/blog/mining-payback-period" class="related-card">
+            <h4>How to Calculate Your Bitcoin Miner Payback Period</h4>
+            <p>The exact formula — and why most miners calculate it wrong.</p>
+          </a>
+          <a href="/blog/bitcoin-mining-2025-numbers" class="related-card">
+            <h4>Bitcoin Mining in 2025: What the Numbers Actually Look Like</h4>
+            <p>Post-halving reality check — real revenue, real costs, real margins.</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© <span id="year"></span> Faith Mining LLC</p>
+      <nav class="footer-links">
+        <a href="/">Home</a>
+        <a href="https://tools.faithmining.net">Tools</a>
+        <a href="https://solo.faithmining.net">Solo Pool</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Use</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

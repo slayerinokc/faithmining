@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Calculate Your Bitcoin Miner Payback Period — Faith Mining</title>
+  <meta name="description" content="The exact formula for calculating your Bitcoin miner payback period — and why most miners calculate it wrong. Real examples with live numbers.">
+  <link rel="canonical" href="https://faithmining.net/blog/mining-payback-period">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733; --orange-glow: rgba(247,147,26,0.10);
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo:hover { color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color var(--transition); }
+    .nav-link:hover { color: var(--text); }
+
+    /* Article hero */
+    .article-hero { padding: 64px 0 48px; text-align: center; position: relative; }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse at center top, rgba(247,147,26,0.15) 0%, rgba(247,147,26,0.05) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .article-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); background: var(--orange-glow); border: 1px solid var(--border-orange); padding: 4px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .article-hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; max-width: 780px; margin-left: auto; margin-right: auto; }
+    .article-meta { display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 0.82rem; color: var(--text-muted); flex-wrap: wrap; }
+    .article-meta span { display: flex; align-items: center; gap: 5px; }
+
+    /* Article body */
+    .article-body { padding: 0 0 80px; }
+    .prose h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin: 48px 0 16px; line-height: 1.3; }
+    .prose h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+    .prose p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .prose p strong { color: var(--text); font-weight: 600; }
+    .prose ul, .prose ol { padding-left: 24px; margin-bottom: 20px; }
+    .prose li { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 8px; }
+    .prose li strong { color: var(--text); }
+    .prose a { color: var(--orange); }
+    .prose a:hover { color: var(--orange-light); }
+
+    /* Formula box */
+    .formula-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 28px 32px; margin: 32px 0; text-align: center; }
+    .formula-box .formula-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 12px; }
+    .formula-box .formula { font-family: var(--font-mono); font-size: 1rem; color: var(--orange); line-height: 1.8; }
+
+    /* Example table */
+    .data-table { width: 100%; border-collapse: collapse; margin: 24px 0 32px; font-size: 0.9rem; }
+    .data-table th { text-align: left; padding: 10px 16px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 12px 16px; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+    .data-table td:last-child { font-family: var(--font-mono); color: var(--orange); }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Ad unit */
+    .ad-unit { margin: 40px 0; text-align: center; }
+    .ad-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 6px; }
+
+    /* CTA box */
+    .cta-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 32px; margin: 48px 0; text-align: center; }
+    .cta-box h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .cta-box p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #000; font-weight: 600; font-size: 0.95rem; padding: 11px 22px; border-radius: var(--radius); transition: background var(--transition); }
+    .btn-primary:hover { background: var(--orange-light); color: #000; }
+
+    /* Related */
+    .related-section { border-top: 1px solid var(--border); padding: 48px 0; }
+    .related-section h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 20px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .related-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: border-color var(--transition); }
+    .related-card:hover { border-color: var(--border-orange); }
+    .related-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+    .related-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+    /* Footer */
+    .site-footer { border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.8rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    @media (max-width: 640px) {
+      .article-hero { padding: 48px 0 36px; }
+      .formula-box { padding: 20px; }
+      .formula-box .formula { font-size: 0.85rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">F</span>
+        Faith Mining
+      </a>
+      <nav style="display:flex;gap:24px;align-items:center;">
+        <a href="/blog/what-is-solo-bitcoin-mining" class="nav-link">Solo Mining Guide</a>
+        <a href="https://tools.faithmining.net" class="nav-link">Tools →</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-hero">
+    <div class="container">
+      <div class="article-eyebrow">📐 Mining Guide</div>
+      <h1>How to Calculate Your Bitcoin Miner Payback Period</h1>
+      <div class="article-meta">
+        <span>✍️ Chris Johnson — Faith Mining LLC</span>
+        <span>📅 April 2025</span>
+        <span>⏱ 5 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <div class="container">
+      <div class="prose">
+
+        <p>The payback period is the single most important number in Bitcoin mining. It tells you how long it will take for your miner to pay for itself — after which every dollar it earns is pure profit. Get this number wrong, and you can convince yourself that a terrible investment is a great one.</p>
+
+        <p>Most miners oversimplify it. They divide the hardware cost by the daily revenue and call it done. That ignores electricity — which is often the difference between a miner that pays itself off in 18 months and one that never pays off at all.</p>
+
+        <h2>The Correct Formula</h2>
+
+        <p>There are two numbers you need before you can calculate payback period: your <strong>daily revenue</strong> and your <strong>daily electricity cost</strong>. The difference between them is your <strong>daily profit</strong>. Your payback period is simply how many days it takes that daily profit to cover what you paid for the machine.</p>
+
+        <div class="formula-box">
+          <div class="formula-label">Payback Period Formula</div>
+          <div class="formula">
+            Daily Revenue = (Hashrate × BTC Block Reward × 86,400) ÷ (Network Difficulty × 2³²)<br><br>
+            Daily Power Cost = (Watts ÷ 1,000) × 24 × Electricity Rate ($/kWh)<br><br>
+            Daily Profit = Daily Revenue − Daily Power Cost<br><br>
+            Payback Period (days) = Hardware Cost ÷ Daily Profit
+          </div>
+        </div>
+
+        <p>That first line — the daily revenue formula — is the one most calculators get wrong or hide behind an API call. It's derived directly from the Bitcoin protocol: miners compete to find a hash below the target difficulty, and the probability of finding one in a given second is proportional to your hashrate relative to the entire network.</p>
+
+        <h2>A Real Example: Antminer S21 Pro</h2>
+
+        <p>Let's walk through a real calculation using an Antminer S21 Pro, one of the most popular current-gen miners as of early 2025.</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Hardware cost</td><td>$4,200</td></tr>
+            <tr><td>Hashrate</td><td>234 TH/s</td></tr>
+            <tr><td>Power draw</td><td>3,510 W</td></tr>
+            <tr><td>Electricity rate</td><td>$0.07/kWh</td></tr>
+            <tr><td>BTC price</td><td>$85,000</td></tr>
+            <tr><td>Network difficulty</td><td>~113 trillion</td></tr>
+          </tbody>
+        </table>
+
+        <p>Plugging those numbers in:</p>
+        <ul>
+          <li><strong>Daily revenue:</strong> approximately $18.50/day</li>
+          <li><strong>Daily power cost:</strong> (3,510 ÷ 1,000) × 24 × $0.07 = <strong>$5.90/day</strong></li>
+          <li><strong>Daily profit:</strong> $18.50 − $5.90 = <strong>$12.60/day</strong></li>
+          <li><strong>Payback period:</strong> $4,200 ÷ $12.60 = <strong>~333 days (about 11 months)</strong></li>
+        </ul>
+
+        <p>That's a reasonable payback period for a current-gen machine at $0.07/kWh. Raise electricity to $0.12/kWh and the daily profit drops to $7.45 — pushing payback out to over 560 days. <strong>Electricity rate is the most sensitive variable in the entire calculation.</strong></p>
+
+        <div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <h2>What the Calculation Doesn't Tell You</h2>
+
+        <p>The payback period assumes today's conditions hold forever. In reality, three things will change — and they all affect your profitability:</p>
+
+        <ul>
+          <li><strong>Bitcoin price.</strong> A 20% drop in BTC price cuts your daily revenue by 20%. A 20% rise does the opposite. The payback period calculation is a snapshot, not a prediction.</li>
+          <li><strong>Network difficulty.</strong> As more miners come online (or leave), the network adjusts difficulty every 2,016 blocks (~2 weeks). Higher difficulty means less BTC mined per day for the same hashrate. Historically, difficulty trends upward over time.</li>
+          <li><strong>Hardware degradation.</strong> ASICs don't degrade much — a well-maintained machine runs at close to its rated hashrate for years. But cooling efficiency, dust, and aging power supplies can creep up on you.</li>
+        </ul>
+
+        <p>The break-even BTC price and break-even difficulty are equally important to understand alongside payback period. These tell you at what point your miner stops being profitable — your margin of safety against market moves.</p>
+
+        <h2>Why Most Online Calculators Fall Short</h2>
+
+        <p>Most mining calculators use stale BTC price and difficulty data, don't factor in electricity correctly, and give you a single number without any sensitivity analysis. That single number is only useful if you believe every input stays constant — which it never does.</p>
+
+        <p>A better approach is to model a range of scenarios: what does payback look like if BTC drops 30%? If difficulty rises 20%? If electricity goes up? Seeing your payback period across a range of inputs gives you a much more honest picture of the risk you're taking.</p>
+
+        <h2>The Bottom Line</h2>
+
+        <p>Calculate your payback period correctly — accounting for both revenue and power costs. Stress-test it against realistic price and difficulty changes. And never treat it as a guaranteed timeline; treat it as a benchmark that tells you whether the investment makes sense <em>under current conditions</em>.</p>
+
+        <p>If the payback period is under 18 months at your electricity rate and a conservative BTC price, it's generally worth considering. Much beyond that, and you're betting heavily on BTC appreciation to make the numbers work.</p>
+
+        <div class="cta-box">
+          <h3>Calculate your miner's payback period right now</h3>
+          <p>The Faith Mining ROI Calculator uses live BTC price and difficulty, lets you adjust all inputs, and includes a full sensitivity table — free, no login required.</p>
+          <a href="https://tools.faithmining.net/bitcoin-miner-roi/" class="btn-primary">Open the calculator →</a>
+        </div>
+
+        <div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+      </div><!-- /prose -->
+
+      <div class="related-section">
+        <h3>More from Faith Mining</h3>
+        <div class="related-grid">
+          <a href="/blog/what-is-solo-bitcoin-mining" class="related-card">
+            <h4>What Is Solo Bitcoin Mining — And Is It Worth It?</h4>
+            <p>The lottery math behind solo mining, and when it actually makes sense over a pool.</p>
+          </a>
+          <a href="/blog/bitcoin-mining-2025-numbers" class="related-card">
+            <h4>Bitcoin Mining in 2025: What the Numbers Actually Look Like</h4>
+            <p>Post-halving reality check — real revenue, real costs, real margins.</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© <span id="year"></span> Faith Mining LLC</p>
+      <nav class="footer-links">
+        <a href="/">Home</a>
+        <a href="https://tools.faithmining.net">Tools</a>
+        <a href="https://solo.faithmining.net">Solo Pool</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Use</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

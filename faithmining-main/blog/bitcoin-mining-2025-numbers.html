@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitcoin Mining in 2025: What the Numbers Actually Look Like — Faith Mining</title>
+  <meta name="description" content="A post-halving reality check on Bitcoin mining in 2025. Real revenue, real electricity costs, real margins — from someone running an actual operation.">
+  <link rel="canonical" href="https://faithmining.net/blog/bitcoin-mining-2025-numbers">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733; --orange-glow: rgba(247,147,26,0.10);
+      --green: #22D47E;
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo:hover { color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color var(--transition); }
+    .nav-link:hover { color: var(--text); }
+
+    .article-hero { padding: 64px 0 48px; text-align: center; position: relative; }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse at center top, rgba(247,147,26,0.15) 0%, rgba(247,147,26,0.05) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .article-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); background: var(--orange-glow); border: 1px solid var(--border-orange); padding: 4px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .article-hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; max-width: 780px; margin-left: auto; margin-right: auto; }
+    .article-meta { display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 0.82rem; color: var(--text-muted); flex-wrap: wrap; }
+
+    .article-body { padding: 0 0 80px; }
+    .prose h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin: 48px 0 16px; line-height: 1.3; }
+    .prose h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+    .prose p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .prose p strong { color: var(--text); font-weight: 600; }
+    .prose ul, .prose ol { padding-left: 24px; margin-bottom: 20px; }
+    .prose li { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 8px; }
+    .prose li strong { color: var(--text); }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 32px 0; }
+    .stat-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; text-align: center; }
+    .stat-card .stat-value { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 600; color: var(--orange); margin-bottom: 4px; }
+    .stat-card .stat-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
+
+    .data-table { width: 100%; border-collapse: collapse; margin: 24px 0 32px; font-size: 0.9rem; }
+    .data-table th { text-align: left; padding: 10px 16px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 12px 16px; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+    .data-table td.highlight { font-family: var(--font-mono); color: var(--orange); }
+    .data-table td.green { font-family: var(--font-mono); color: var(--green); }
+    .data-table td.red { font-family: var(--font-mono); color: #F87171; }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    .callout-box { background: var(--bg-surface); border-left: 3px solid var(--orange); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 32px 0; }
+    .callout-box p { margin: 0; font-size: 0.95rem; }
+
+    .ad-unit { margin: 40px 0; text-align: center; }
+    .ad-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 6px; }
+
+    .cta-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 32px; margin: 48px 0; text-align: center; }
+    .cta-box h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .cta-box p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #000; font-weight: 600; font-size: 0.95rem; padding: 11px 22px; border-radius: var(--radius); transition: background var(--transition); }
+    .btn-primary:hover { background: var(--orange-light); color: #000; }
+
+    .related-section { border-top: 1px solid var(--border); padding: 48px 0; }
+    .related-section h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 20px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .related-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: border-color var(--transition); }
+    .related-card:hover { border-color: var(--border-orange); }
+    .related-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+    .related-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+    .site-footer { border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.8rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    @media (max-width: 640px) {
+      .article-hero { padding: 48px 0 36px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">F</span>
+        Faith Mining
+      </a>
+      <nav style="display:flex;gap:24px;align-items:center;">
+        <a href="/blog/mining-payback-period" class="nav-link">Payback Guide</a>
+        <a href="https://tools.faithmining.net" class="nav-link">Tools →</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-hero">
+    <div class="container">
+      <div class="article-eyebrow">📈 Analysis</div>
+      <h1>Bitcoin Mining in 2025: What the Numbers Actually Look Like</h1>
+      <div class="article-meta">
+        <span>✍️ Chris Johnson — Faith Mining LLC</span>
+        <span>📅 April 2025</span>
+        <span>⏱ 7 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <div class="container">
+      <div class="prose">
+
+        <p>I run a Bitcoin mining operation. Not a massive industrial farm — a real-world, middle-class operation that I'm building out while working a day job. I want to give you an honest picture of what Bitcoin mining actually looks like in 2025, with real numbers and no sugarcoating.</p>
+
+        <p>This is the post-halving era. The block reward dropped from 6.25 BTC to 3.125 BTC in April 2024. Everything downstream from that — revenue, payback periods, viable electricity rates — shifted. Here's where things actually stand.</p>
+
+        <h2>The State of the Network in 2025</h2>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value">3.125</div>
+            <div class="stat-label">BTC Block Reward</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">~800 EH/s</div>
+            <div class="stat-label">Network Hashrate</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">~113T</div>
+            <div class="stat-label">Difficulty</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">~$85K</div>
+            <div class="stat-label">BTC Price</div>
+          </div>
+        </div>
+
+        <p>The halving cut block rewards in half, but BTC price roughly doubled in the following months — which is the pattern that has followed each halving historically. The net effect on miner revenue in USD terms was roughly neutral in the short run. But the halving also permanently changed who can profitably mine.</p>
+
+        <h2>The Electricity Rate Is Everything</h2>
+
+        <p>Before the halving, a miner at $0.10/kWh could run a mid-generation machine and still turn a profit. Post-halving, that math has changed. Here's a real comparison using an Antminer S19j Pro (104 TH/s, 3,068W) — a common machine that many operators bought during the last bull run:</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Electricity Rate</th>
+              <th>Daily Revenue</th>
+              <th>Daily Power Cost</th>
+              <th>Daily Profit</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>$0.05/kWh</td>
+              <td>~$8.20</td>
+              <td>$3.68</td>
+              <td class="green">+$4.52</td>
+              <td>✅ Profitable</td>
+            </tr>
+            <tr>
+              <td>$0.07/kWh</td>
+              <td>~$8.20</td>
+              <td>$5.16</td>
+              <td class="green">+$3.04</td>
+              <td>✅ Profitable</td>
+            </tr>
+            <tr>
+              <td>$0.10/kWh</td>
+              <td>~$8.20</td>
+              <td>$7.36</td>
+              <td class="highlight">+$0.84</td>
+              <td>⚠️ Marginal</td>
+            </tr>
+            <tr>
+              <td>$0.12/kWh</td>
+              <td>~$8.20</td>
+              <td>$8.83</td>
+              <td class="red">−$0.63</td>
+              <td>❌ Underwater</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>The S19j Pro becomes unprofitable above roughly $0.11/kWh at today's price and difficulty. If you're paying residential rates — typically $0.12–$0.18/kWh in most of the US — older generation hardware is not economical right now. This is a hard truth that a lot of mining influencers won't say out loud.</p>
+
+        <div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <h2>What Current-Gen Hardware Looks Like</h2>
+
+        <p>The current-gen machines — Antminer S21 series, Whatsminer M60 series — are significantly more efficient than the previous generation. The S21 Pro runs at about 15 J/TH, compared to the S19j Pro's ~29.5 J/TH. That efficiency difference is what makes them profitable at higher electricity rates.</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Miner</th>
+              <th>Hashrate</th>
+              <th>Efficiency</th>
+              <th>Daily Revenue</th>
+              <th>Daily Profit @$0.07</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Antminer S21 Pro</td>
+              <td>234 TH/s</td>
+              <td>15 J/TH</td>
+              <td>~$18.50</td>
+              <td class="green">+$12.60</td>
+            </tr>
+            <tr>
+              <td>Whatsminer M60S</td>
+              <td>186 TH/s</td>
+              <td>17.5 J/TH</td>
+              <td>~$14.70</td>
+              <td class="green">+$9.40</td>
+            </tr>
+            <tr>
+              <td>Antminer S19j Pro</td>
+              <td>104 TH/s</td>
+              <td>29.5 J/TH</td>
+              <td>~$8.20</td>
+              <td class="green">+$3.04</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>The trade-off is hardware cost. A new S21 Pro runs $3,500–$4,500 depending on the market. A used S19j Pro might cost $400–$700. The payback period on the newer hardware is often shorter despite the higher upfront cost, because the efficiency advantage compounds every single day.</p>
+
+        <h2>The Difficulty Trend Problem</h2>
+
+        <p>Network difficulty has been on a long-term upward trend, and 2024–2025 has continued that pattern. Every time difficulty rises, your revenue per TH/s decreases proportionally. A machine that earns $18/day today might earn $15/day in six months if difficulty increases 20% and BTC price stays flat.</p>
+
+        <div class="callout-box">
+          <p><strong>The important question isn't just "is this profitable now?" — it's "what does the payback period look like if difficulty increases 20% over the next year?"</strong> Stress-testing your payback period against realistic difficulty growth is the most underrated thing most miners skip.</p>
+        </div>
+
+        <p>The break-even difficulty metric — the maximum difficulty at which your machine stops being profitable — is something I've built directly into the Faith Mining ROI calculator. It gives you a concrete margin of safety number rather than just a snapshot.</p>
+
+        <h2>The Real Numbers From My Operation</h2>
+
+        <p>I run a small operation that I'm growing incrementally. My electricity rate through a commercial agreement is around $0.065/kWh — meaningfully better than residential, but not the $0.03–$0.04/kWh that large industrial operations achieve. Here's what that actually translates to in practice:</p>
+
+        <ul>
+          <li>Machines I'm running currently generate positive daily cash flow after electricity</li>
+          <li>Payback periods on current-gen hardware at my rate run roughly 10–14 months at today's BTC price</li>
+          <li>That payback period stretches to 18–24 months if I stress-test against a 30% BTC price drop</li>
+          <li>Monthly income from mining is modest — this is a long game, not a get-rich-quick play</li>
+        </ul>
+
+        <p>I document the real numbers publicly because I think most mining content online is either unrealistically bullish or trying to sell you something. The honest answer is: mining can work, but it requires good electricity rates, current-gen hardware, and a multi-year time horizon. It's not passive income — it's a capital-intensive, operationally demanding business.</p>
+
+        <h2>Is Bitcoin Mining Worth It in 2025?</h2>
+
+        <p>It depends entirely on three things: your electricity rate, your hardware cost, and your time horizon.</p>
+
+        <ul>
+          <li><strong>Under $0.07/kWh + current-gen hardware:</strong> Yes, mining makes real sense right now. Payback periods are reasonable, and you have margin against price and difficulty headwinds.</li>
+          <li><strong>$0.07–$0.10/kWh + current-gen hardware:</strong> It works but the margin is thin. You're relying on BTC price appreciation to make the numbers compelling.</li>
+          <li><strong>Above $0.10/kWh with older hardware:</strong> You are likely losing money or barely breaking even right now. That math only works if BTC price rises significantly.</li>
+        </ul>
+
+        <p>The miners who win long-term are the ones who treat this as a business — obsessing over electricity rates, buying hardware at the right price, and stress-testing their assumptions rather than assuming perpetual bull conditions.</p>
+
+        <div class="cta-box">
+          <h3>Run your own numbers with live data</h3>
+          <p>The Faith Mining ROI Calculator pulls live BTC price and difficulty and lets you stress-test against different scenarios — including break-even difficulty and break-even BTC price.</p>
+          <a href="https://tools.faithmining.net/bitcoin-miner-roi/" class="btn-primary">Try the calculator →</a>
+        </div>
+
+        <div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+      </div>
+
+      <div class="related-section">
+        <h3>More from Faith Mining</h3>
+        <div class="related-grid">
+          <a href="/blog/mining-payback-period" class="related-card">
+            <h4>How to Calculate Your Bitcoin Miner Payback Period</h4>
+            <p>The exact formula — and why most miners calculate it wrong.</p>
+          </a>
+          <a href="/blog/what-is-solo-bitcoin-mining" class="related-card">
+            <h4>What Is Solo Bitcoin Mining — And Is It Worth It?</h4>
+            <p>The lottery math behind solo mining and when it makes sense.</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© <span id="year"></span> Faith Mining LLC</p>
+      <nav class="footer-links">
+        <a href="/">Home</a>
+        <a href="https://tools.faithmining.net">Tools</a>
+        <a href="https://solo.faithmining.net">Solo Pool</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Use</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
