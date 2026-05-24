@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Bitcoin Halving Explained: What It Means for Miners — Faith Mining</title>
+  <meta name="description" content="What the Bitcoin halving is, why it happens, how it has affected mining economics historically, and what miners can expect after each halving event.">
+  <link rel="canonical" href="https://faithmining.net/blog/bitcoin-halving-explained">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733; --orange-glow: rgba(247,147,26,0.10);
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo:hover { color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color var(--transition); }
+    .nav-link:hover { color: var(--text); }
+
+    .article-hero { padding: 64px 0 48px; text-align: center; position: relative; }
+    .article-hero::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse at center top, rgba(247,147,26,0.15) 0%, rgba(247,147,26,0.05) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .article-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); background: var(--orange-glow); border: 1px solid var(--border-orange); padding: 4px 12px; border-radius: 100px; margin-bottom: 20px; }
+    .article-hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 20px; }
+    .article-meta { font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    .article-body { padding: 48px 0 80px; }
+    .article-body h2 { font-size: 1.45rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin: 48px 0 16px; }
+    .article-body h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+    .article-body p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .article-body ul, .article-body ol { margin: 0 0 20px 0; padding-left: 24px; }
+    .article-body li { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 8px; }
+    .article-body strong { color: var(--text); font-weight: 600; }
+    .article-body a { color: var(--orange); }
+
+    .callout { background: var(--bg-surface); border-left: 3px solid var(--orange); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 32px 0; }
+    .callout p { margin: 0; font-size: 0.95rem; }
+    .callout strong { color: var(--orange); }
+
+    .data-table { width: 100%; border-collapse: collapse; margin: 32px 0; font-size: 0.9rem; }
+    .data-table th { text-align: left; padding: 10px 14px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table td:first-child { color: var(--text); font-weight: 500; }
+
+    .timeline { margin: 32px 0; }
+    .timeline-item { display: flex; gap: 20px; padding-bottom: 32px; position: relative; }
+    .timeline-item:not(:last-child)::before { content: ''; position: absolute; left: 19px; top: 40px; bottom: 0; width: 2px; background: var(--border); }
+    .timeline-dot { width: 40px; height: 40px; background: var(--orange-glow); border: 2px solid var(--border-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.75rem; font-weight: 700; color: var(--orange); }
+    .timeline-content h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .timeline-content p { font-size: 0.9rem; color: var(--text-secondary); margin: 0; line-height: 1.7; }
+
+    .cta-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 32px; margin: 48px 0 0; text-align: center; }
+    .cta-box h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .cta-box p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #000 !important; font-weight: 600; font-size: 0.9rem; padding: 10px 20px; border-radius: var(--radius); transition: background var(--transition); text-decoration: none; }
+    .btn-primary:hover { background: var(--orange-light); color: #000 !important; }
+
+    .site-footer { border-top: 1px solid var(--border); padding: 40px 0 28px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.82rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo"><span class="logo-mark">F</span>Faith Mining</a>
+      <nav style="display:flex;gap:24px;align-items:center;">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#blog" class="nav-link">Blog</a>
+        <a href="/about" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <article>
+    <div class="article-hero">
+      <div class="container prose">
+        <div class="article-tag">₿ Education</div>
+        <h1>The Bitcoin Halving Explained: What It Means for Miners</h1>
+        <div class="article-meta">
+          <span>By Chris Johnson</span>
+          <span>·</span>
+          <span>May 2026</span>
+          <span>·</span>
+          <span>11 min read</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-body">
+      <div class="container prose">
+
+        <p>The Bitcoin halving is one of the most significant scheduled events in cryptocurrency — and one of the most consequential for miners specifically. Every four years, the reward for mining a Bitcoin block is cut in half. The most recent halving occurred in April 2024, reducing the block reward from 6.25 BTC to 3.125 BTC per block.</p>
+
+        <p>This guide explains what the halving is, why it exists, how it has affected mining economics through each cycle, and what the long-term implications are for anyone running mining hardware.</p>
+
+        <h2>What the halving actually is</h2>
+
+        <p>Bitcoin was designed with a fixed total supply of 21 million BTC. New coins are created through the mining process — when a miner successfully adds a block to the blockchain, they receive a reward in newly created Bitcoin. This is called the block subsidy.</p>
+
+        <p>Satoshi Nakamoto programmed a rule into Bitcoin's protocol: every 210,000 blocks (approximately four years at one block per 10 minutes), the block subsidy is cut in half. This is the halving.</p>
+
+        <p>The purpose is twofold. First, it enforces Bitcoin's disinflationary monetary policy — the rate of new coin creation decreases over time, approaching zero as the total supply approaches 21 million. Second, it creates a predictable issuance schedule that anyone can verify by reading the protocol rules.</p>
+
+        <p>There will be exactly 33 halvings in Bitcoin's history. After each one, the block reward halves. Eventually — around the year 2140 — the block subsidy reaches zero, and miners will be compensated entirely by transaction fees.</p>
+
+        <h2>The halving timeline</h2>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot">2009</div>
+            <div class="timeline-content">
+              <h3>Genesis — 50 BTC per block</h3>
+              <p>Bitcoin launched with a 50 BTC block reward. At launch, BTC had essentially no market price. Mining was possible on standard CPUs.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">2012</div>
+            <div class="timeline-content">
+              <h3>1st Halving — 25 BTC per block</h3>
+              <p>November 2012. BTC price: ~$12 at the time of halving, rose to ~$1,000 within the following year. GPU and early FPGA mining was prevalent.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">2016</div>
+            <div class="timeline-content">
+              <h3>2nd Halving — 12.5 BTC per block</h3>
+              <p>July 2016. BTC price: ~$650 at halving, rose to ~$20,000 in late 2017. ASIC mining had become dominant. Industrial-scale mining operations began emerging.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">2020</div>
+            <div class="timeline-content">
+              <h3>3rd Halving — 6.25 BTC per block</h3>
+              <p>May 2020. BTC price: ~$8,600 at halving, rose to ~$69,000 in November 2021. Network hashrate had grown dramatically. Many older miners became unprofitable immediately after the halving.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">2024</div>
+            <div class="timeline-content">
+              <h3>4th Halving — 3.125 BTC per block</h3>
+              <p>April 2024. BTC price: ~$60,000 at halving. This is the current epoch. Revenue per TH/s dropped immediately by ~50%, creating significant pressure on less-efficient hardware.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2>What happens to miners immediately after a halving</h2>
+
+        <p>The mechanical effect of a halving on mining revenue is simple: <strong>daily revenue per TH/s drops by approximately 50% the moment the halving block is mined.</strong> Nothing else changes — not the hardware, not the electricity cost, not the difficulty (at least not immediately). Only the reward changes.</p>
+
+        <p>This creates an immediate profitability shock. Miners operating at thin margins before the halving are typically pushed into unprofitable territory afterward. The ones who can't sustain operations at the new reward level shut down their hardware.</p>
+
+        <p>When miners shut down, total network hashrate drops. Falling hashrate causes blocks to be found more slowly than the 10-minute target. When the next difficulty adjustment occurs (every 2,016 blocks, approximately two weeks), difficulty decreases to compensate. Lower difficulty partially restores revenue per TH/s for the remaining miners.</p>
+
+        <p>This self-regulating mechanism means the network always gravitates back toward equilibrium — but the adjustment period can be painful for miners caught on the wrong side of the economics.</p>
+
+        <h2>Historical revenue impact by halving</h2>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Halving</th>
+              <th>Block Reward Change</th>
+              <th>BTC Price at Halving</th>
+              <th>Revenue Impact</th>
+              <th>Outcome</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2012 (1st)</td>
+              <td>50 → 25 BTC</td>
+              <td>~$12</td>
+              <td>-50% immediately</td>
+              <td>Price appreciation absorbed the shock within months</td>
+            </tr>
+            <tr>
+              <td>2016 (2nd)</td>
+              <td>25 → 12.5 BTC</td>
+              <td>~$650</td>
+              <td>-50% immediately</td>
+              <td>Bull run to $20K within 18 months; profitable for surviving miners</td>
+            </tr>
+            <tr>
+              <td>2020 (3rd)</td>
+              <td>12.5 → 6.25 BTC</td>
+              <td>~$8,600</td>
+              <td>-50% immediately</td>
+              <td>Significant miner shakeout; network hashrate dropped before recovering</td>
+            </tr>
+            <tr>
+              <td>2024 (4th)</td>
+              <td>6.25 → 3.125 BTC</td>
+              <td>~$60,000</td>
+              <td>-50% immediately</td>
+              <td>Ongoing — less-efficient machines became unprofitable at April 2024 conditions</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>The bull run theory — and why it's not guaranteed</h2>
+
+        <p>After each of the first three halvings, BTC price rose substantially within 12–18 months. This has led to a widely held belief that halvings cause or predict bull markets. The theory: reduced new supply issuance, combined with constant or growing demand, pushes price higher.</p>
+
+        <p>There's logic to this. Bitcoin's inflation rate does decrease with each halving, and if demand stays constant, reduced new supply should pressure prices upward. The historical track record is consistent across three cycles.</p>
+
+        <div class="callout">
+          <p><strong>However:</strong> Three data points is not a reliable statistical sample, and past performance in cryptocurrency is notoriously unpredictable. Mining economics should never be built on the assumption that a post-halving price rally will bail out poor unit economics. Mine as if price stays flat. If it rises, consider it a bonus.</p>
+        </div>
+
+        <h2>The long-term trend: mining becomes about fees, not subsidies</h2>
+
+        <p>Each halving reduces the block subsidy and increases the relative importance of transaction fees in miner revenue. Currently, fees represent a small fraction of total miner income — the block subsidy still dominates. But as halvings continue, this ratio will shift.</p>
+
+        <p>By the time the subsidy reaches negligible levels (around 2140, though most of the reduction happens in the next few halvings), Bitcoin's security budget will depend entirely on transaction fees. Whether that fee revenue is sufficient to sustain the mining industry at that point is one of the most important open questions in Bitcoin's long-term design.</p>
+
+        <p>For miners operating today, the practical implication is this: each halving makes efficiency more important. Operators with access to cheap power and efficient hardware survive halving shocks; those with marginal economics don't. The halvings function as a periodic culling of the network's least efficient mining operations.</p>
+
+        <h2>Planning around the halving cycle as a miner</h2>
+
+        <p>If you're evaluating a mining investment, the halving schedule should inform your planning:</p>
+
+        <ul>
+          <li><strong>The next halving is approximately April 2028.</strong> Any hardware purchased today will experience another 50% revenue reduction at that point — at whatever difficulty and BTC price exist then.</li>
+          <li><strong>Hardware that barely pays back before the halving may not pay back at all after it.</strong> Model your payback period with the next halving built in as a scenario.</li>
+          <li><strong>Efficiency compounds in importance over time.</strong> A machine that's marginally profitable today at 30 J/TH may be deeply unprofitable post-halving. A machine at 18 J/TH has much more room to sustain profitability through a reward reduction.</li>
+          <li><strong>Don't buy hardware 12–18 months before a halving expecting pre-halving economics to sustain through it.</strong> Build your investment case on post-halving revenue.</li>
+        </ul>
+
+        <h2>The current epoch: mining in a post-4th halving world</h2>
+
+        <p>We are approximately two years into the current epoch (post-April 2024 halving). The block reward is 3.125 BTC. At current prices (~$78K) and current hashrate (~978 EH/s), only the most efficient hardware at the lowest electricity rates is generating meaningful margin.</p>
+
+        <p>This is the normal state of mining late in an epoch, before the next halving or a significant BTC price increase changes the economics again. It's not a crisis — it's how the halving cycle works. The miners who are still operating are, by definition, competitive enough to survive at current conditions.</p>
+
+        <div class="cta-box">
+          <h3>See how the current block reward affects your earnings</h3>
+          <p>The profitability numbers article walks through the complete revenue math at today's difficulty and block reward.</p>
+          <a href="/blog/bitcoin-mining-2025-numbers" class="btn-primary">Read the 2026 numbers →</a>
+        </div>
+
+        <!-- Ad unit -->
+        <div style="margin: 48px 0 0; text-align:center;">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+      </div>
+    </div>
+  </article>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-copy">© <span id="year"></span> Faith Mining LLC — All rights reserved. Not financial advice.</p>
+        <nav class="footer-links">
+          <a href="/">Home</a>
+          <a href="/#blog">Blog</a>
+          <a href="/about">About</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Use</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Bitcoin Mining Setup: What You Actually Need to Get Started — Faith Mining</title>
+  <meta name="description" content="A realistic guide to setting up Bitcoin mining at home — the hardware, electrical requirements, cooling, noise, and honest look at whether the numbers make sense.">
+  <link rel="canonical" href="https://faithmining.net/blog/home-bitcoin-mining-setup">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733; --orange-glow: rgba(247,147,26,0.10);
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo:hover { color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color var(--transition); }
+    .nav-link:hover { color: var(--text); }
+
+    .article-hero { padding: 64px 0 48px; text-align: center; position: relative; }
+    .article-hero::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse at center top, rgba(247,147,26,0.15) 0%, rgba(247,147,26,0.05) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .article-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); background: var(--orange-glow); border: 1px solid var(--border-orange); padding: 4px 12px; border-radius: 100px; margin-bottom: 20px; }
+    .article-hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 20px; }
+    .article-meta { font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    .article-body { padding: 48px 0 80px; }
+    .article-body h2 { font-size: 1.45rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin: 48px 0 16px; }
+    .article-body h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+    .article-body p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .article-body ul, .article-body ol { margin: 0 0 20px 0; padding-left: 24px; }
+    .article-body li { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 8px; }
+    .article-body strong { color: var(--text); font-weight: 600; }
+    .article-body a { color: var(--orange); }
+
+    .callout { background: var(--bg-surface); border-left: 3px solid var(--orange); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 32px 0; }
+    .callout p { margin: 0; font-size: 0.95rem; }
+    .callout strong { color: var(--orange); }
+
+    .checklist { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 32px; margin: 32px 0; }
+    .checklist h3 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 16px; }
+    .checklist ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .checklist li { font-size: 0.95rem; color: var(--text-secondary); padding-left: 22px; position: relative; line-height: 1.6; }
+    .checklist li::before { content: '✓'; position: absolute; left: 0; color: var(--orange); font-weight: 700; }
+
+    .cost-table { width: 100%; border-collapse: collapse; margin: 32px 0; font-size: 0.9rem; }
+    .cost-table th { text-align: left; padding: 10px 14px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .cost-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+    .cost-table tr:last-child td { border-bottom: 1px solid var(--border); font-weight: 700; color: var(--text); }
+    .cost-table td:first-child { color: var(--text); font-weight: 500; }
+
+    .cta-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 32px; margin: 48px 0 0; text-align: center; }
+    .cta-box h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .cta-box p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #000 !important; font-weight: 600; font-size: 0.9rem; padding: 10px 20px; border-radius: var(--radius); transition: background var(--transition); text-decoration: none; }
+    .btn-primary:hover { background: var(--orange-light); color: #000 !important; }
+
+    .site-footer { border-top: 1px solid var(--border); padding: 40px 0 28px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.82rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo"><span class="logo-mark">F</span>Faith Mining</a>
+      <nav style="display:flex;gap:24px;align-items:center;">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#blog" class="nav-link">Blog</a>
+        <a href="/about" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <article>
+    <div class="article-hero">
+      <div class="container prose">
+        <div class="article-tag">🏠 Setup Guide</div>
+        <h1>Home Bitcoin Mining Setup: What You Actually Need to Get Started</h1>
+        <div class="article-meta">
+          <span>By Chris Johnson</span>
+          <span>·</span>
+          <span>May 2026</span>
+          <span>·</span>
+          <span>13 min read</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-body">
+      <div class="container prose">
+
+        <p>Home Bitcoin mining is genuinely possible. It's also genuinely difficult to do profitably in 2026, and it requires more infrastructure than most guides let on. This article covers what you actually need — the hardware, the electrical work, the cooling and noise management, and the honest math on whether it makes sense for your situation.</p>
+
+        <p>No cheerleading. Just what the setup actually involves.</p>
+
+        <h2>Start with the electricity question</h2>
+
+        <p>Before you think about mining hardware, find your electricity rate. Look at your utility bill — the number you want is your effective rate in cents per kilowatt-hour (¢/kWh). In 2026, the US residential average is around 16¢/kWh. That's too high for profitable mining with commercial ASIC hardware at current Bitcoin prices and network difficulty.</p>
+
+        <p>Profitable home mining in 2026 generally requires an electricity rate below 7–8¢/kWh. That's well below what most residential customers pay. The exceptions:</p>
+
+        <ul>
+          <li>Customers in low-rate states or on off-peak industrial/agricultural tariffs</li>
+          <li>Home solar with net metering or significant off-grid storage</li>
+          <li>Flared gas or stranded energy arrangements (not typically available to individuals)</li>
+          <li>Very small-scale operations using older, less efficient hardware with very low purchase costs</li>
+        </ul>
+
+        <p>If your rate is above 10¢/kWh, stop here and recalculate. Mining at a loss is not a business — it's paying to acquire Bitcoin at a premium over spot price. You'd be better off just buying BTC directly.</p>
+
+        <div class="callout">
+          <p><strong>Check your bill specifically:</strong> Many utilities have tiered rates — you might pay 10¢/kWh for your first 500 kWh per month and 18¢/kWh for every kilowatt-hour above that. An ASIC miner running 24/7 adds 2,000–3,000+ kWh per month per machine. Make sure you're using the marginal rate, not the average rate from your bill total.</p>
+        </div>
+
+        <h2>What hardware you need</h2>
+
+        <h3>The miner itself</h3>
+
+        <p>A commercial ASIC miner is a self-contained unit — it has the hashing chips, cooling fans, and power supply (or requires a separate external power supply, depending on the model) built in. It connects to your network via ethernet and to your wall via a heavy-duty electrical connector.</p>
+
+        <p>For home use, the practical constraints narrow your options significantly:</p>
+
+        <ul>
+          <li><strong>Noise:</strong> Most commercial ASIC miners run 70–80 dB. That's roughly the volume of a running vacuum cleaner — continuously, 24/7. For home use, this almost certainly requires a dedicated outbuilding, garage, or basement with sound mitigation.</li>
+          <li><strong>Heat:</strong> A 3,500W miner dissipates roughly 12,000 BTU/hour — equivalent to a medium-sized space heater running continuously. In winter, this is free heat. In summer, it requires active exhaust or air conditioning to prevent thermal shutdowns.</li>
+          <li><strong>Power requirements:</strong> Commercial miners typically require 240V circuits at 20–30 amps. Most homes have 240V available (it's what electric dryers and ranges use), but you'll need a dedicated circuit with the appropriate outlet — not a standard 120V wall outlet.</li>
+        </ul>
+
+        <h3>Electrical infrastructure</h3>
+
+        <p>This is the setup cost that surprises most first-time home miners. You can't plug an ASIC into a regular wall outlet. You need:</p>
+
+        <ul>
+          <li>A dedicated 240V circuit from your panel — typically 20A or 30A depending on the miner</li>
+          <li>The appropriate NEMA outlet for your miner's plug (often NEMA 14-30 or L6-30)</li>
+          <li>A licensed electrician to install it, if you don't have electrical experience</li>
+        </ul>
+
+        <p>Circuit installation typically costs $200–600 depending on your panel's location relative to where you're mining, your local permit requirements, and electrician rates in your area. This is a one-time cost, but it needs to be in your payback calculation.</p>
+
+        <h3>Network connectivity</h3>
+
+        <p>Your miner needs a stable ethernet connection. WiFi is not recommended — most ASIC firmware doesn't support it natively, and connection drops interrupt your mining session and require the machine to re-sync with the pool. A simple ethernet run to where the miner lives is the right solution.</p>
+
+        <h3>Cooling and ventilation</h3>
+
+        <p>ASIC miners pull air in one end and exhaust hot air out the other. Effective setup means:</p>
+
+        <ul>
+          <li>Cool incoming air — ideally below 25°C (77°F). Above 35°C (95°F) and most miners will throttle or shut down.</li>
+          <li>A clear exhaust path — hot air needs somewhere to go. Exhausting into a sealed space just recirculates hot air back into the inlet, degrading performance and accelerating hardware wear.</li>
+          <li>In summer months or warm climates, active cooling (fans ducting hot air outside, or a window AC unit) is typically required.</li>
+        </ul>
+
+        <h2>Realistic startup cost breakdown</h2>
+
+        <p>Here's a realistic picture of what a single-machine home setup costs beyond the miner itself:</p>
+
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Estimated Cost</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>240V circuit installation</td>
+              <td>$200–$600</td>
+              <td>One-time; varies by location and panel</td>
+            </tr>
+            <tr>
+              <td>Appropriate power outlet/receptacle</td>
+              <td>$20–$60</td>
+              <td>Usually included in electrician quote</td>
+            </tr>
+            <tr>
+              <td>Ethernet cable run</td>
+              <td>$20–$80</td>
+              <td>DIY or hire; depends on distance</td>
+            </tr>
+            <tr>
+              <td>Ventilation fans / ducting</td>
+              <td>$50–$300</td>
+              <td>Varies widely by setup</td>
+            </tr>
+            <tr>
+              <td>Sound dampening materials</td>
+              <td>$50–$200</td>
+              <td>Optional but often necessary</td>
+            </tr>
+            <tr>
+              <td><strong>Total setup overhead</strong></td>
+              <td><strong>$340–$1,240</strong></td>
+              <td>Estimate only; your situation may vary</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>Add this to the miner purchase price when calculating your total investment and payback period. A used S19j Pro at $800 with $600 in electrical setup is a $1,400 investment — not an $800 one.</p>
+
+        <h2>Choosing your mining pool</h2>
+
+        <p>Once the hardware is running, you need a mining pool. A pool aggregates the hashrate of many miners, finds blocks more frequently than any individual miner could, and distributes the rewards proportionally based on each miner's contributed hashrate.</p>
+
+        <p>Key things to look for in a pool:</p>
+
+        <ul>
+          <li><strong>Fee structure:</strong> Most pools charge 1–3% of your earnings. FPPS (Full Pay Per Share) pools pay you for every valid share you submit regardless of whether the pool finds a block — this gives you the most predictable income. PPS+ is similar. PPLNS pays based on the last N shares submitted, which is more variable.</li>
+          <li><strong>Minimum payout:</strong> The minimum BTC balance required before the pool sends a payment to your wallet. Lower minimums are better for small operations so your BTC isn't sitting in someone else's custody for extended periods.</li>
+          <li><strong>Reputation and uptime:</strong> Pools do go down. A pool that's offline means your miner is running but earning nothing. Look for established pools with a track record.</li>
+          <li><strong>Server location:</strong> Connect to a pool server geographically close to you to minimize latency and stale shares.</li>
+        </ul>
+
+        <p>Major pools as of 2026 include Foundry USA, AntPool, ViaBTC, and F2Pool. Do your own research on current fee structures before committing.</p>
+
+        <h2>The software side</h2>
+
+        <p>ASIC miners run their own firmware and have a web interface accessible from your local network. The basic configuration is straightforward:</p>
+
+        <ol>
+          <li>Connect the miner to ethernet and power</li>
+          <li>Find the miner's IP address (check your router's device list)</li>
+          <li>Open the web interface in a browser</li>
+          <li>Enter your pool's stratum address, your wallet address (as the mining username), and a worker name</li>
+          <li>Save and the miner starts working</li>
+        </ol>
+
+        <p>More advanced miners allow firmware customization, overclocking, and underclocking (trading hashrate for lower power consumption). For most home miners, the stock configuration is fine to start.</p>
+
+        <h2>A realistic honest assessment for 2026</h2>
+
+        <div class="checklist">
+          <h3>Home mining makes sense if you can check all of these</h3>
+          <ul>
+            <li>Your electricity rate is at or below 7¢/kWh (or you have solar/low-cost power)</li>
+            <li>You have a suitable location — garage, outbuilding, or dedicated room — that can handle the noise and heat</li>
+            <li>You can install a 240V circuit (or already have one)</li>
+            <li>You've run the profitability math at current difficulty AND at +25% higher difficulty, and it still works</li>
+            <li>You understand that profitability is not guaranteed and hardware can fail</li>
+            <li>You're treating it as a long-term investment, not a get-rich-quick play</li>
+          </ul>
+        </div>
+
+        <p>Home mining is not dead in 2026, but it requires favorable power costs and a realistic setup. Done right, with low-cost electricity and properly managed hardware, it can be a legitimate income stream. Done wrong — with retail electricity rates and optimistic projections — it's an expensive lesson.</p>
+
+        <p>Start with the electricity math. Everything else follows from that.</p>
+
+        <div class="cta-box">
+          <h3>Calculate your setup's payback period</h3>
+          <p>Run your specific hardware and electricity rate through the payback period formula before you spend a dollar on equipment.</p>
+          <a href="/blog/mining-payback-period" class="btn-primary">Read the payback guide →</a>
+        </div>
+
+        <!-- Ad unit -->
+        <div style="margin: 48px 0 0; text-align:center;">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+      </div>
+    </div>
+  </article>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-copy">© <span id="year"></span> Faith Mining LLC — All rights reserved. Not financial advice.</p>
+        <nav class="footer-links">
+          <a href="/">Home</a>
+          <a href="/#blog">Blog</a>
+          <a href="/about">About</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Use</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

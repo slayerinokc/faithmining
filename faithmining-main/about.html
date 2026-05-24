@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Faith Mining</title>
+  <meta name="description" content="Faith Mining is a Bitcoin mining education site run by Chris Johnson — an IT professional and miner sharing real-world experience, honest numbers, and practical guides.">
+  <link rel="canonical" href="https://faithmining.net/about">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-strong: rgba(255,255,255,0.12);
+      --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733; --orange-glow: rgba(247,147,26,0.10);
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo:hover { color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color var(--transition); }
+    .nav-link:hover { color: var(--text); }
+
+    /* Page hero */
+    .page-hero { padding: 64px 0 48px; position: relative; }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse at center top, rgba(247,147,26,0.12) 0%, rgba(247,147,26,0.04) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .breadcrumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px; }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--orange); }
+    .page-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 16px; }
+    .page-hero .lead { font-size: 1.1rem; color: var(--text-secondary); max-width: 620px; line-height: 1.75; }
+
+    /* Content */
+    .content-section { padding: 56px 0 80px; }
+    .content-section h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin: 48px 0 16px; }
+    .content-section h2:first-child { margin-top: 0; }
+    .content-section p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .content-section p:last-child { margin-bottom: 0; }
+    .content-section a { color: var(--orange); }
+    .content-section a:hover { color: var(--orange-light); }
+
+    /* Info card */
+    .info-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-orange);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      margin: 40px 0;
+    }
+    .info-card h3 { font-size: 1rem; font-weight: 700; color: var(--orange); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.75rem; }
+    .info-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .info-card ul li { font-size: 0.95rem; color: var(--text-secondary); padding-left: 18px; position: relative; line-height: 1.6; }
+    .info-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--orange); font-weight: 600; }
+
+    /* Avatar block */
+    .author-block {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      margin: 40px 0;
+    }
+    .avatar { width: 64px; height: 64px; background: rgba(247,147,26,0.15); border: 2px solid var(--border-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.3rem; color: var(--orange); flex-shrink: 0; }
+    .author-info .name { font-weight: 700; font-size: 1.05rem; color: var(--text); margin-bottom: 4px; }
+    .author-info .role { font-size: 0.875rem; color: var(--text-secondary); }
+
+    /* Footer */
+    .site-footer { border-top: 1px solid var(--border); padding: 40px 0 28px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.82rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+
+    @media (max-width: 640px) {
+      .author-block { flex-direction: column; text-align: center; }
+      .footer-inner { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">F</span>
+        Faith Mining
+      </a>
+      <nav style="display:flex;gap:24px;align-items:center;">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#blog" class="nav-link">Blog</a>
+        <a href="/about" class="nav-link" style="color:var(--text);">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="container prose">
+        <p class="breadcrumb"><a href="/">Home</a> › About</p>
+        <h1>About Faith Mining</h1>
+        <p class="lead">A Bitcoin mining education site written by someone who actually runs mining equipment — not a content agency, not a reseller, not a financial advisor.</p>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="container prose">
+
+        <div class="author-block">
+          <div class="avatar">CJ</div>
+          <div class="author-info">
+            <div class="name">Chris Johnson</div>
+            <div class="role">Founder, Faith Mining LLC &nbsp;·&nbsp; IT Specialist &amp; Bitcoin Miner</div>
+          </div>
+        </div>
+
+        <h2>What is Faith Mining?</h2>
+        <p>Faith Mining is a Bitcoin mining education site. Every article here is written from hands-on experience operating actual mining hardware — not from aggregating news or repeating what other sites say.</p>
+        <p>The site covers the practical side of Bitcoin mining: how to calculate profitability, how to evaluate equipment, what network difficulty actually means for your bottom line, and when the math works in your favor versus when it doesn't. The goal is to give you the information you need to make real decisions — with real numbers, not optimistic projections.</p>
+
+        <h2>Who writes here?</h2>
+        <p>My name is Chris Johnson. I'm an IT specialist with a background in systems and infrastructure, and I started Bitcoin mining as a way to build income outside of a traditional job. I run Faith Mining LLC as an umbrella for my mining activities and the tools and content I create around them.</p>
+        <p>I started this site because most Bitcoin mining content online falls into one of two categories: either it's wildly optimistic marketing from hardware sellers, or it's surface-level explanations that don't help you actually run an operation. I wanted to write the guides I wished existed when I started — honest, specific, and based on what the numbers actually show.</p>
+
+        <h2>What you'll find here</h2>
+        <div class="info-card">
+          <h3>Topics covered</h3>
+          <ul>
+            <li>How to calculate Bitcoin miner payback period and ROI</li>
+            <li>Understanding network difficulty and how it affects revenue</li>
+            <li>Equipment selection — ASIC miner comparisons and what to look for</li>
+            <li>Electricity costs and how to calculate your break-even rate</li>
+            <li>Pool mining vs. solo mining — the real trade-offs</li>
+            <li>Home mining setup — what you actually need to get started</li>
+            <li>Cloud mining — how it works and whether it makes sense</li>
+            <li>Bitcoin halving — what it means for mining economics</li>
+          </ul>
+        </div>
+
+        <h2>What you won't find here</h2>
+        <p>No get-rich-quick promises. No "mining is always profitable" claims. No hiding the numbers when they're bad. Bitcoin mining is a capital-intensive activity with real costs and real risk. This site will tell you that plainly, because you deserve to know what you're getting into before you spend money on equipment or power.</p>
+        <p>Nothing on this site is financial advice. I'm not a financial advisor, and you should treat everything here as educational information to inform your own research and decisions.</p>
+
+        <h2>How to reach me</h2>
+        <p>If you have a question, a correction, or just want to talk mining, you can reach me at <a href="mailto:info@faithmining.net">info@faithmining.net</a>. I read everything.</p>
+        <p>If you found an error in one of the guides — wrong numbers, outdated stats, a calculation that doesn't check out — please let me know. I'd rather be corrected than have bad information out there.</p>
+
+        <!-- Ad unit -->
+        <div style="margin: 48px 0; text-align:center;">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-copy">© <span id="year"></span> Faith Mining LLC — All rights reserved.</p>
+        <nav class="footer-links">
+          <a href="/">Home</a>
+          <a href="/#blog">Blog</a>
+          <a href="/about">About</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Use</a>
+          <a href="mailto:info@faithmining.net">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

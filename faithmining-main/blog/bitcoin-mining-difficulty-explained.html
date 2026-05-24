@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitcoin Mining Difficulty Explained: How It Affects Your Revenue — Faith Mining</title>
+  <meta name="description" content="What Bitcoin network difficulty actually is, how the adjustment works, and exactly how rising difficulty eats into your mining revenue — explained with real numbers.">
+  <link rel="canonical" href="https://faithmining.net/blog/bitcoin-mining-difficulty-explained">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733; --orange-glow: rgba(247,147,26,0.10);
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo:hover { color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color var(--transition); }
+    .nav-link:hover { color: var(--text); }
+
+    .article-hero { padding: 64px 0 48px; text-align: center; position: relative; }
+    .article-hero::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse at center top, rgba(247,147,26,0.15) 0%, rgba(247,147,26,0.05) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .article-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); background: var(--orange-glow); border: 1px solid var(--border-orange); padding: 4px 12px; border-radius: 100px; margin-bottom: 20px; }
+    .article-hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 20px; }
+    .article-meta { font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    .article-body { padding: 48px 0 80px; }
+    .article-body h2 { font-size: 1.45rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin: 48px 0 16px; }
+    .article-body h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+    .article-body p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .article-body ul, .article-body ol { margin: 0 0 20px 0; padding-left: 24px; }
+    .article-body li { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 8px; }
+    .article-body strong { color: var(--text); font-weight: 600; }
+    .article-body a { color: var(--orange); }
+
+    .callout { background: var(--bg-surface); border-left: 3px solid var(--orange); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 32px 0; }
+    .callout p { margin: 0; font-size: 0.95rem; }
+    .callout strong { color: var(--orange); }
+
+    .data-table { width: 100%; border-collapse: collapse; margin: 32px 0; font-size: 0.9rem; }
+    .data-table th { text-align: left; padding: 10px 14px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table td:first-child { color: var(--text); font-weight: 500; }
+
+    .math-block { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin: 24px 0; font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-secondary); line-height: 1.9; }
+    .math-block .result { color: var(--orange); font-weight: 600; }
+
+    .cta-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 32px; margin: 48px 0 0; text-align: center; }
+    .cta-box h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .cta-box p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #000 !important; font-weight: 600; font-size: 0.9rem; padding: 10px 20px; border-radius: var(--radius); transition: background var(--transition); text-decoration: none; }
+    .btn-primary:hover { background: var(--orange-light); color: #000 !important; }
+
+    .site-footer { border-top: 1px solid var(--border); padding: 40px 0 28px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.82rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo"><span class="logo-mark">F</span>Faith Mining</a>
+      <nav style="display:flex;gap:24px;align-items:center;">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#blog" class="nav-link">Blog</a>
+        <a href="/about" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <article>
+    <div class="article-hero">
+      <div class="container prose">
+        <div class="article-tag">📊 Education</div>
+        <h1>Bitcoin Mining Difficulty Explained: How It Affects Your Revenue</h1>
+        <div class="article-meta">
+          <span>By Chris Johnson</span>
+          <span>·</span>
+          <span>May 2026</span>
+          <span>·</span>
+          <span>11 min read</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-body">
+      <div class="container prose">
+
+        <p>Network difficulty is one of the most important numbers in Bitcoin mining — and one of the least understood. It directly determines how much BTC you earn per terahash per day. When it goes up, you earn less. When it goes down, you earn more. Yet most miners treat it as background noise.</p>
+
+        <p>This guide explains what difficulty actually is, how the adjustment mechanism works, and why understanding it is essential to any honest profitability calculation.</p>
+
+        <h2>What is Bitcoin mining difficulty?</h2>
+
+        <p>Bitcoin uses a proof-of-work system to add new blocks to the blockchain. Miners compete to find a hash — a cryptographic output — that falls below a specific target value. The lower the target, the harder it is to find a valid hash, and the more computational work is required on average.</p>
+
+        <p><strong>Difficulty is a relative measure of how hard it is to find a valid block.</strong> It's expressed as a number (currently around 132 trillion, or 132T) that represents how much harder the current target is compared to the original target from Bitcoin's first blocks in 2009.</p>
+
+        <p>When difficulty is 132T, it means miners have to perform approximately 132 trillion times more work than the original mining requirement to find a valid block. In practical terms, at the current global hashrate of roughly 978 exahashes per second (EH/s), the network produces a valid block approximately every 10 minutes on average.</p>
+
+        <h2>How the difficulty adjustment works</h2>
+
+        <p>Bitcoin automatically adjusts its difficulty every 2,016 blocks — which takes approximately two weeks at a 10-minute block time. The adjustment algorithm is straightforward:</p>
+
+        <div class="math-block">
+          New difficulty = Old difficulty × (Actual time for 2,016 blocks ÷ 20,160 minutes)
+        </div>
+
+        <p>If miners found the last 2,016 blocks faster than two weeks — meaning the network hashrate increased — the new difficulty goes up to slow things back down. If blocks took longer than two weeks — meaning hashrate dropped — difficulty decreases to speed things back up.</p>
+
+        <p>The protocol caps a single adjustment at a maximum change of 4× in either direction, though in practice adjustments of more than 5–10% in a single epoch are unusual except during major mining events (like large-scale miner shutdowns or rapid new hardware deployments).</p>
+
+        <h3>Why this matters for miners</h3>
+
+        <p>The goal of the difficulty adjustment is to keep the average block time at 10 minutes regardless of how much hashrate is pointed at the network. This is a feature for the Bitcoin protocol — it ensures predictable block production and predictable issuance.</p>
+
+        <p>For individual miners, it means that <strong>your revenue per TH/s is not fixed</strong>. It decreases as the global hashrate grows. If the network hashrate doubles, difficulty eventually doubles too, and your revenue per TH/s is cut in half — even if BTC price stays the same.</p>
+
+        <h2>The revenue formula</h2>
+
+        <p>Your daily Bitcoin revenue from mining can be calculated as:</p>
+
+        <div class="math-block">
+          Daily BTC revenue per TH/s =<br>
+          &nbsp;&nbsp;(144 blocks × 3.125 BTC per block) ÷ (Network hashrate in TH/s)<br><br>
+          At current hashrate (978 EH/s = 978,000,000 TH/s):<br>
+          144 × 3.125 ÷ 978,000,000 = <span class="result">0.0000004590 BTC per TH/s per day</span><br><br>
+          At $78,281/BTC:<br>
+          0.0000004590 × $78,281 = <span class="result">~$0.0359 per TH/s per day</span>
+        </div>
+
+        <p>Run that across a 104 TH/s machine like the S19j Pro: 104 × $0.0359 = <strong>$3.73/day in gross revenue</strong>. Before electricity, before pool fees, before any other costs.</p>
+
+        <p>That number changes every time the network hashrate changes — and since difficulty adjusts to follow hashrate, it effectively changes every two weeks.</p>
+
+        <h2>Historical difficulty growth</h2>
+
+        <p>Bitcoin's network hashrate — and therefore its difficulty — has grown dramatically over the network's history. Here's a rough picture of how difficulty has trended:</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Approximate Difficulty</th>
+              <th>Approximate Hashrate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>2020</td><td>~15T</td><td>~120 EH/s</td></tr>
+            <tr><td>2021</td><td>~20T (post-China ban: ~14T)</td><td>~160 EH/s (dropped to ~90 EH/s)</td></tr>
+            <tr><td>2022</td><td>~35T</td><td>~270 EH/s</td></tr>
+            <tr><td>2023</td><td>~67T</td><td>~520 EH/s</td></tr>
+            <tr><td>2024</td><td>~90T</td><td>~700 EH/s</td></tr>
+            <tr><td>2026 (current)</td><td>~132T</td><td>~978 EH/s</td></tr>
+          </tbody>
+        </table>
+
+        <p>The long-term trend is clear: difficulty has grown consistently as new mining hardware has been deployed and older hardware retired. The short-term is more volatile — difficulty dropped sharply when China banned mining in 2021, and it fluctuates around macro events — but the upward pressure over years is persistent.</p>
+
+        <h2>What this means for your profitability projection</h2>
+
+        <p>Here's the practical implication: if you buy a miner today and build your ROI calculation assuming today's difficulty and BTC price hold constant, you will almost certainly be wrong — in the unprofitable direction.</p>
+
+        <p>Difficulty growth means your revenue per TH/s will likely be lower next year than it is today, all else being equal. The question is by how much. If you assume 20% annual difficulty growth (a conservative estimate given recent history), a machine earning $3.73/day today would earn roughly $3.11/day a year from now at the same BTC price.</p>
+
+        <div class="callout">
+          <p><strong>Lesson:</strong> Always model multiple scenarios. Calculate payback period at today's difficulty, at +20% difficulty, and at +40% difficulty. If the machine still pays back in a reasonable timeframe at the pessimistic scenario, it's a safer purchase. If it only works at today's numbers, you're betting on luck.</p>
+        </div>
+
+        <h2>When difficulty drops — and why it's not always good news</h2>
+
+        <p>Difficulty can decrease as well as increase. Significant drops have historically happened when large portions of the network go offline suddenly — most notably after China's 2021 mining ban, which knocked out roughly 50% of global hashrate in a matter of months.</p>
+
+        <p>When difficulty drops, surviving miners earn more per TH/s. This sounds good, but consider the circumstances that cause it: large-scale miner shutdowns typically happen because mining became unprofitable for many operators — often because BTC price fell sharply. So difficulty drops often coincide with lower BTC prices, partially offsetting the revenue benefit.</p>
+
+        <p>This is another reason to avoid single-variable thinking. Revenue per TH/s depends on both price and difficulty simultaneously. They don't always move in the same direction or at the same rate.</p>
+
+        <h2>How to track difficulty in real time</h2>
+
+        <p>Several resources track live Bitcoin network difficulty and hashrate:</p>
+
+        <ul>
+          <li><strong>mempool.space</strong> — shows current difficulty, next estimated adjustment, and countdown to the next adjustment epoch</li>
+          <li><strong>bitinfocharts.com</strong> — historical difficulty charts going back to Bitcoin's genesis</li>
+          <li><strong>Your mining pool dashboard</strong> — most pools display current network difficulty alongside your personal hashrate stats</li>
+        </ul>
+
+        <p>The most actionable number to watch is the <em>next difficulty adjustment estimate</em>. If the network has been finding blocks faster than 10 minutes, the next adjustment will increase difficulty — meaning your per-TH/s revenue is about to drop. If blocks have been slower than 10 minutes, you're due for a favorable adjustment.</p>
+
+        <h2>The bottom line</h2>
+
+        <p>Difficulty is the mechanism Bitcoin uses to keep its monetary policy honest regardless of how much mining activity is pointed at it. For miners, it's the headwind that makes long-term profitability genuinely difficult to forecast. The miners who sustain profitability over years are the ones who can operate at electricity rates low enough to stay above break-even even as difficulty grows — not the ones who got lucky with a temporarily favorable snapshot.</p>
+
+        <p>Understand difficulty. Model it honestly. And build your operation around electricity economics that work even when the numbers get harder.</p>
+
+        <div class="cta-box">
+          <h3>See how difficulty affects your specific miner</h3>
+          <p>The payback period guide walks through the full revenue calculation with live difficulty numbers.</p>
+          <a href="/blog/mining-payback-period" class="btn-primary">Read the payback guide →</a>
+        </div>
+
+        <!-- Ad unit -->
+        <div style="margin: 48px 0 0; text-align:center;">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+      </div>
+    </div>
+  </article>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-copy">© <span id="year"></span> Faith Mining LLC — All rights reserved. Not financial advice.</p>
+        <nav class="footer-links">
+          <a href="/">Home</a>
+          <a href="/#blog">Blog</a>
+          <a href="/about">About</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Use</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
