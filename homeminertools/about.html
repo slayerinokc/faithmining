@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About & My Setup — Home Miner Tools</title>
+  <meta name="description" content="I'm Chris — an IT specialist and home Bitcoin miner in OKC. Here's my actual mining setup: Bitaxe Gamma, Canaan Nano 3S x4, Nano 3, and Avalon Q. Real numbers, real experience.">
+  <link rel="canonical" href="https://www.homeminertools.com/about">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-strong: rgba(255,255,255,0.12);
+      --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733;
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.85rem; }
+    nav { display: flex; gap: 24px; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
+    .nav-link:hover { color: var(--text); }
+    .page-hero { padding: 64px 0 48px; }
+    .breadcrumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px; }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--orange); }
+    .page-hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 16px; }
+    .page-hero .lead { font-size: 1.05rem; color: var(--text-secondary); max-width: 600px; line-height: 1.75; }
+    .content-section { padding: 48px 0 80px; }
+    .content-section h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; margin: 48px 0 14px; }
+    .content-section h2:first-child { margin-top: 0; }
+    .content-section p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 18px; }
+    .author-block { display: flex; align-items: center; gap: 20px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px 28px; margin: 40px 0; }
+    .author-block img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-orange); flex-shrink: 0; }
+    .author-info .name { font-weight: 700; font-size: 1.05rem; margin-bottom: 4px; }
+    .author-info .role { font-size: 0.875rem; color: var(--text-secondary); }
+    .setup-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.9rem; }
+    .setup-table th { text-align: left; padding: 10px 14px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); border-bottom: 1px solid var(--border-strong); }
+    .setup-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.85rem; }
+    .setup-table td:first-child { color: var(--text); font-family: var(--font); font-size: 0.9rem; }
+    .setup-table tr:last-child td { border-bottom: none; }
+    .callout { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 20px 24px; margin: 28px 0; }
+    .callout p { margin: 0; font-size: 0.95rem; color: var(--text-secondary); }
+    .callout strong { color: var(--orange); }
+    .ad-unit { margin: 48px 0; text-align: center; }
+    .site-footer { border-top: 1px solid var(--border); padding: 36px 0 24px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.82rem; color: var(--text-muted); }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    @media (max-width: 640px) {
+      .author-block { flex-direction: column; text-align: center; }
+      .footer-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo"><span class="logo-mark">⛏</span> Home Miner Tools</a>
+      <nav>
+        <a href="/#tools" class="nav-link">Tools</a>
+        <a href="/#miners" class="nav-link">Reviews</a>
+        <a href="/about" class="nav-link" style="color:var(--text);">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="container prose">
+        <p class="breadcrumb"><a href="/">Home</a> › About</p>
+        <h1>About & My Setup</h1>
+        <p class="lead">I'm a home miner in Oklahoma City. This is my actual hardware, my real electricity bill, and my honest take on whether any of it makes financial sense.</p>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="container prose">
+
+        <div class="author-block">
+          <img src="/chris-johnson.png" alt="Chris Johnson — Home Miner Tools">
+          <div class="author-info">
+            <div class="name">Chris Johnson</div>
+            <div class="role">IT Specialist &amp; Home Bitcoin Miner &nbsp;·&nbsp; Oklahoma City, OK</div>
+          </div>
+        </div>
+
+        <h2>Who I am</h2>
+        <p>I'm an IT specialist by day — I work in systems and infrastructure, so the technical side of running mining hardware isn't new to me. The Bitcoin mining side started as curiosity and turned into a genuine hobby. I run Faith Mining LLC as an umbrella for my mining activities and the content I create around them.</p>
+        <p>I built Home Miner Tools because I kept running into the same problem: most calculator sites are made by people who don't own any miners, and most mining content either pretends everything is profitable or is so negative it's useless. I wanted somewhere in between — honest math, real numbers, and actual hands-on experience.</p>
+
+        <h2>My current setup</h2>
+        <p>Here's exactly what I'm running right now, where it lives in my house, and what it costs me every month at Oklahoma summer rates (14¢/kWh):</p>
+
+        <table class="setup-table">
+          <thead>
+            <tr>
+              <th>Miner</th>
+              <th>Location</th>
+              <th>Hashrate</th>
+              <th>Power</th>
+              <th>Cost/mo</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bitaxe Gamma</td>
+              <td>Office</td>
+              <td>~1.2 TH/s</td>
+              <td>~18W</td>
+              <td>~$1.80</td>
+              <td style="color:var(--orange);">Running</td>
+            </tr>
+            <tr>
+              <td>Canaan Nano 3S (×4)</td>
+              <td>3 in office, 1 in living room</td>
+              <td>6 TH/s each</td>
+              <td>140W each</td>
+              <td>~$57.60</td>
+              <td style="color:var(--text-muted);">Offline (summer)</td>
+            </tr>
+            <tr>
+              <td>Canaan Nano 3</td>
+              <td>Garage</td>
+              <td>~4 TH/s</td>
+              <td>~100W</td>
+              <td>~$10.08</td>
+              <td style="color:var(--text-muted);">Offline (summer)</td>
+            </tr>
+            <tr>
+              <td>Canaan Avalon Q</td>
+              <td>Garage</td>
+              <td>90 TH/s</td>
+              <td>1,674W</td>
+              <td>~$168.00</td>
+              <td style="color:var(--text-muted);">Offline (summer)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout">
+          <p><strong>Why is almost everything offline?</strong> When my first summer electric bill came in at $240/month just for mining — at rates that don't break even on SHA-256 — I shut everything down except the Bitaxe Gamma. At $1.80/month to run, solo mining Bitcoin with it is basically free lottery tickets. The others come back on in winter when rates drop to 12¢/kWh and the heat they generate is actually useful.</p>
+        </div>
+
+        <h2>The Bitaxe situation</h2>
+        <p>The Bitaxe Gamma is my daily driver right now. It's plugged into my office, I barely notice it's running, and it's pointed at my own solo mining node — I run Umbrel OS on a mini PC with the Bitcoin Node app and Public Pool app installed. The odds of finding a block are astronomically low. I don't care. At $1.80 a month I'm essentially buying lottery tickets that also teach me about Bitcoin's proof-of-work mechanism. Someone with a Bitaxe once found a full block. It happens.</p>
+
+        <h2>The Avalon Q situation</h2>
+        <p>The Avalon Q is the nicest piece of hardware I own. I was genuinely surprised by how quiet it runs — even on Super mode, which pushes 90 TH/s and draws over 1,600 watts. I had to run a dedicated 20-amp circuit in my garage to power it properly, which cost a few hundred dollars to have done right. In eco mode it's more manageable on power but you give up a lot of hashrate. When the winter rates kick back in, this one comes back online first.</p>
+
+        <h2>The Nano 3S situation</h2>
+        <p>I have four of them. Three are in my office, one ended up in the living room — and that last one has a story. I tried running a miner in my bedroom once. My wife needs complete silence to sleep, and even the soft hum of the fans was enough to keep her awake. Out it went. The living room Nano 3S is the compromise. For the record: my wife was right. Don't put miners in the bedroom.</p>
+        <p>The Nano 3S is genuinely my favorite miner in the lineup for the money. At around $215 each, 6 TH/s at only 140 watts is a solid efficiency ratio for a home-friendly unit. The power supplies run a little warm but I haven't had any reliability issues across four units.</p>
+
+        <h2>The honest bottom line</h2>
+        <p>Home Bitcoin mining is a hobby, not a business — at least at residential electric rates. If you're paying more than about 8-9 cents per kWh, you are almost certainly not profitable on SHA-256 hardware. The math doesn't work. I know this because I've run it, lived it, and paid the electric bills to prove it.</p>
+        <p>That doesn't mean it's not worth doing. I've learned more about Bitcoin, proof-of-work, and how the network actually functions by running this hardware than I ever would have just reading about it. If that's your reason, it's a great reason. Just go in with eyes open.</p>
+
+        <h2>How to reach me</h2>
+        <p>Questions about the calculators, corrections to my specs, or just want to talk home mining — reach me at <a href="mailto:info@homeminertools.com">info@homeminertools.com</a>. I read everything.</p>
+
+        <div class="ad-unit">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-copy">© <span id="year"></span> Home Miner Tools — All rights reserved.</p>
+        <nav class="footer-links">
+          <a href="/">Home</a>
+          <a href="/#tools">Tools</a>
+          <a href="/#miners">Reviews</a>
+          <a href="/about">About</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Use</a>
+          <a href="mailto:info@homeminertools.com">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

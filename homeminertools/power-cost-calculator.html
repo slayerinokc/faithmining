@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitcoin Mining Power Cost Calculator — What Will It Cost to Run Your Miner?</title>
+  <meta name="description" content="Calculate exactly how much your home Bitcoin miner costs to run each month based on your wattage and electricity rate. Compare miners side by side.">
+  <link rel="canonical" href="https://www.homeminertools.com/power-cost-calculator">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-strong: rgba(255,255,255,0.12);
+      --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733;
+      --green: #22c55e; --red: #ef4444; --yellow: #f59e0b;
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.85rem; }
+    nav { display: flex; gap: 24px; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
+    .nav-link:hover { color: var(--text); }
+    .page-hero { padding: 56px 0 40px; }
+    .page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 12px; }
+    .page-hero p { font-size: 1rem; color: var(--text-secondary); }
+    .calc-section { padding: 0 0 80px; }
+    .calc-card { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 32px; margin-bottom: 32px; }
+    .calc-card h2 { font-size: 1rem; font-weight: 700; margin-bottom: 24px; color: var(--text); letter-spacing: -0.01em; }
+    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+    .input-group { display: flex; flex-direction: column; gap: 6px; }
+    .input-group label { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); }
+    .input-group input[type="number"] {
+      background: var(--bg); border: 1px solid var(--border-strong); border-radius: var(--radius);
+      color: var(--text); font-family: var(--font-mono); font-size: 1rem; padding: 12px 14px;
+      outline: none; transition: border-color var(--transition); width: 100%;
+    }
+    .input-group input[type="number"]:focus { border-color: var(--orange); }
+    .input-group .unit { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+    .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .preset-btn {
+      border: 1px solid var(--border); background: var(--bg); color: var(--text-secondary);
+      border-radius: 20px; padding: 6px 14px; font-size: 0.78rem; font-weight: 500;
+      cursor: pointer; transition: all var(--transition);
+    }
+    .preset-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .preset-btn.active { border-color: var(--orange); background: rgba(247,147,26,0.12); color: var(--orange); }
+    .results-panel { background: var(--bg); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); padding: 24px; }
+    .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
+    .result-item .r-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); margin-bottom: 4px; }
+    .result-item .r-value { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700; color: var(--orange); }
+    .result-item .r-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+    .verdict-bar { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .verdict-bar p { font-size: 0.9rem; }
+    .verdict-bar .verdict-good { color: var(--green); font-weight: 600; }
+    .verdict-bar .verdict-marginal { color: var(--yellow); font-weight: 600; }
+    .verdict-bar .verdict-bad { color: var(--red); font-weight: 600; }
+    .compare-section h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
+    .miners-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .miners-table th { text-align: left; padding: 10px 14px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); border-bottom: 1px solid var(--border-strong); }
+    .miners-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.83rem; }
+    .miners-table td:first-child { color: var(--text); font-family: var(--font); font-size: 0.875rem; font-weight: 500; }
+    .miners-table tr:last-child td { border-bottom: none; }
+    .rate-slider-row { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .rate-slider-row label { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); white-space: nowrap; }
+    .rate-slider-row input[type="range"] { flex: 1; accent-color: var(--orange); }
+    .rate-slider-row .rate-display { font-family: var(--font-mono); font-size: 1rem; color: var(--orange); font-weight: 700; min-width: 60px; text-align: right; }
+    .info-section { margin-top: 48px; }
+    .info-section h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
+    .info-section p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 14px; }
+    .ad-unit { margin: 48px 0; text-align: center; }
+    .site-footer { border-top: 1px solid var(--border); padding: 36px 0 24px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.82rem; color: var(--text-muted); }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    @media (max-width: 600px) {
+      .input-row { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo"><span class="logo-mark">⛏</span> Home Miner Tools</a>
+      <nav>
+        <a href="/#tools" class="nav-link">Tools</a>
+        <a href="/#miners" class="nav-link">Reviews</a>
+        <a href="/about" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <h1>Power Cost Calculator</h1>
+        <p>See exactly what your miner costs to run based on wattage and your electricity rate.</p>
+      </div>
+    </div>
+
+    <div class="calc-section">
+      <div class="container">
+        <!-- Single Miner Calculator -->
+        <div class="calc-card">
+          <h2>Single Miner Cost Calculator</h2>
+
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:16px;">Quick presets:</p>
+          <div class="presets">
+            <button class="preset-btn" onclick="setPreset(18, 1.2, this)">Bitaxe Gamma</button>
+            <button class="preset-btn" onclick="setPreset(140, 6, this)">Nano 3S</button>
+            <button class="preset-btn" onclick="setPreset(100, 4, this)">Nano 3</button>
+            <button class="preset-btn" onclick="setPreset(1674, 90, this)">Avalon Q (Super)</button>
+            <button class="preset-btn" onclick="setPreset(900, 50, this)">Avalon Q (Eco)</button>
+          </div>
+
+          <div class="input-row">
+            <div class="input-group">
+              <label>Miner Power Draw</label>
+              <input type="number" id="watts" value="140" min="1" max="10000" step="1" oninput="calculate()">
+              <span class="unit">watts (W)</span>
+            </div>
+            <div class="input-group">
+              <label>Electricity Rate</label>
+              <input type="number" id="rate" value="14" min="1" max="50" step="0.1" oninput="calculate()">
+              <span class="unit">cents per kWh (¢/kWh)</span>
+            </div>
+            <div class="input-group">
+              <label>Hashrate (optional)</label>
+              <input type="number" id="hashrate" value="6" min="0" step="0.1" oninput="calculate()">
+              <span class="unit">TH/s — for efficiency calculation</span>
+            </div>
+            <div class="input-group">
+              <label>Hours Per Day Running</label>
+              <input type="number" id="hours" value="24" min="1" max="24" step="1" oninput="calculate()">
+              <span class="unit">hours (24 = always on)</span>
+            </div>
+          </div>
+
+          <div class="results-panel">
+            <div class="results-grid">
+              <div class="result-item">
+                <div class="r-label">Per Hour</div>
+                <div class="r-value" id="costHour">—</div>
+                <div class="r-sub">USD</div>
+              </div>
+              <div class="result-item">
+                <div class="r-label">Per Day</div>
+                <div class="r-value" id="costDay">—</div>
+                <div class="r-sub">USD</div>
+              </div>
+              <div class="result-item">
+                <div class="r-label">Per Month</div>
+                <div class="r-value" id="costMonth">—</div>
+                <div class="r-sub">USD (30 days)</div>
+              </div>
+              <div class="result-item">
+                <div class="r-label">Per Year</div>
+                <div class="r-value" id="costYear">—</div>
+                <div class="r-sub">USD</div>
+              </div>
+              <div class="result-item">
+                <div class="r-label">kWh / Month</div>
+                <div class="r-value" id="kwhMonth">—</div>
+                <div class="r-sub">kilowatt-hours</div>
+              </div>
+              <div class="result-item">
+                <div class="r-label">Efficiency</div>
+                <div class="r-value" id="efficiency">—</div>
+                <div class="r-sub">J/TH</div>
+              </div>
+            </div>
+            <div class="verdict-bar">
+              <p id="verdictText">Enter your values above.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="compare-section">
+          <h2>Compare Common Home Miners — Adjust Rate</h2>
+          <div class="rate-slider-row">
+            <label>Your Rate:</label>
+            <input type="range" id="compareRate" min="2" max="30" step="0.5" value="14" oninput="updateCompare()">
+            <span class="rate-display"><span id="compareRateDisplay">14.0</span>¢</span>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="miners-table" id="compareTable">
+              <thead>
+                <tr>
+                  <th>Miner</th>
+                  <th>Hashrate</th>
+                  <th>Power</th>
+                  <th>Efficiency</th>
+                  <th>$/Month</th>
+                  <th>$/Year</th>
+                </tr>
+              </thead>
+              <tbody id="compareTbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="ad-unit">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="info-section">
+          <h2>How electricity cost is calculated</h2>
+          <p>The formula is straightforward: <strong>Power (kW) × Hours × Rate ($/kWh) = Cost</strong>. Convert watts to kilowatts by dividing by 1,000. A 140W miner running 24 hours at $0.14/kWh costs: (140 ÷ 1000) × 24 × $0.14 = $0.4704/day = ~$14.11/month.</p>
+          <p>The J/TH (joules per terahash) efficiency metric tells you how much energy it takes to produce one terahash of mining work. Lower is better — industrial-grade miners run 17-21 J/TH, while older hardware can be 60+ J/TH.</p>
+          <p>Note: This calculator shows electricity cost only. It does not include pool fees, hardware depreciation, internet, or cooling costs. For full profitability analysis including Bitcoin revenue, you'll need to factor in current network difficulty and BTC price — which change daily.</p>
+          <p>Also see: <a href="/blog/is-home-bitcoin-mining-worth-it">Is home Bitcoin mining worth it?</a> for a deeper look at the economics with real numbers from my setup.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-copy">© <span id="year"></span> Home Miner Tools — All rights reserved.</p>
+        <nav class="footer-links">
+          <a href="/">Home</a>
+          <a href="/#miners">Reviews</a>
+          <a href="/about">About</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Use</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const miners = [
+      { name: 'Bitaxe Gamma', th: 1.2, watts: 18 },
+      { name: 'Canaan Nano 3', th: 4, watts: 100 },
+      { name: 'Canaan Nano 3S', th: 6, watts: 140 },
+      { name: 'Avalon Q (Eco)', th: 50, watts: 900 },
+      { name: 'Avalon Q (Super)', th: 90, watts: 1674 },
+      { name: '4× Nano 3S + Bitaxe', th: 25.2, watts: 578 },
+    ];
+
+    function calculate() {
+      const watts = parseFloat(document.getElementById('watts').value) || 0;
+      const rateCents = parseFloat(document.getElementById('rate').value) || 0;
+      const ths = parseFloat(document.getElementById('hashrate').value) || 0;
+      const hours = parseFloat(document.getElementById('hours').value) || 24;
+      const rate = rateCents / 100;
+
+      const kw = watts / 1000;
+      const dayKwh = kw * hours;
+      const monthKwh = dayKwh * 30;
+
+      const costHour = kw * rate;
+      const costDay = dayKwh * rate;
+      const costMonth = monthKwh * rate;
+      const costYear = costDay * 365;
+      const efficiency = ths > 0 ? (watts / ths / 1000).toFixed(1) : '—';
+
+      document.getElementById('costHour').textContent = '$' + costHour.toFixed(4);
+      document.getElementById('costDay').textContent = '$' + costDay.toFixed(2);
+      document.getElementById('costMonth').textContent = '$' + costMonth.toFixed(2);
+      document.getElementById('costYear').textContent = '$' + costYear.toFixed(2);
+      document.getElementById('kwhMonth').textContent = monthKwh.toFixed(1);
+      document.getElementById('efficiency').textContent = ths > 0 ? efficiency + ' J/TH' : '—';
+
+      // Verdict
+      const vEl = document.getElementById('verdictText');
+      if (costMonth < 5) {
+        vEl.innerHTML = '<span class="verdict-good">Low cost</span> — At $' + costMonth.toFixed(2) + '/month, this miner is cheap enough to run year-round even at hobby rates.';
+      } else if (costMonth < 30) {
+        vEl.innerHTML = '<span class="verdict-marginal">Moderate cost</span> — $' + costMonth.toFixed(2) + '/month. Worth it if Bitcoin revenue offsets this — run the <a href="/">profitability check</a>.';
+      } else if (costMonth < 100) {
+        vEl.innerHTML = '<span class="verdict-bad">High cost</span> — $' + costMonth.toFixed(2) + '/month. This level of spend requires careful profitability analysis. See <a href="/blog/is-home-bitcoin-mining-worth-it">is home mining worth it?</a>';
+      } else {
+        vEl.innerHTML = '<span class="verdict-bad">Very high cost</span> — $' + costMonth.toFixed(2) + '/month. At this electricity spend you need to be in profit or very committed to the hobby. Consider cheaper electricity or offsite hosting.';
+      }
+    }
+
+    function setPreset(watts, ths, btn) {
+      document.getElementById('watts').value = watts;
+      document.getElementById('hashrate').value = ths;
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      calculate();
+    }
+
+    function updateCompare() {
+      const rateCents = parseFloat(document.getElementById('compareRate').value);
+      document.getElementById('compareRateDisplay').textContent = rateCents.toFixed(1);
+      const rate = rateCents / 100;
+      const tbody = document.getElementById('compareTbody');
+      tbody.innerHTML = '';
+      miners.forEach(m => {
+        const kw = m.watts / 1000;
+        const monthCost = kw * 24 * 30 * rate;
+        const yearCost = kw * 24 * 365 * rate;
+        const eff = (m.watts / m.th / 1000).toFixed(1);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${m.name}</td>
+          <td>${m.th} TH/s</td>
+          <td>${m.watts}W</td>
+          <td>${eff} J/TH</td>
+          <td>$${monthCost.toFixed(2)}</td>
+          <td>$${yearCost.toFixed(0)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Init
+    calculate();
+    updateCompare();
+  </script>
+</body>
+</html>

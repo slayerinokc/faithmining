@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Is Home Bitcoin Mining Worth It? A Real Owner's Honest Answer</title>
+  <meta name="description" content="I got a $240 electric bill mining Bitcoin at home and had to make a hard decision. Here's the real math on home mining profitability at residential electricity rates.">
+  <link rel="canonical" href="https://www.homeminertools.com/blog/is-home-bitcoin-mining-worth-it">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-strong: rgba(255,255,255,0.12);
+      --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733;
+      --green: #22c55e; --red: #ef4444;
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.85rem; }
+    nav { display: flex; gap: 24px; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
+    .nav-link:hover { color: var(--text); }
+    .page-hero { padding: 56px 0 40px; }
+    .breadcrumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--orange); }
+    .article-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 8px; border-radius: 4px; background: rgba(247,147,26,0.15); color: var(--orange); border: 1px solid var(--border-orange); margin-bottom: 16px; }
+    .page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 16px; }
+    .article-meta { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 32px; }
+    .content-section { padding: 0 0 80px; }
+    .content-section h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; margin: 44px 0 14px; }
+    .content-section p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 18px; }
+    .callout { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 20px 24px; margin: 28px 0; }
+    .callout p { margin: 0; font-size: 0.95rem; color: var(--text-secondary); }
+    .callout strong { color: var(--orange); }
+    .callout.danger { border-color: rgba(239,68,68,0.4); }
+    .callout.danger strong { color: var(--red); }
+    .data-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.88rem; }
+    .data-table th { text-align: left; padding: 10px 14px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); border-bottom: 1px solid var(--border-strong); }
+    .data-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.85rem; }
+    .data-table td:first-child { color: var(--text); font-family: var(--font); font-size: 0.9rem; font-weight: 500; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table .loss { color: var(--red); }
+    .data-table .marginal { color: #f59e0b; }
+    .data-table .ok { color: var(--green); }
+    .verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0; }
+    .verdict-box { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; }
+    .verdict-box h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+    .verdict-box.pros h3 { color: var(--green); }
+    .verdict-box.cons h3 { color: var(--red); }
+    .verdict-box ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .verdict-box ul li { font-size: 0.875rem; color: var(--text-secondary); padding-left: 16px; position: relative; }
+    .verdict-box.pros ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+    .verdict-box.cons ul li::before { content: '✗'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+    .ad-unit { margin: 48px 0; text-align: center; }
+    .site-footer { border-top: 1px solid var(--border); padding: 36px 0 24px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.82rem; color: var(--text-muted); }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    @media (max-width: 640px) {
+      .verdict-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo"><span class="logo-mark">⛏</span> Home Miner Tools</a>
+      <nav>
+        <a href="/#tools" class="nav-link">Tools</a>
+        <a href="/#miners" class="nav-link">Reviews</a>
+        <a href="/about" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="container prose">
+        <p class="breadcrumb"><a href="/">Home</a> › <a href="/#miners">Guides</a> › Is Home Mining Worth It?</p>
+        <span class="article-tag">Honest Guide</span>
+        <h1>Is Home Bitcoin Mining Worth It? A Real Owner's Honest Answer</h1>
+        <p class="article-meta">By Chris Johnson &nbsp;·&nbsp; June 2026 &nbsp;·&nbsp; Written after a $240 electric bill</p>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="container prose">
+
+        <p>I'll start with the punchline: for most people at residential electricity rates in the US, home Bitcoin mining is <em>not</em> profitable. I know this because I ran the full experiment — Bitaxe Gamma, four Canaan Nano 3S's, a Nano 3, and an Avalon Q — and then got an electric bill for $240 in a single month.</p>
+        <p>That was my moment of clarity. I shut down everything except the Bitaxe Gamma and did the math properly. Here's what I found.</p>
+
+        <div class="callout danger">
+          <p><strong>The short version:</strong> If your electricity rate is above ~8-9¢/kWh and you're trying to profit from SHA-256 mining at home, you are almost certainly losing money. This guide will show you exactly why — and what to do instead.</p>
+        </div>
+
+        <h2>The $240 bill that changed everything</h2>
+        <p>I had my full setup running during summer: the Avalon Q in the garage at 1,674W, four Nano 3S's at 140W each, one Nano 3 at ~100W, and the Bitaxe Gamma at 18W. Total draw was somewhere around 2,400 watts running continuously. At Oklahoma's summer rate of 14¢/kWh, that adds up fast.</p>
+        <p>When the bill came in I had someone help me analyze it. The mining equipment alone was adding roughly $240/month. Pool mining revenue at that hashrate? Maybe $20-30/month depending on Bitcoin price and difficulty. I was spending $240 to earn $25. That's an $8-to-$1 negative return.</p>
+
+        <h2>The actual math at different electricity rates</h2>
+        <p>Let's look at a Canaan Nano 3S — a popular, reasonably efficient home miner — across different electricity rates. I'm using 140W draw and 6 TH/s hashrate.</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Electricity Rate</th>
+              <th>Monthly Power Cost</th>
+              <th>Est. Pool Revenue</th>
+              <th>Net Profit/Loss</th>
+              <th>Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>4¢/kWh (data center)</td>
+              <td>$4.12</td>
+              <td>~$20–30</td>
+              <td class="ok">+$16–26</td>
+              <td class="ok">Profitable</td>
+            </tr>
+            <tr>
+              <td>6¢/kWh (industrial)</td>
+              <td>$6.17</td>
+              <td>~$20–30</td>
+              <td class="ok">+$14–24</td>
+              <td class="ok">Profitable</td>
+            </tr>
+            <tr>
+              <td>8¢/kWh (low residential)</td>
+              <td>$8.23</td>
+              <td>~$20–30</td>
+              <td class="marginal">+$12–22</td>
+              <td class="marginal">Marginal</td>
+            </tr>
+            <tr>
+              <td>10¢/kWh (avg residential)</td>
+              <td>$10.29</td>
+              <td>~$20–30</td>
+              <td class="marginal">+$10–20</td>
+              <td class="marginal">Check BTC price</td>
+            </tr>
+            <tr>
+              <td>12¢/kWh (OKC winter)</td>
+              <td>$12.34</td>
+              <td>~$20–30</td>
+              <td class="marginal">+$8–18</td>
+              <td class="marginal">Barely</td>
+            </tr>
+            <tr>
+              <td>14¢/kWh (OKC summer)</td>
+              <td>$14.40</td>
+              <td>~$20–30</td>
+              <td class="loss">−$0–6</td>
+              <td class="loss">Not profitable</td>
+            </tr>
+            <tr>
+              <td>18¢/kWh (high-cost states)</td>
+              <td>$18.51</td>
+              <td>~$20–30</td>
+              <td class="loss">−$2–11</td>
+              <td class="loss">Losing money</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-top: -10px;">Revenue estimates vary with Bitcoin price and network difficulty. These are rough ranges, not guarantees. Use the <a href="/power-cost-calculator">power cost calculator</a> for your specific setup.</p>
+
+        <h2>Why residential miners lose and industrial miners win</h2>
+        <p>The Bitcoin mining industry is ruthlessly competitive. Large mining operations negotiate electricity rates of 3-6¢/kWh through industrial contracts, bulk purchasing, or geographic arbitrage (cheap hydro in Kazakhstan, flared gas in Texas, etc.). You, as a residential customer, pay retail rates — typically 10-20¢/kWh in the US.</p>
+        <p>At 4¢/kWh vs 14¢/kWh, the industrial miner's power cost is 3.5x lower than yours. On a margin business like mining, that difference is the entire profit margin and then some. The hardware is the same. The network difficulty is the same. The only variable is electricity cost — and that variable makes home mining unprofitable in most of the US.</p>
+
+        <h2>What I actually do now — and why</h2>
+        <p>I shut down everything except the Bitaxe Gamma. Here's my reasoning:</p>
+        <p>The Bitaxe draws 18W and costs me about $1.80/month at 14¢/kWh. It's pointed at my own Umbrel solo mining node. The probability of finding a block at 1.2 TH/s is essentially a lottery — but the cost is so low that the downside is negligible. It's entertainment and education for less than a monthly streaming subscription.</p>
+        <p>The Nano 3S's and Avalon Q come back online in winter when OKC drops to 12¢/kWh. Even then I know I'm probably not profitable — but the heat offset is real (my office is heated by the miners), and the hobby value is real. I'm not running them because I expect to make money. I'm running them because I enjoy the hobby.</p>
+
+        <div class="callout">
+          <p><strong>The reframe that helped me:</strong> Stop thinking of home mining as an income stream and start thinking of it as a paid hobby — like photography, woodworking, or car restoration. If the experience is worth the monthly cost, do it. If you need it to be profitable, you need a different business model.</p>
+        </div>
+
+        <h2>When home mining actually makes sense</h2>
+        <div class="verdict-grid">
+          <div class="verdict-box pros">
+            <h3>Good reasons to mine at home</h3>
+            <ul>
+              <li>Your electricity is genuinely cheap (&lt;8¢/kWh)</li>
+              <li>You're doing it as a hobby / learning experience</li>
+              <li>Winter heating offset reduces effective cost</li>
+              <li>You want to run a personal Bitcoin node + solo mining</li>
+              <li>The "lottery ticket" angle at minimal cost (Bitaxe-level)</li>
+              <li>You're planning to scale to a hosted facility later</li>
+            </ul>
+          </div>
+          <div class="verdict-box cons">
+            <h3>Bad reasons to mine at home</h3>
+            <ul>
+              <li>Expecting it to replace income at 14¢+/kWh rates</li>
+              <li>Buying hashrate to "get rich" without checking the math</li>
+              <li>Thinking GPU mining BTC is viable in 2026</li>
+              <li>Scaling up home miners to reduce per-unit cost (it doesn't fix the electricity problem)</li>
+              <li>Running on shared circuits or improvised wiring</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2>What to do if you want mining income</h2>
+        <p>If your actual goal is profit from mining, not the hobby, there are better paths:</p>
+        <p><strong>Cloud mining or hosted mining:</strong> Services like GoMining let you buy hashrate without managing hardware or paying residential electricity. The economics are often more favorable than home mining. I run GoMining alongside my home setup for exactly this reason.</p>
+        <p><strong>Hosted hardware:</strong> Buy your own ASIC and have it hosted at a facility with cheap electricity (3-5¢/kWh). You own the hardware and control the wallet, but they handle the power and cooling. This is how serious small miners operate.</p>
+        <p><strong>Do the math first:</strong> Use the <a href="/power-cost-calculator">power cost calculator</a> on this site to model your specific electricity rate and hardware before buying anything. The numbers don't lie.</p>
+
+        <div class="ad-unit">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <p>Questions about your specific situation? Email me at <a href="mailto:info@homeminertools.com">info@homeminertools.com</a>.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-copy">© <span id="year"></span> Home Miner Tools — All rights reserved.</p>
+        <nav class="footer-links">
+          <a href="/">Home</a>
+          <a href="/#miners">Reviews</a>
+          <a href="/about">About</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Use</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
