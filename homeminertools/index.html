@@ -83,8 +83,8 @@
     }
     .calc-field input:focus, .calc-field select:focus { border-color: var(--orange); }
     .calc-field select { cursor: pointer; }
-    .unit-select { width: 90px; flex-shrink: 0; }
-    .hash-input { flex: 1; }
+    .input-row .unit-select { width: 90px; flex-shrink: 0; }
+    .input-row .hash-input { flex: 1; width: auto; min-width: 0; }
     .difficulty-row { display: flex; align-items: center; gap: 10px; }
     .difficulty-row input { flex: 1; }
     .fetch-btn {
@@ -246,11 +246,11 @@
           <div class="presets">
             <div class="presets-label">Quick presets</div>
             <div class="preset-btns">
-              <button class="preset-btn" onclick="setPreset(0.5, 'TH/s', 'Bitaxe Ultra')">Bitaxe Ultra (500 GH/s)</button>
-              <button class="preset-btn" onclick="setPreset(1.2, 'TH/s', 'Bitaxe Gamma')">Bitaxe Gamma (1.2 TH/s)</button>
-              <button class="preset-btn" onclick="setPreset(6, 'TH/s', 'Nano 3S')">Canaan Nano 3S (6 TH/s)</button>
-              <button class="preset-btn" onclick="setPreset(90, 'TH/s', 'Avalon Q')">Avalon Q (90 TH/s)</button>
-              <button class="preset-btn" onclick="setPreset(4.8, 'TH/s', 'NerdQaxe++')">NerdQaxe++ (4.8 TH/s)</button>
+              <button class="preset-btn" onclick="setPreset(0.5, 'TH', 'Bitaxe Ultra')">Bitaxe Ultra (500 GH/s)</button>
+              <button class="preset-btn" onclick="setPreset(1.2, 'TH', 'Bitaxe Gamma')">Bitaxe Gamma (1.2 TH/s)</button>
+              <button class="preset-btn" onclick="setPreset(6, 'TH', 'Nano 3S')">Canaan Nano 3S (6 TH/s)</button>
+              <button class="preset-btn" onclick="setPreset(90, 'TH', 'Avalon Q')">Avalon Q (90 TH/s)</button>
+              <button class="preset-btn" onclick="setPreset(4.8, 'TH', 'NerdQaxe++')">NerdQaxe++ (4.8 TH/s)</button>
             </div>
           </div>
 
