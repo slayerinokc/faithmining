@@ -441,6 +441,8 @@
     }
 
     // Fetch live network difficulty
+    document.addEventListener('DOMContentLoaded', fetchDifficulty);
+
     async function fetchDifficulty() {
       const status = document.getElementById('diff-status');
       const input = document.getElementById('difficulty');
