@@ -106,11 +106,11 @@
     <div class="content-section">
       <div class="container prose">
 
-        <p>I'll start with the punchline: for most people at residential electricity rates in the US, home Bitcoin mining is <em>not</em> profitable. I know this because I ran the full experiment — Bitaxe Gamma, four Canaan Nano 3S's, a Nano 3, and an Avalon Q — and then got an electric bill for $240 in a single month.</p>
+        <p>I'll start with the punchline: for most people at residential electricity rates in the US, home Bitcoin mining is <em>not</em> profitable. I know this because I ran the full experiment - Bitaxe Gamma, four Canaan Nano 3S's, a Nano 3, and an Avalon Q - and then got an electric bill for $240 in a single month.</p>
         <p>That was my moment of clarity. I shut down everything except the Bitaxe Gamma and did the math properly. Here's what I found.</p>
 
         <div class="callout danger">
-          <p><strong>The short version:</strong> If your electricity rate is above ~8-9¢/kWh and you're trying to profit from SHA-256 mining at home, you are almost certainly losing money. This guide will show you exactly why — and what to do instead.</p>
+          <p><strong>The short version:</strong> If your electricity rate is above ~8-9¢/kWh and you're trying to profit from SHA-256 mining at home, you are almost certainly losing money. This guide will show you exactly why - and what to do instead.</p>
         </div>
 
         <h2>The $240 bill that changed everything</h2>
@@ -118,7 +118,7 @@
         <p>When the bill came in I had someone help me analyze it. The mining equipment alone was adding roughly $240/month. Pool mining revenue at that hashrate? Maybe $20-30/month depending on Bitcoin price and difficulty. I was spending $240 to earn $25. That's an $8-to-$1 negative return.</p>
 
         <h2>The actual math at different electricity rates</h2>
-        <p>Let's look at a Canaan Nano 3S — a popular, reasonably efficient home miner — across different electricity rates. I'm using 140W draw and 6 TH/s hashrate.</p>
+        <p>Let's look at a Canaan Nano 3S - a popular, reasonably efficient home miner - across different electricity rates. I'm using 140W draw and 6 TH/s hashrate.</p>
 
         <table class="data-table">
           <thead>
@@ -134,50 +134,50 @@
             <tr>
               <td>4¢/kWh (data center)</td>
               <td>$4.12</td>
-              <td>~$20–30</td>
-              <td class="ok">+$16–26</td>
+              <td>~$20-30</td>
+              <td class="ok">+$16-26</td>
               <td class="ok">Profitable</td>
             </tr>
             <tr>
               <td>6¢/kWh (industrial)</td>
               <td>$6.17</td>
-              <td>~$20–30</td>
-              <td class="ok">+$14–24</td>
+              <td>~$20-30</td>
+              <td class="ok">+$14-24</td>
               <td class="ok">Profitable</td>
             </tr>
             <tr>
               <td>8¢/kWh (low residential)</td>
               <td>$8.23</td>
-              <td>~$20–30</td>
-              <td class="marginal">+$12–22</td>
+              <td>~$20-30</td>
+              <td class="marginal">+$12-22</td>
               <td class="marginal">Marginal</td>
             </tr>
             <tr>
               <td>10¢/kWh (avg residential)</td>
               <td>$10.29</td>
-              <td>~$20–30</td>
-              <td class="marginal">+$10–20</td>
+              <td>~$20-30</td>
+              <td class="marginal">+$10-20</td>
               <td class="marginal">Check BTC price</td>
             </tr>
             <tr>
               <td>12¢/kWh (OKC winter)</td>
               <td>$12.34</td>
-              <td>~$20–30</td>
-              <td class="marginal">+$8–18</td>
+              <td>~$20-30</td>
+              <td class="marginal">+$8-18</td>
               <td class="marginal">Barely</td>
             </tr>
             <tr>
               <td>14¢/kWh (OKC summer)</td>
               <td>$14.40</td>
-              <td>~$20–30</td>
-              <td class="loss">−$0–6</td>
+              <td>~$20-30</td>
+              <td class="loss">−$0-6</td>
               <td class="loss">Not profitable</td>
             </tr>
             <tr>
               <td>18¢/kWh (high-cost states)</td>
               <td>$18.51</td>
-              <td>~$20–30</td>
-              <td class="loss">−$2–11</td>
+              <td>~$20-30</td>
+              <td class="loss">−$2-11</td>
               <td class="loss">Losing money</td>
             </tr>
           </tbody>
@@ -185,16 +185,16 @@
         <p style="font-size:0.8rem; color:var(--text-muted); margin-top: -10px;">Revenue estimates vary with Bitcoin price and network difficulty. These are rough ranges, not guarantees. Use the <a href="/power-cost-calculator">power cost calculator</a> for your specific setup.</p>
 
         <h2>Why residential miners lose and industrial miners win</h2>
-        <p>The Bitcoin mining industry is ruthlessly competitive. Large mining operations negotiate electricity rates of 3-6¢/kWh through industrial contracts, bulk purchasing, or geographic arbitrage (cheap hydro in Kazakhstan, flared gas in Texas, etc.). You, as a residential customer, pay retail rates — typically 10-20¢/kWh in the US.</p>
-        <p>At 4¢/kWh vs 14¢/kWh, the industrial miner's power cost is 3.5x lower than yours. On a margin business like mining, that difference is the entire profit margin and then some. The hardware is the same. The network difficulty is the same. The only variable is electricity cost — and that variable makes home mining unprofitable in most of the US.</p>
+        <p>The Bitcoin mining industry is ruthlessly competitive. Large mining operations negotiate electricity rates of 3-6¢/kWh through industrial contracts, bulk purchasing, or geographic arbitrage (cheap hydro in Kazakhstan, flared gas in Texas, etc.). You, as a residential customer, pay retail rates - typically 10-20¢/kWh in the US.</p>
+        <p>At 4¢/kWh vs 14¢/kWh, the industrial miner's power cost is 3.5x lower than yours. On a margin business like mining, that difference is the entire profit margin and then some. The hardware is the same. The network difficulty is the same. The only variable is electricity cost - and that variable makes home mining unprofitable in most of the US.</p>
 
-        <h2>What I actually do now — and why</h2>
+        <h2>What I actually do now - and why</h2>
         <p>I shut down everything except the Bitaxe Gamma. Here's my reasoning:</p>
-        <p>The Bitaxe draws 18W and costs me about $1.80/month at 14¢/kWh. It's pointed at my own Umbrel solo mining node. The probability of finding a block at 1.2 TH/s is essentially a lottery — but the cost is so low that the downside is negligible. It's entertainment and education for less than a monthly streaming subscription.</p>
-        <p>The Nano 3S's and Avalon Q come back online in winter when OKC drops to 12¢/kWh. Even then I know I'm probably not profitable — but the heat offset is real (my office is heated by the miners), and the hobby value is real. I'm not running them because I expect to make money. I'm running them because I enjoy the hobby.</p>
+        <p>The Bitaxe draws 18W and costs me about $1.80/month at 14¢/kWh. It's pointed at my own Umbrel solo mining node. The probability of finding a block at 1.2 TH/s is essentially a lottery - but the cost is so low that the downside is negligible. It's entertainment and education for less than a monthly streaming subscription.</p>
+        <p>The Nano 3S's and Avalon Q come back online in winter when OKC drops to 12¢/kWh. Even then I know I'm probably not profitable - but the heat offset is real (my office is heated by the miners), and the hobby value is real. I'm not running them because I expect to make money. I'm running them because I enjoy the hobby.</p>
 
         <div class="callout">
-          <p><strong>The reframe that helped me:</strong> Stop thinking of home mining as an income stream and start thinking of it as a paid hobby — like photography, woodworking, or car restoration. If the experience is worth the monthly cost, do it. If you need it to be profitable, you need a different business model.</p>
+          <p><strong>The reframe that helped me:</strong> Stop thinking of home mining as an income stream and start thinking of it as a paid hobby - like photography, woodworking, or car restoration. If the experience is worth the monthly cost, do it. If you need it to be profitable, you need a different business model.</p>
         </div>
 
         <h2>When home mining actually makes sense</h2>
@@ -245,7 +245,7 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-inner">
-        <p class="footer-copy">© <span id="year"></span> Home Miner Tools — All rights reserved.</p>
+        <p class="footer-copy">© <span id="year"></span> Home Miner Tools - All rights reserved.</p>
         <nav class="footer-links">
           <a href="/">Home</a>
           <a href="/#miners">Reviews</a>

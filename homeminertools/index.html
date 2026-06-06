@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Miner Tools — Solo Mining Calculator & Small ASIC Guides</title>
+  <title>Home Miner Tools - Solo Mining Calculator & Small ASIC Guides</title>
   <meta name="description" content="Free tools and honest guides for small home Bitcoin miners. Solo mining probability calculator, power cost calculator, and real-world reviews of Bitaxe, Canaan Nano, and Avalon Q miners.">
   <link rel="canonical" href="https://www.homeminertools.com/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -237,7 +237,7 @@
       <div class="container">
         <p class="hero-eyebrow">For Home Bitcoin Miners</p>
         <h1>Solo Mining<br>Probability Calculator</h1>
-        <p class="hero-sub">Enter your hashrate and see your real odds of finding a Bitcoin block solo mining. Built by a home miner, for home miners — no hype, just math.</p>
+        <p class="hero-sub">Enter your hashrate and see your real odds of finding a Bitcoin block solo mining. Built by a home miner, for home miners - no hype, just math.</p>
 
         <div class="calc-card">
           <h2>Solo Mining Odds Calculator</h2>
@@ -248,9 +248,9 @@
             <div class="preset-btns">
               <button class="preset-btn" onclick="setPreset(0.5, 'TH/s', 'Bitaxe Ultra')">Bitaxe Ultra (500 GH/s)</button>
               <button class="preset-btn" onclick="setPreset(1.2, 'TH/s', 'Bitaxe Gamma')">Bitaxe Gamma (1.2 TH/s)</button>
+              <button class="preset-btn" onclick="setPreset(4.8, 'TH/s', 'NerdQaxe++')">NerdQaxe++ (4.8 TH/s)</button>
               <button class="preset-btn" onclick="setPreset(6, 'TH/s', 'Nano 3S')">Canaan Nano 3S (6 TH/s)</button>
               <button class="preset-btn" onclick="setPreset(90, 'TH/s', 'Avalon Q')">Avalon Q (90 TH/s)</button>
-              <button class="preset-btn" onclick="setPreset(97.2, 'TH/s', 'Full setup')">Full Setup (97.2 TH/s)</button>
             </div>
           </div>
 
@@ -269,7 +269,7 @@
             <div class="calc-field">
               <label>Network Difficulty <span id="diff-status" style="font-size:0.65rem;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;">(loading…)</span></label>
               <div class="difficulty-row">
-                <input type="number" id="difficulty" placeholder="Auto-fetching..." step="any">
+                <input type="text" id="difficulty" placeholder="Auto-fetching...">
                 <button class="fetch-btn" onclick="fetchDifficulty()">↻ Refresh</button>
               </div>
             </div>
@@ -281,23 +281,23 @@
             <div class="results-grid">
               <div class="result-box highlight" style="grid-column: span 2;">
                 <div class="r-label">Expected Time to Find a Block</div>
-                <div class="r-value" id="r-time">—</div>
+                <div class="r-value" id="r-time">-</div>
               </div>
               <div class="result-box">
                 <div class="r-label">Chance in 24 Hours</div>
-                <div class="r-value" id="r-day">—</div>
+                <div class="r-value" id="r-day">-</div>
               </div>
               <div class="result-box">
                 <div class="r-label">Chance in 7 Days</div>
-                <div class="r-value" id="r-week">—</div>
+                <div class="r-value" id="r-week">-</div>
               </div>
               <div class="result-box">
                 <div class="r-label">Chance in 30 Days</div>
-                <div class="r-value" id="r-month">—</div>
+                <div class="r-value" id="r-month">-</div>
               </div>
               <div class="result-box">
                 <div class="r-label">Chance in 1 Year</div>
-                <div class="r-value" id="r-year">—</div>
+                <div class="r-value" id="r-year">-</div>
               </div>
             </div>
             <p class="expected-note" id="r-note"></p>
@@ -322,7 +322,7 @@
       <div class="container">
         <div class="section-header">
           <h2>More Tools</h2>
-          <p>Free calculators for small home miners — power costs, break-even rates, and more.</p>
+          <p>Free calculators for small home miners - power costs, break-even rates, and more.</p>
         </div>
         <div class="tools-grid">
           <div class="tool-card">
@@ -340,7 +340,7 @@
           <div class="tool-card">
             <div class="tool-icon">🎲</div>
             <h3>Solo vs Pool Mining</h3>
-            <p>The math behind solo mining versus joining a pool — when the lottery makes sense, and when consistent small payouts are the smarter play.</p>
+            <p>The math behind solo mining versus joining a pool - when the lottery makes sense, and when consistent small payouts are the smarter play.</p>
             <a href="/blog/solo-vs-pool-mining-small-miners" class="tool-link">Read the guide →</a>
           </div>
         </div>
@@ -359,7 +359,7 @@
             <h3>Bitaxe Gamma</h3>
             <div class="miner-specs">
               <div class="spec-row"><span class="spec-label">Hashrate</span><span class="spec-value">~1.2 TH/s</span></div>
-              <div class="spec-row"><span class="spec-label">Power draw</span><span class="spec-value">~14–18W</span></div>
+              <div class="spec-row"><span class="spec-label">Power draw</span><span class="spec-value">~14-18W</span></div>
               <div class="spec-row"><span class="spec-label">Cost/mo (14¢)</span><span class="spec-value">~$1.80</span></div>
               <div class="spec-row"><span class="spec-label">Noise level</span><span class="spec-value">Near silent</span></div>
             </div>
@@ -394,10 +394,10 @@
     <section class="about-strip">
       <div class="container">
         <div class="about-inner">
-          <img src="/chris-johnson.png" alt="Chris Johnson — Home Miner Tools" class="about-avatar">
+          <img src="/chris-johnson.png" alt="Chris Johnson - Home Miner Tools" class="about-avatar">
           <div class="about-text">
             <h3>Written by someone who actually runs this stuff</h3>
-            <p>I'm Chris — an IT specialist and home Bitcoin miner in Oklahoma City. I run a Bitaxe Gamma, four Canaan Nano 3S's, a Nano 3, and an Avalon Q. I built this site because most home mining content is written by people who don't own any miners. Everything here is based on hardware sitting in my garage and office right now. <a href="/about">More about my setup →</a></p>
+            <p>I'm Chris - an IT specialist and home Bitcoin miner in Oklahoma City. I run a Bitaxe Gamma, four Canaan Nano 3S's, a Nano 3, and an Avalon Q. I built this site because most home mining content is written by people who don't own any miners. Everything here is based on hardware sitting in my garage and office right now. <a href="/about">More about my setup →</a></p>
           </div>
         </div>
       </div>
@@ -407,7 +407,7 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-inner">
-        <p class="footer-copy">© <span id="year"></span> Home Miner Tools — All rights reserved.</p>
+        <p class="footer-copy">© <span id="year"></span> Home Miner Tools - All rights reserved.</p>
         <nav class="footer-links">
           <a href="/">Home</a>
           <a href="/#tools">Tools</a>
@@ -425,22 +425,37 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // Format raw difficulty as human-readable (e.g. 138.96T)
+    function formatDifficulty(diff) {
+      if (diff >= 1e12) return (diff / 1e12).toFixed(2) + 'T';
+      if (diff >= 1e9)  return (diff / 1e9).toFixed(2) + 'B';
+      return Math.round(diff).toString();
+    }
+
+    // Parse difficulty from field - handles "138.96T", "138960000000000", etc.
+    function parseDifficulty(str) {
+      str = String(str).trim().toUpperCase();
+      if (str.endsWith('T')) return parseFloat(str) * 1e12;
+      if (str.endsWith('B')) return parseFloat(str) * 1e9;
+      return parseFloat(str);
+    }
+
     // Fetch live network difficulty
     async function fetchDifficulty() {
       const status = document.getElementById('diff-status');
       const input = document.getElementById('difficulty');
-      status.textContent = '(fetching…)';
+      status.textContent = '(fetching...)';
       status.style.color = 'var(--text-muted)';
       try {
         const res = await fetch('https://blockchain.info/q/getdifficulty');
         const diff = await res.json();
-        input.value = Math.round(diff);
+        input.value = formatDifficulty(diff);
         status.textContent = '(live ✓)';
         status.style.color = 'var(--green)';
       } catch(e) {
         status.textContent = '(enter manually)';
         status.style.color = 'var(--red)';
-        input.placeholder = 'Enter difficulty manually';
+        input.placeholder = 'e.g. 138.96T';
       }
     }
 
@@ -452,7 +467,7 @@
     function calculate() {
       const hashrateRaw = parseFloat(document.getElementById('hashrate').value);
       const unit = document.getElementById('hashUnit').value;
-      const difficulty = parseFloat(document.getElementById('difficulty').value);
+      const difficulty = parseDifficulty(document.getElementById('difficulty').value);
 
       if (!hashrateRaw || hashrateRaw <= 0 || !difficulty || difficulty <= 0) {
         alert('Please enter your hashrate and make sure difficulty has loaded (or enter it manually).');
@@ -506,19 +521,4 @@
       document.getElementById('r-day').textContent = fmtPct(pDay);
       document.getElementById('r-week').textContent = fmtPct(pWeek);
       document.getElementById('r-month').textContent = fmtPct(pMonth);
-      document.getElementById('r-year').textContent = fmtPct(pYear);
-
-      const btcValue = 3.125; // current block reward
-      document.getElementById('r-note').textContent =
-        `If you get lucky and find a block, the current reward is ${btcValue} BTC plus transaction fees. ` +
-        `The math says your expected wait is ${timeStr} — but luck doesn't care about expected values. ` +
-        `Someone running a Bitaxe once won a full block. It happens.`;
-
-      document.getElementById('results').classList.add('visible');
-    }
-
-    // Auto-fetch difficulty on load
-    fetchDifficulty();
-  </script>
-</body>
-</html>
+      document.getElementById('r-year').textContent = f

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bitcoin Mining Power Cost Calculator — What Will It Cost to Run Your Miner?</title>
+  <title>Bitcoin Mining Power Cost Calculator - What Will It Cost to Run Your Miner?</title>
   <meta name="description" content="Calculate exactly how much your home Bitcoin miner costs to run each month based on your wattage and electricity rate. Compare miners side by side.">
   <link rel="canonical" href="https://www.homeminertools.com/power-cost-calculator">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -123,11 +123,14 @@
 
           <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:16px;">Quick presets:</p>
           <div class="presets">
+            <button class="preset-btn" onclick="setPreset(15, 0.5, this)">Bitaxe Ultra</button>
             <button class="preset-btn" onclick="setPreset(18, 1.2, this)">Bitaxe Gamma</button>
-            <button class="preset-btn" onclick="setPreset(140, 6, this)">Nano 3S</button>
+            <button class="preset-btn" onclick="setPreset(40, 3.6, this)">Bitaxe Hex</button>
+            <button class="preset-btn" onclick="setPreset(70, 4.8, this)">NerdQaxe++</button>
             <button class="preset-btn" onclick="setPreset(100, 4, this)">Nano 3</button>
-            <button class="preset-btn" onclick="setPreset(1674, 90, this)">Avalon Q (Super)</button>
+            <button class="preset-btn" onclick="setPreset(140, 6, this)">Nano 3S</button>
             <button class="preset-btn" onclick="setPreset(900, 50, this)">Avalon Q (Eco)</button>
+            <button class="preset-btn" onclick="setPreset(1674, 90, this)">Avalon Q (Super)</button>
           </div>
 
           <div class="input-row">
@@ -144,7 +147,7 @@
             <div class="input-group">
               <label>Hashrate (optional)</label>
               <input type="number" id="hashrate" value="6" min="0" step="0.1" oninput="calculate()">
-              <span class="unit">TH/s — for efficiency calculation</span>
+              <span class="unit">TH/s - for efficiency calculation</span>
             </div>
             <div class="input-group">
               <label>Hours Per Day Running</label>
@@ -157,32 +160,32 @@
             <div class="results-grid">
               <div class="result-item">
                 <div class="r-label">Per Hour</div>
-                <div class="r-value" id="costHour">—</div>
+                <div class="r-value" id="costHour">-</div>
                 <div class="r-sub">USD</div>
               </div>
               <div class="result-item">
                 <div class="r-label">Per Day</div>
-                <div class="r-value" id="costDay">—</div>
+                <div class="r-value" id="costDay">-</div>
                 <div class="r-sub">USD</div>
               </div>
               <div class="result-item">
                 <div class="r-label">Per Month</div>
-                <div class="r-value" id="costMonth">—</div>
+                <div class="r-value" id="costMonth">-</div>
                 <div class="r-sub">USD (30 days)</div>
               </div>
               <div class="result-item">
                 <div class="r-label">Per Year</div>
-                <div class="r-value" id="costYear">—</div>
+                <div class="r-value" id="costYear">-</div>
                 <div class="r-sub">USD</div>
               </div>
               <div class="result-item">
                 <div class="r-label">kWh / Month</div>
-                <div class="r-value" id="kwhMonth">—</div>
+                <div class="r-value" id="kwhMonth">-</div>
                 <div class="r-sub">kilowatt-hours</div>
               </div>
               <div class="result-item">
                 <div class="r-label">Efficiency</div>
-                <div class="r-value" id="efficiency">—</div>
+                <div class="r-value" id="efficiency">-</div>
                 <div class="r-sub">J/TH</div>
               </div>
             </div>
@@ -194,7 +197,7 @@
 
         <!-- Comparison Table -->
         <div class="compare-section">
-          <h2>Compare Common Home Miners — Adjust Rate</h2>
+          <h2>Compare Common Home Miners - Adjust Rate</h2>
           <div class="rate-slider-row">
             <label>Your Rate:</label>
             <input type="range" id="compareRate" min="2" max="30" step="0.5" value="14" oninput="updateCompare()">
@@ -230,8 +233,8 @@
         <div class="info-section">
           <h2>How electricity cost is calculated</h2>
           <p>The formula is straightforward: <strong>Power (kW) × Hours × Rate ($/kWh) = Cost</strong>. Convert watts to kilowatts by dividing by 1,000. A 140W miner running 24 hours at $0.14/kWh costs: (140 ÷ 1000) × 24 × $0.14 = $0.4704/day = ~$14.11/month.</p>
-          <p>The J/TH (joules per terahash) efficiency metric tells you how much energy it takes to produce one terahash of mining work. Lower is better — industrial-grade miners run 17-21 J/TH, while older hardware can be 60+ J/TH.</p>
-          <p>Note: This calculator shows electricity cost only. It does not include pool fees, hardware depreciation, internet, or cooling costs. For full profitability analysis including Bitcoin revenue, you'll need to factor in current network difficulty and BTC price — which change daily.</p>
+          <p>The J/TH (joules per terahash) efficiency metric tells you how much energy it takes to produce one terahash of mining work. Lower is better - industrial-grade miners run 17-21 J/TH, while older hardware can be 60+ J/TH.</p>
+          <p>Note: This calculator shows electricity cost only. It does not include pool fees, hardware depreciation, internet, or cooling costs. For full profitability analysis including Bitcoin revenue, you'll need to factor in current network difficulty and BTC price - which change daily.</p>
           <p>Also see: <a href="/blog/is-home-bitcoin-mining-worth-it">Is home Bitcoin mining worth it?</a> for a deeper look at the economics with real numbers from my setup.</p>
         </div>
       </div>
@@ -241,7 +244,7 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-inner">
-        <p class="footer-copy">© <span id="year"></span> Home Miner Tools — All rights reserved.</p>
+        <p class="footer-copy">© <span id="year"></span> Home Miner Tools - All rights reserved.</p>
         <nav class="footer-links">
           <a href="/">Home</a>
           <a href="/#miners">Reviews</a>
@@ -257,12 +260,14 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const miners = [
+      { name: 'Bitaxe Ultra', th: 0.5, watts: 15 },
       { name: 'Bitaxe Gamma', th: 1.2, watts: 18 },
+      { name: 'Bitaxe Hex', th: 3.6, watts: 40 },
+      { name: 'NerdQaxe++', th: 4.8, watts: 70 },
       { name: 'Canaan Nano 3', th: 4, watts: 100 },
       { name: 'Canaan Nano 3S', th: 6, watts: 140 },
       { name: 'Avalon Q (Eco)', th: 50, watts: 900 },
       { name: 'Avalon Q (Super)', th: 90, watts: 1674 },
-      { name: '4× Nano 3S + Bitaxe', th: 25.2, watts: 578 },
     ];
 
     function calculate() {
@@ -280,25 +285,25 @@
       const costDay = dayKwh * rate;
       const costMonth = monthKwh * rate;
       const costYear = costDay * 365;
-      const efficiency = ths > 0 ? (watts / ths / 1000).toFixed(1) : '—';
+      const efficiency = ths > 0 ? (watts / ths / 1000).toFixed(1) : '-';
 
       document.getElementById('costHour').textContent = '$' + costHour.toFixed(4);
       document.getElementById('costDay').textContent = '$' + costDay.toFixed(2);
       document.getElementById('costMonth').textContent = '$' + costMonth.toFixed(2);
       document.getElementById('costYear').textContent = '$' + costYear.toFixed(2);
       document.getElementById('kwhMonth').textContent = monthKwh.toFixed(1);
-      document.getElementById('efficiency').textContent = ths > 0 ? efficiency + ' J/TH' : '—';
+      document.getElementById('efficiency').textContent = ths > 0 ? efficiency + ' J/TH' : '-';
 
       // Verdict
       const vEl = document.getElementById('verdictText');
       if (costMonth < 5) {
-        vEl.innerHTML = '<span class="verdict-good">Low cost</span> — At $' + costMonth.toFixed(2) + '/month, this miner is cheap enough to run year-round even at hobby rates.';
+        vEl.innerHTML = '<span class="verdict-good">Low cost</span> - At $' + costMonth.toFixed(2) + '/month, this miner is cheap enough to run year-round even at hobby rates.';
       } else if (costMonth < 30) {
-        vEl.innerHTML = '<span class="verdict-marginal">Moderate cost</span> — $' + costMonth.toFixed(2) + '/month. Worth it if Bitcoin revenue offsets this — run the <a href="/">profitability check</a>.';
+        vEl.innerHTML = '<span class="verdict-marginal">Moderate cost</span> - $' + costMonth.toFixed(2) + '/month. Worth it if Bitcoin revenue offsets this - run the <a href="/">profitability check</a>.';
       } else if (costMonth < 100) {
-        vEl.innerHTML = '<span class="verdict-bad">High cost</span> — $' + costMonth.toFixed(2) + '/month. This level of spend requires careful profitability analysis. See <a href="/blog/is-home-bitcoin-mining-worth-it">is home mining worth it?</a>';
+        vEl.innerHTML = '<span class="verdict-bad">High cost</span> - $' + costMonth.toFixed(2) + '/month. This level of spend requires careful profitability analysis. See <a href="/blog/is-home-bitcoin-mining-worth-it">is home mining worth it?</a>';
       } else {
-        vEl.innerHTML = '<span class="verdict-bad">Very high cost</span> — $' + costMonth.toFixed(2) + '/month. At this electricity spend you need to be in profit or very committed to the hobby. Consider cheaper electricity or offsite hosting.';
+        vEl.innerHTML = '<span class="verdict-bad">Very high cost</span> - $' + costMonth.toFixed(2) + '/month. At this electricity spend you need to be in profit or very committed to the hobby. Consider cheaper electricity or offsite hosting.';
       }
     }
 
@@ -321,22 +326,4 @@
         const monthCost = kw * 24 * 30 * rate;
         const yearCost = kw * 24 * 365 * rate;
         const eff = (m.watts / m.th / 1000).toFixed(1);
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${m.name}</td>
-          <td>${m.th} TH/s</td>
-          <td>${m.watts}W</td>
-          <td>${eff} J/TH</td>
-          <td>$${monthCost.toFixed(2)}</td>
-          <td>$${yearCost.toFixed(0)}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    // Init
-    calculate();
-    updateCompare();
-  </script>
-</body>
-</html>
+        const tr = document.createElement('tr')    
