@@ -248,9 +248,9 @@
             <div class="preset-btns">
               <button class="preset-btn" onclick="setPreset(0.5, 'TH/s', 'Bitaxe Ultra')">Bitaxe Ultra (500 GH/s)</button>
               <button class="preset-btn" onclick="setPreset(1.2, 'TH/s', 'Bitaxe Gamma')">Bitaxe Gamma (1.2 TH/s)</button>
-              <button class="preset-btn" onclick="setPreset(4.8, 'TH/s', 'NerdQaxe++')">NerdQaxe++ (4.8 TH/s)</button>
               <button class="preset-btn" onclick="setPreset(6, 'TH/s', 'Nano 3S')">Canaan Nano 3S (6 TH/s)</button>
               <button class="preset-btn" onclick="setPreset(90, 'TH/s', 'Avalon Q')">Avalon Q (90 TH/s)</button>
+              <button class="preset-btn" onclick="setPreset(4.8, 'TH/s', 'NerdQaxe++')">NerdQaxe++ (4.8 TH/s)</button>
             </div>
           </div>
 
@@ -269,7 +269,7 @@
             <div class="calc-field">
               <label>Network Difficulty <span id="diff-status" style="font-size:0.65rem;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;">(loading…)</span></label>
               <div class="difficulty-row">
-                <input type="text" id="difficulty" placeholder="Auto-fetching...">
+                <input type="text" id="difficulty" placeholder="Auto-fetching..." step="any">
                 <button class="fetch-btn" onclick="fetchDifficulty()">↻ Refresh</button>
               </div>
             </div>
@@ -425,7 +425,8 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Format raw difficulty as human-readable (e.g. 138.96T)
+    // Fetch live network difficulty
+    // Format raw difficulty number as human-readable (e.g. 138.96T)
     function formatDifficulty(diff) {
       if (diff >= 1e12) return (diff / 1e12).toFixed(2) + 'T';
       if (diff >= 1e9)  return (diff / 1e9).toFixed(2) + 'B';
@@ -440,13 +441,10 @@
       return parseFloat(str);
     }
 
-    // Fetch live network difficulty
-    document.addEventListener('DOMContentLoaded', fetchDifficulty);
-
-    async function fetchDifficulty() {
+        async function fetchDifficulty() {
       const status = document.getElementById('diff-status');
       const input = document.getElementById('difficulty');
-      status.textContent = '(fetching...)';
+      status.textContent = '(fetching…)';
       status.style.color = 'var(--text-muted)';
       try {
         const res = await fetch('https://blockchain.info/q/getdifficulty');
@@ -457,7 +455,7 @@
       } catch(e) {
         status.textContent = '(enter manually)';
         status.style.color = 'var(--red)';
-        input.placeholder = 'e.g. 138.96T';
+        input.placeholder = 'Enter difficulty manually';
       }
     }
 
@@ -523,4 +521,19 @@
       document.getElementById('r-day').textContent = fmtPct(pDay);
       document.getElementById('r-week').textContent = fmtPct(pWeek);
       document.getElementById('r-month').textContent = fmtPct(pMonth);
-      document.getElementById('r-year').textContent = f
+      document.getElementById('r-year').textContent = fmtPct(pYear);
+
+      const btcValue = 3.125; // current block reward
+      document.getElementById('r-note').textContent =
+        `If you get lucky and find a block, the current reward is ${btcValue} BTC plus transaction fees. ` +
+        `The math says your expected wait is ${timeStr} - but luck doesn't care about expected values. ` +
+        `Someone running a Bitaxe once won a full block. It happens.`;
+
+      document.getElementById('results').classList.add('visible');
+    }
+
+    // Auto-fetch difficulty on load
+    fetchDifficulty();
+  </script>
+</body>
+</html>
