@@ -511,15 +511,13 @@
       }
 
       function fmtPct(p) {
-        const pct = p * 100;
-        if (pct >= 10)  return pct.toFixed(1) + '%';
-        if (pct >= 0.1) return pct.toFixed(2) + '%';
-        // Very small: show as "1 in X" which is far more intuitive than scientific notation
+        if (p <= 0) return '0';
         const oneIn = Math.round(1 / p);
         if (oneIn >= 1e9) return '1 in ' + (oneIn / 1e9).toFixed(1) + 'B';
         if (oneIn >= 1e6) return '1 in ' + (oneIn / 1e6).toFixed(1) + 'M';
         if (oneIn >= 1e3) return '1 in ' + (oneIn / 1e3).toFixed(0) + 'K';
-        return '1 in ' + oneIn.toLocaleString();
+        if (oneIn > 1)   return '1 in ' + oneIn.toLocaleString();
+        return (p * 100).toFixed(1) + '%'; // only for near-certain odds (never for home miners)
       }
 
       document.getElementById('r-time').textContent = timeStr;
