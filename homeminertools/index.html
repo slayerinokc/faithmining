@@ -258,7 +258,7 @@
             <div class="calc-field">
               <label>Your Hashrate</label>
               <div class="input-row">
-                <input type="number" id="hashrate" class="hash-input" placeholder="1.2" min="0" step="any">
+                <input type="number" id="hashrate" class="hash-input" placeholder="e.g. 1.2" min="0" step="any">
                 <select id="hashUnit" class="unit-select">
                   <option value="GH">GH/s</option>
                   <option value="TH" selected>TH/s</option>
@@ -530,7 +530,8 @@
       document.getElementById('r-note').textContent =
         `If you get lucky and find a block, the current reward is ${btcValue} BTC plus transaction fees. ` +
         `The math says your expected wait is ${timeStr} - but luck doesn't care about expected values. ` +
-        `Someone running a Bitaxe once won a full block. It happens.`;
+        `Someone running a Bitaxe once won a full block. It happens. ` +
+        `(Odds are calculated using live network difficulty - the most accurate method for solo miners.)`;
 
       document.getElementById('results').classList.add('visible');
     }
