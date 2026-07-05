@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Solo Mine Bitcoin at Home (Step-by-Step Setup Guide)</title>
+  <meta name="description" content="A real home miner's guide to setting up solo Bitcoin mining - from picking your hardware to running your own node and pointing your miner at it.">
+  <link rel="canonical" href="https://www.homeminertools.com/blog/how-to-solo-mine-bitcoin-at-home">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-strong: rgba(255,255,255,0.12);
+      --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733;
+      --green: #22c55e; --red: #ef4444;
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.85rem; }
+    nav { display: flex; gap: 24px; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
+    .nav-link:hover { color: var(--text); }
+    .page-hero { padding: 56px 0 40px; }
+    .breadcrumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--orange); }
+    .article-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 8px; border-radius: 4px; background: rgba(247,147,26,0.15); color: var(--orange); border: 1px solid var(--border-orange); margin-bottom: 16px; }
+    .page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 16px; }
+    .article-meta { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 32px; }
+    .content-section { padding: 0 0 80px; }
+    .content-section h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; margin: 44px 0 14px; }
+    .content-section h3 { font-size: 1.05rem; font-weight: 700; margin: 28px 0 10px; color: var(--text); }
+    .content-section p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 18px; }
+    .content-section ol { margin: 0 0 18px 24px; }
+    .content-section ol li { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 10px; }
+    .step-card { background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); padding: 24px 28px; margin: 28px 0; }
+    .step-card .step-num { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 8px; }
+    .step-card h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 10px; color: var(--text); }
+    .step-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; }
+    .step-card p:last-child { margin-bottom: 0; }
+    .step-card code { font-family: var(--font-mono); font-size: 0.88rem; background: var(--bg-elevated); padding: 2px 6px; border-radius: 4px; color: var(--orange-light); }
+    .callout { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 20px 24px; margin: 28px 0; }
+    .callout p { margin: 0; font-size: 0.95rem; color: var(--text-secondary); }
+    .callout strong { color: var(--orange); }
+    .ad-unit { margin: 48px 0; text-align: center; }
+    .site-footer { border-top: 1px solid var(--border); padding: 36px 0 24px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.82rem; color: var(--text-muted); }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    @media (max-width: 640px) { .footer-inner { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo"><span class="logo-mark">⛏</span> Home Miner Tools</a>
+      <nav>
+        <a href="/#tools" class="nav-link">Tools</a>
+        <a href="/#miners" class="nav-link">Reviews</a>
+        <a href="/about" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="container prose">
+        <p class="breadcrumb"><a href="/">Home</a> › <a href="/#tools">Guides</a> › Solo Mining Setup</p>
+        <span class="article-tag">Setup Guide</span>
+        <h1>How to Solo Mine Bitcoin at Home (Step-by-Step)</h1>
+        <p class="article-meta">By Chris Johnson &nbsp;·&nbsp; July 2026 &nbsp;·&nbsp; Running a home solo setup since 2024</p>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="container prose">
+
+        <p>Solo mining Bitcoin at home means you compete for block rewards directly - no pool, no middleman. If you find a block, the full 3.125 BTC reward goes to your wallet. The odds are long, but the setup is simpler than most people think. This guide walks through exactly how I do it at home, from hardware to node to the first valid share.</p>
+
+        <div class="callout">
+          <p><strong>Before you start:</strong> Check the <a href="/">solo mining odds calculator</a> with your actual hashrate. Know what you are getting into. At 1.2 TH/s, a block find is a lottery ticket. At 90 TH/s, it is still a long shot but a meaningfully shorter one. Go in with open eyes.</p>
+        </div>
+
+        <h2>What solo mining actually means</h2>
+        <p>In pool mining, your miner works alongside thousands of others. The pool finds blocks regularly and splits the reward proportionally based on contributed hashrate. You get small, consistent payouts. In solo mining, your miner works alone. You only get paid if you personally find a block. Most home miners running solo will never find one - the math is honest about that. But the hardware still runs, still hashes, and occasionally someone wins.</p>
+        <p>The key technical difference: in pool mining, your miner connects to the pool's stratum server and receives work from the pool. In solo mining, your miner connects to your own Bitcoin node (or a public solo pool) and competes directly against the network.</p>
+
+        <h2>What you need</h2>
+        <p>The core ingredients for a home solo setup:</p>
+        <ol>
+          <li>A SHA-256 home miner (Bitaxe, Canaan Nano 3S, Avalon Q - anything with a stratum output)</li>
+          <li>A Bitcoin full node running on your local network</li>
+          <li>A solo pool layer sitting between your node and your miner (handles the stratum protocol)</li>
+          <li>A Bitcoin wallet address where block rewards would land</li>
+        </ol>
+        <p>The most beginner-friendly way to run a full node at home is Umbrel OS. It runs on a mini PC or Raspberry Pi, gives you a web dashboard, and has a one-click app store where you can install both the Bitcoin node and a solo pool in minutes.</p>
+
+        <div class="ad-unit">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <h2>Step-by-step setup</h2>
+
+        <div class="step-card">
+          <div class="step-num">Step 1</div>
+          <h3>Set up your Bitcoin full node</h3>
+          <p>Download Umbrel OS from umbrel.com and flash it to an SSD or SD card. Boot it on a mini PC (an Intel NUC or similar with at least 1TB storage works well) and connect it to your router via ethernet. The initial blockchain sync takes several days - start this early.</p>
+          <p>Once synced, your node is verifying every Bitcoin transaction independently. You no longer need to trust anyone else's copy of the blockchain.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">Step 2</div>
+          <h3>Install a solo pool app on your node</h3>
+          <p>From the Umbrel app store, install <strong>Public Pool</strong>. This is an open-source solo pool that runs entirely on your local network. It speaks the stratum protocol that your miner understands, and it routes valid block solutions directly to your Bitcoin node.</p>
+          <p>Once Public Pool is running, it will display a local stratum address - something like <code>stratum+tcp://192.168.1.xxx:3333</code>. That is what you will put into your miner.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">Step 3</div>
+          <h3>Configure your miner</h3>
+          <p>Open your miner's web interface (usually at its local IP address - check your router's device list to find it). Navigate to the pool/stratum settings and enter:</p>
+          <p><strong>Pool URL:</strong> <code>stratum+tcp://[your-node-IP]:3333</code><br>
+          <strong>Username:</strong> your Bitcoin wallet address (this is where rewards go)<br>
+          <strong>Password:</strong> anything - typically just <code>x</code></p>
+          <p>Save and restart the miner. Within a minute or two it should connect and start submitting shares to your local pool.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">Step 4</div>
+          <h3>Verify it is working</h3>
+          <p>In the Public Pool web interface, you should see your miner appear as a connected worker with an active hashrate reading. The pool dashboard shows shares submitted, estimated hashrate, and - if you are very lucky - any blocks found.</p>
+          <p>In your miner's web interface, the pool connection status should show as connected with no errors. If it shows disconnected, double-check the IP address and port, and make sure your firewall is not blocking port 3333.</p>
+        </div>
+
+        <h2>Using a public solo pool instead of running your own node</h2>
+        <p>Running a full node is the purest approach, but it requires hardware, storage, and a multi-day initial sync. If you want to start solo mining faster, public solo pools like solo.ckpool.org or solo.faithmining.net let you point your miner directly at them with no local node required. The trade-off is you are trusting their node rather than your own - but for the lottery-ticket nature of home solo mining, this is a perfectly reasonable starting point.</p>
+
+        <h2>Understanding your dashboard numbers</h2>
+        <p>Once your setup is running, you will see a few key numbers in the pool interface. Hashrate is how fast your miner is working - this should match the rated spec within about 10%. Shares accepted is how many valid partial solutions your miner has submitted - this confirms the connection is working. Best difficulty is the hardest share your miner has ever found - this is a fun number to watch grow over time, even if it never reaches the network difficulty needed for a full block.</p>
+        <p>The network difficulty required to find a block is currently around 138 trillion. Your miner's best share difficulty is almost certainly in the millions or low billions. That gap is the honest math of solo mining.</p>
+
+        <h2>What happens if you find a block</h2>
+        <p>Your pool software broadcasts the solved block to the Bitcoin network. If it is valid and accepted, the coinbase transaction in that block pays 3.125 BTC to the wallet address you entered as your mining username. The funds will appear in your wallet after the standard confirmation period. No pool takes a cut. The full reward is yours.</p>
+        <p>This has happened to home miners running equipment far smaller than an Avalon Q. It is not likely. But it is possible - and the setup described above is exactly how you position yourself to benefit when luck runs in your favor.</p>
+
+        <div class="callout">
+          <p><strong>Want to know your actual odds?</strong> Run your hashrate through the <a href="/">solo mining calculator</a> on the homepage. It pulls live network difficulty and shows you your realistic chance per day, week, and year - displayed as a "1 in X" ratio so the math is intuitive rather than abstract.</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-copy">© <span id="year"></span> Home Miner Tools - All rights reserved.</p>
+        <nav class="footer-links">
+          <a href="/">Home</a>
+          <a href="/#miners">Reviews</a>
+          <a href="/about">About</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Use</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
