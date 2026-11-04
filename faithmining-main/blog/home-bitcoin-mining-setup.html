@@ -85,7 +85,7 @@
     .footer-links a { font-size: 0.82rem; color: var(--text-muted); transition: color var(--transition); }
     .footer-links a:hover { color: var(--orange); }
     .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
-  </style>
+  .update-note{background:var(--bg-surface);border:1px solid var(--border-orange);border-radius:var(--radius);padding:14px 20px;margin:0 0 28px;font-size:0.9rem;color:var(--text-secondary);}.update-note strong{color:var(--orange);}</style>
 </head>
 <body>
 
@@ -108,7 +108,7 @@
         <div class="article-meta">
           <span>By Chris Johnson</span>
           <span>·</span>
-          <span>May 2026</span>
+          <span>October 2026</span>
           <span>·</span>
           <span>13 min read</span>
         </div>
@@ -121,6 +121,7 @@
         <p>Home Bitcoin mining is genuinely possible. It's also genuinely difficult to do profitably in 2026, and it requires more infrastructure than most guides let on. This article covers what you actually need — the hardware, the electrical work, the cooling and noise management, and the honest math on whether it makes sense for your situation.</p>
 
         <p>No cheerleading. Just what the setup actually involves.</p>
+        <div class="update-note"><strong>Figures updated October 28, 2026.</strong> Market examples in this guide now use BTC ~$81,000, network difficulty 140.58 trillion (set October 16, 2026), block reward 3.125 BTC, and network hashrate roughly 1.07&ndash;1.09 ZH/s. Market numbers move constantly &mdash; re-run your own inputs before acting on them.</div>
 
         <h2>Start with the electricity question</h2>
 
@@ -276,24 +277,22 @@
 
         <p>Start with the electricity math. Everything else follows from that.</p>
 
+        <p>Run your own numbers instead of trusting any single example: the free <a href="https://tools.faithmining.net/bitcoin-miner-roi/">Faith Mining ROI calculator</a> lets you enter your hardware, electricity rate, and price assumptions and see the payback math for yourself.</p>
+
         <div class="cta-box">
           <h3>Calculate your setup's payback period</h3>
-          <p>Run your specific hardware and electricity rate through the payback period formula before you spend a dollar on equipment.</p>
+          <p>Run your specific hardware and electricity rate through the payback period formula before you spend a dollar on equipment. For the noise and heat side of the setup — ventilation, soundproofing, and neighbor considerations — see the <a href="/blog/home-bitcoin-mining-noise-heat-management">noise and heat management guide</a>.</p>
           <a href="/blog/mining-payback-period" class="btn-primary">Read the payback guide →</a>
         </div>
 
-        <!-- Ad unit -->
-        <div style="margin: 48px 0 0; text-align:center;">
-          <ins class="adsbygoogle"
+      </div>
+    </div>
+  <ins class="adsbygoogle"
                style="display:block"
                data-ad-client="ca-pub-4198818748800027"
                data-ad-format="auto"
                data-full-width-responsive="true"></ins>
           <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-
-      </div>
-    </div>
   </article>
 
   <footer class="site-footer">
@@ -304,6 +303,7 @@
           <a href="/">Home</a>
           <a href="/#blog">Blog</a>
           <a href="/about">About</a>
+        <a href="mailto:info@faithmining.net">Contact</a>
           <a href="/privacy">Privacy Policy</a>
           <a href="/terms">Terms of Use</a>
         </nav>

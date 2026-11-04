@@ -82,7 +82,7 @@
     .footer-links a { font-size: 0.82rem; color: var(--text-muted); transition: color var(--transition); }
     .footer-links a:hover { color: var(--orange); }
     .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
-  </style>
+  .update-note{background:var(--bg-surface);border:1px solid var(--border-orange);border-radius:var(--radius);padding:14px 20px;margin:0 0 28px;font-size:0.9rem;color:var(--text-secondary);}.update-note strong{color:var(--orange);}</style>
 </head>
 <body>
 
@@ -105,7 +105,7 @@
         <div class="article-meta">
           <span>By Chris Johnson</span>
           <span>·</span>
-          <span>May 2026</span>
+          <span>October 2026</span>
           <span>·</span>
           <span>11 min read</span>
         </div>
@@ -118,14 +118,15 @@
         <p>Network difficulty is one of the most important numbers in Bitcoin mining — and one of the least understood. It directly determines how much BTC you earn per terahash per day. When it goes up, you earn less. When it goes down, you earn more. Yet most miners treat it as background noise.</p>
 
         <p>This guide explains what difficulty actually is, how the adjustment mechanism works, and why understanding it is essential to any honest profitability calculation.</p>
+        <div class="update-note"><strong>Figures updated October 28, 2026.</strong> Market examples in this guide now use BTC ~$81,000, network difficulty 140.58 trillion (set October 16, 2026), block reward 3.125 BTC, and network hashrate roughly 1.07&ndash;1.09 ZH/s. Market numbers move constantly &mdash; re-run your own inputs before acting on them.</div>
 
         <h2>What is Bitcoin mining difficulty?</h2>
 
         <p>Bitcoin uses a proof-of-work system to add new blocks to the blockchain. Miners compete to find a hash — a cryptographic output — that falls below a specific target value. The lower the target, the harder it is to find a valid hash, and the more computational work is required on average.</p>
 
-        <p><strong>Difficulty is a relative measure of how hard it is to find a valid block.</strong> It's expressed as a number (currently around 132 trillion, or 132T) that represents how much harder the current target is compared to the original target from Bitcoin's first blocks in 2009.</p>
+        <p><strong>Difficulty is a relative measure of how hard it is to find a valid block.</strong> It's expressed as a number (currently 140.58 trillion, or 140.58T) that represents how much harder the current target is compared to the original target from Bitcoin's first blocks in 2009.</p>
 
-        <p>When difficulty is 132T, it means miners have to perform approximately 132 trillion times more work than the original mining requirement to find a valid block. In practical terms, at the current global hashrate of roughly 978 exahashes per second (EH/s), the network produces a valid block approximately every 10 minutes on average.</p>
+        <p>When difficulty is 140.58T, it means miners have to perform approximately 140.58 trillion times more work than the original mining requirement to find a valid block. In practical terms, at the current global hashrate of roughly 1.08 zettahashes per second (ZH/s), the network produces a valid block approximately every 10 minutes on average. This difficulty value was set on October 16, 2026, on a +5.92% adjustment, and the next retarget is projected around October 29, 2026, at roughly +6.5% — a sign blocks have recently been found faster than the 10-minute target.</p>
 
         <h2>How the difficulty adjustment works</h2>
 
@@ -152,13 +153,13 @@
         <div class="math-block">
           Daily BTC revenue per TH/s =<br>
           &nbsp;&nbsp;(144 blocks × 3.125 BTC per block) ÷ (Network hashrate in TH/s)<br><br>
-          At current hashrate (978 EH/s = 978,000,000 TH/s):<br>
-          144 × 3.125 ÷ 978,000,000 = <span class="result">0.0000004590 BTC per TH/s per day</span><br><br>
-          At $78,281/BTC:<br>
-          0.0000004590 × $78,281 = <span class="result">~$0.0359 per TH/s per day</span>
+          At current difficulty (140.58T):<br>
+          (1 TH/s × 3.125 BTC × 86,400) ÷ (140.58T × 2³²) = <span class="result">0.0000004472 BTC per TH/s per day</span><br><br>
+          At $81,000/BTC:<br>
+          0.0000004472 × $81,000 = <span class="result">~$0.0362 per TH/s per day</span>
         </div>
 
-        <p>Run that across a 104 TH/s machine like the S19j Pro: 104 × $0.0359 = <strong>$3.73/day in gross revenue</strong>. Before electricity, before pool fees, before any other costs.</p>
+        <p>Run that across a 104 TH/s machine like the S19j Pro: 104 × $0.0362 = <strong>$3.77/day in gross revenue</strong>. Before electricity, before pool fees, before any other costs.</p>
 
         <p>That number changes every time the network hashrate changes — and since difficulty adjusts to follow hashrate, it effectively changes every two weeks.</p>
 
@@ -180,7 +181,7 @@
             <tr><td>2022</td><td>~35T</td><td>~270 EH/s</td></tr>
             <tr><td>2023</td><td>~67T</td><td>~520 EH/s</td></tr>
             <tr><td>2024</td><td>~90T</td><td>~700 EH/s</td></tr>
-            <tr><td>2026 (current)</td><td>~132T</td><td>~978 EH/s</td></tr>
+            <tr><td>2026 (current)</td><td>140.58T</td><td>~1.08 ZH/s</td></tr>
           </tbody>
         </table>
 
@@ -190,7 +191,7 @@
 
         <p>Here's the practical implication: if you buy a miner today and build your ROI calculation assuming today's difficulty and BTC price hold constant, you will almost certainly be wrong — in the unprofitable direction.</p>
 
-        <p>Difficulty growth means your revenue per TH/s will likely be lower next year than it is today, all else being equal. The question is by how much. If you assume 20% annual difficulty growth (a conservative estimate given recent history), a machine earning $3.73/day today would earn roughly $3.11/day a year from now at the same BTC price.</p>
+        <p>Difficulty growth means your revenue per TH/s will likely be lower next year than it is today, all else being equal. The question is by how much. If you assume 20% annual difficulty growth (a conservative estimate given recent history), a machine earning $3.77/day today would earn roughly $3.14/day a year from now at the same BTC price.</p>
 
         <div class="callout">
           <p><strong>Lesson:</strong> Always model multiple scenarios. Calculate payback period at today's difficulty, at +20% difficulty, and at +40% difficulty. If the machine still pays back in a reasonable timeframe at the pessimistic scenario, it's a safer purchase. If it only works at today's numbers, you're betting on luck.</p>
@@ -222,24 +223,22 @@
 
         <p>Understand difficulty. Model it honestly. And build your operation around electricity economics that work even when the numbers get harder.</p>
 
+        <p>Run your own numbers instead of trusting any single example: the free <a href="https://tools.faithmining.net/bitcoin-miner-roi/">Faith Mining ROI calculator</a> lets you enter your hardware, electricity rate, and price assumptions and see the payback math for yourself.</p>
+
         <div class="cta-box">
           <h3>See how difficulty affects your specific miner</h3>
           <p>The payback period guide walks through the full revenue calculation with live difficulty numbers.</p>
           <a href="/blog/mining-payback-period" class="btn-primary">Read the payback guide →</a>
         </div>
 
-        <!-- Ad unit -->
-        <div style="margin: 48px 0 0; text-align:center;">
-          <ins class="adsbygoogle"
+      </div>
+    </div>
+  <ins class="adsbygoogle"
                style="display:block"
                data-ad-client="ca-pub-4198818748800027"
                data-ad-format="auto"
                data-full-width-responsive="true"></ins>
           <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-
-      </div>
-    </div>
   </article>
 
   <footer class="site-footer">
@@ -250,6 +249,7 @@
           <a href="/">Home</a>
           <a href="/#blog">Blog</a>
           <a href="/about">About</a>
+        <a href="mailto:info@faithmining.net">Contact</a>
           <a href="/privacy">Privacy Policy</a>
           <a href="/terms">Terms of Use</a>
         </nav>

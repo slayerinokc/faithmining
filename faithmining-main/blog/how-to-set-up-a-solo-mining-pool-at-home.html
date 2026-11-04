@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Set Up a Solo Mining Pool at Home — Faith Mining</title>
+  <meta name="description" content="A generic walkthrough of running your own solo mining pool: node, block templates, stratum server, security, and tradeoffs.">
+  <link rel="canonical" href="https://www.faithmining.net/blog/how-to-set-up-a-solo-mining-pool-at-home">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733; --orange-glow: rgba(247,147,26,0.10);
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo:hover { color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color var(--transition); }
+    .nav-link:hover { color: var(--text); }
+
+    /* Article hero */
+    .article-hero { padding: 64px 0 48px; text-align: center; position: relative; }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse at center top, rgba(247,147,26,0.15) 0%, rgba(247,147,26,0.05) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .article-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); background: var(--orange-glow); border: 1px solid var(--border-orange); padding: 4px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .article-hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; max-width: 780px; margin-left: auto; margin-right: auto; }
+    .article-meta { display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 0.82rem; color: var(--text-muted); flex-wrap: wrap; }
+    .article-meta span { display: flex; align-items: center; gap: 5px; }
+
+    /* Article body */
+    .article-body { padding: 0 0 80px; }
+    .prose h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin: 48px 0 16px; line-height: 1.3; }
+    .prose h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+    .prose p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .prose p strong { color: var(--text); font-weight: 600; }
+    .prose ul, .prose ol { padding-left: 24px; margin-bottom: 20px; }
+    .prose li { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 8px; }
+    .prose li strong { color: var(--text); }
+    .prose a { color: var(--orange); }
+    .prose a:hover { color: var(--orange-light); }
+
+    /* Formula box */
+    .formula-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 28px 32px; margin: 32px 0; text-align: center; }
+    .formula-box .formula-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 12px; }
+    .formula-box .formula { font-family: var(--font-mono); font-size: 1rem; color: var(--orange); line-height: 1.8; }
+
+    /* Example table */
+    .data-table { width: 100%; border-collapse: collapse; margin: 24px 0 32px; font-size: 0.9rem; }
+    .data-table th { text-align: left; padding: 10px 16px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 12px 16px; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+    .data-table td:last-child { font-family: var(--font-mono); color: var(--orange); }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Ad unit */
+    .ad-unit { margin: 40px 0; text-align: center; }
+    .ad-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 6px; }
+
+    /* CTA box */
+    .cta-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 32px; margin: 48px 0; text-align: center; }
+    .cta-box h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .cta-box p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #000 !important; font-weight: 600; font-size: 0.95rem; padding: 11px 22px; border-radius: var(--radius); transition: background var(--transition); }
+    .btn-primary:hover { background: var(--orange-light); color: #000 !important; }
+
+    /* Related */
+    .related-section { border-top: 1px solid var(--border); padding: 48px 0; }
+    .related-section h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 20px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .related-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: border-color var(--transition); }
+    .related-card:hover { border-color: var(--border-orange); }
+    .related-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+    .related-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+    /* Footer */
+    .site-footer { border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.8rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    @media (max-width: 640px) {
+      .article-hero { padding: 48px 0 36px; }
+      .formula-box { padding: 20px; }
+      .formula-box .formula { font-size: 0.85rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  .update-note{background:var(--bg-surface);border:1px solid var(--border-orange);border-radius:var(--radius);padding:14px 20px;margin:0 0 28px;font-size:0.9rem;color:var(--text-secondary);}.update-note strong{color:var(--orange);}</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">F</span>
+        Faith Mining
+      </a>
+      <nav style="display:flex;gap:24px;align-items:center;">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#blog" class="nav-link">Blog</a>
+        <a href="/about" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-hero">
+    <div class="container">
+      <div class="article-eyebrow">🎯 Solo Mining</div>
+      <h1>How to Set Up a Solo Mining Pool at Home</h1>
+      <div class="article-meta">
+        <span>✍️ Chris Johnson — Faith Mining LLC</span>
+        <span>📅 October 2026</span>
+        <span>⏱ 5 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <div class="container">
+      <div class="prose">
+
+        <p>Solo mining means your hardware competes against the entire Bitcoin network alone, and if it finds a block, you keep the whole reward. Most people who try it connect to a public solo pool, which handles the infrastructure for them. Running your own solo pool at home is the next step: you operate the node, you build the block templates, and your miners work for you directly, with no intermediary at all. It is a satisfying project, and it is also a real piece of infrastructure that has to stay up, stay synced, and stay secure. This guide walks through what the pieces are, what you need, and how to set it up in generic terms, so you can decide whether it is worth doing before you commit a weekend to it.</p>
+
+        <p>First, the expectation-setting, because it decides everything else. Solo mining does not change your odds. Whether you mine through a pool, a public solo pool, or your own node, a given amount of hashrate has the same expected time to find a block. At October 2026 network conditions, roughly 1.08 zettahashes per second, a single 234 TH/s machine has an expected wait of about 88 years for one block. That is not a reason to avoid the project, but it is the reason to treat a home solo pool as a learning project, a decentralization statement, or a lottery ticket you fully understand, rather than as an income plan. If you need steady income to cover electricity, mine in a regular pool.</p>
+
+        <h2>The three pieces of a solo pool</h2>
+
+        <p>A home solo pool has three parts, and understanding the boundaries between them makes every later decision easier. First is the Bitcoin node. This is software that downloads and validates the entire blockchain, tracks the set of unspent coins, and talks to other nodes on the network. Your node is your independent view of Bitcoin. It does not trust anyone else's copy of the ledger. It checks every block and transaction itself, which is the whole point of running one.</p>
+
+        <p>Second is the block template builder. When it is time to mine, somebody has to decide which pending transactions go into the next block and assemble them into a candidate block header. In a regular pool, the pool operator does this. In your own solo setup, your node does it, using its view of the mempool, the waiting area for unconfirmed transactions. This is a meaningful distinction: running your own templates means you are choosing the transactions, not accepting a pool operator's choices. It is also why solo mining appeals to people who care about decentralization. The more miners building their own templates, the less any single pool operator decides what gets into blocks.</p>
+
+        <p>Third is the stratum server. Miners do not talk to a Bitcoin node directly. They speak a lightweight protocol called stratum, designed for mining hardware, and the stratum server translates between that protocol and your node. It hands work to your miners, collects their submitted shares, checks whether any share is actually a valid block, and, when one is, hands it to your node to broadcast to the network. When people talk about "pool software," they usually mean this stratum layer plus the template logic around it. Several open-source implementations exist. Pick one that is actively maintained, that documents its configuration clearly, and that other solo miners are actually running, rather than the first one you find.</p>
+
+        <div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <h2>What hardware and network do you need?</h2>
+
+        <p>The good news is that a solo pool node does not need mining hardware to run on. It needs a reliable small computer, storage, and an internet connection, and it can live on hardware you may already own. A small single-board computer or a refurbished mini PC with a solid-state drive is a common choice. The demanding part is storage and patience: the blockchain is several hundred gigabytes and growing, and the initial download and validation, called the initial block download, can take days on a slow connection or a slow drive. Use an SSD, not a spinning hard drive or an SD card, and start the sync well before you plan to point miners at the node. A node that is still syncing cannot build current templates.</p>
+
+        <p>On the network side, you need a stable internet connection and a stable local network for your miners. Your miners connect to your stratum server on your local network, which keeps latency low and avoids exposing the mining port to the internet. Your node itself connects outward to other Bitcoin nodes, which is normal and does not require opening ports to the world, though some operators choose to accept inbound connections to help the network. Keep it simple at first: outbound-only node connections, miners on the local network only, and a wired ethernet connection for the node machine. Wi-Fi dropouts that are invisible during web browsing will show up immediately as stale work and disconnected miners.</p>
+
+        <p>Plan for uptime. A solo pool that is down is a miner earning nothing, and unlike a public pool, there is nobody else keeping it alive while you sleep. A small uninterruptible power supply (UPS) that lets the node ride through short outages and shut down cleanly during long ones is worth the cost. So is a setup you can check from your phone: at minimum, a way to see whether the node is synced, whether the stratum server is accepting connections, and what hashrate your miners are reporting. If you cannot check it remotely, you will discover outages hours later than you needed to.</p>
+
+        <h2>Setting it up, step by step</h2>
+
+        <p>The exact commands depend on the software you choose, so this is the shape of the process rather than a copy-paste recipe. Skipping a step here is how people end up with a pool that looks alive but is mining on stale templates, which is worse than a pool that is visibly down.</p>
+
+        <ol>
+          <li><strong>Install and sync the node first.</strong> Install your node software on its dedicated machine, configure it to store the blockchain on the SSD, and let the initial block download finish completely. Verify it reports the current block height and a synced status before going further. Do not point miners at a syncing node.</li>
+          <li><strong>Choose and install the stratum software.</strong> Follow that project's own documentation for connecting it to your node. The key configuration is the connection between the stratum server and the node, usually over a local interface, and the payout address your miners will use. Double-check the payout address character by character. A typo here sends a found block's reward somewhere you do not control, and there is no undo.</li>
+          <li><strong>Configure your miners.</strong> In each miner's web interface, set the stratum address to your server's local address and port, and set the worker name and payout address according to your stratum software's format. Start with one miner, confirm it connects, submits shares, and shows up in the stratum server's status output, then add the rest.</li>
+          <li><strong>Verify end to end before trusting it.</strong> Confirm the node is at the current tip, the stratum server is distributing fresh work, miners report a hashrate close to their rated figure, and rejected or stale shares are low, generally a few percent at most. High stale rates usually mean latency or an overloaded node machine, not bad luck.</li>
+          <li><strong>Test your monitoring and recovery.</strong> Reboot the node machine and confirm everything comes back on its own: node, stratum server, and miners reconnecting. Write down the restart steps while you still remember them. The version of you that gets paged at 2 a.m. will be grateful.</li>
+        </ol>
+
+        <h2>Security: the part people skip</h2>
+
+        <p>A home solo pool holds two things worth protecting: the private keys or payout address associated with any block you might find, and a computer connected to your home network. Keep the node's administrative interfaces bound to the local network only, never exposed to the internet. Use strong, unique passwords on the node machine, the stratum dashboard, and every miner's web interface, and keep the software updated. Miners in particular ship with default credentials that are widely known, and an exposed miner interface is an easy target for anyone scanning the internet.</p>
+
+        <p>Think carefully about wallets. The payout address in your stratum configuration should be an address you control, ideally one whose keys live somewhere other than the node machine itself, such as a hardware wallet. If the node machine is ever compromised, you do not want the keys to a found block sitting on the same disk. And back up your configuration and any wallet information separately, offline, in a place you can find again. Losing a configuration is an annoyance. Losing keys is permanent.</p>
+
+        <p>One more caution: do not open ports on your router for the stratum server or the node's administrative interface unless you have a specific reason and understand the exposure. The common home setup needs no inbound ports at all for mining to work. Port forwarding feels like progress when you are troubleshooting a connection problem, but it is usually the wrong fix for a local-network problem, and it turns a private service into a public one.</p>
+
+        <h2>Solo pool at home vs. a public solo pool vs. a regular pool</h2>
+
+        <p>These three options differ in control, effort, and failure modes, and the right one depends on what you actually want. A regular pool gives you steady, predictable payouts and zero infrastructure to run, in exchange for a small fee and accepting the pool's block templates. A public solo pool gives you the full block reward if you find one, with no infrastructure to run, in exchange for trusting the operator's uptime and templates. Your own solo pool gives you full control over templates and no operator at all, in exchange for all of the uptime, security, and maintenance work described above.</p>
+
+        <p>The expected Bitcoin earned per unit of hashrate is essentially the same across all three over a long enough period, minus fees where they apply. What changes is variance and workload. Regular pools smooth variance to nearly nothing. Both solo options keep the full variance: long stretches of zero, punctuated, if you are lucky, by an entire block. Running your own pool does not improve your luck. It improves your independence. Be honest about which of those you are optimizing for, because the maintenance bill arrives whether or not a block ever does.</p>
+
+        <h2>Common problems and what they usually mean</h2>
+
+        <p>Miners connect but show no accepted shares: check that the node is fully synced and that the stratum server can actually reach it. A stratum server pointed at a syncing or misconfigured node will often accept connections and hand out useless work. High stale or rejected share rates: look at latency first, then at whether the node machine is overloaded, especially during initial sync or if it is sharing a drive with other tasks. Miners disconnecting regularly: suspect the local network, particularly Wi-Fi, and move miners to ethernet before blaming the software. Node falling behind the chain tip: check disk space, disk speed, and internet stability, in that order.</p>
+
+        <p>Keep a log of what you change. Solo pool troubleshooting has a way of involving three layers at once, and the fix that worked last month is easy to forget. A short note with the date, the symptom, and the fix turns the second occurrence of a problem into a five-minute job instead of another evening of guessing.</p>
+
+        <p>My own solo pool is a real example, with one twist: it mines Bitcoin Cash, not Bitcoin. It runs on my Umbrel node using MiningCore, and it has already found a block — block 931655 on December 30, 2025, paying 3.13 BCH at only 4% effort. The fiddliest part of the setup was the payout configuration: the pool's config file carries its own payout address and a small reward-recipient cut, so I had to verify character by character that block rewards actually land in the wallet I mine to. That check is worth doing on any solo pool, because a wrong address there has no undo.</p>
+
+        <h2>The bottom line</h2>
+
+        <p>Running your own solo pool at home is a genuinely good project for someone who wants to understand Bitcoin mining past the point of plugging in a machine. It is not a way to earn more, and it is not a shortcut around the lottery math. If you go in knowing that, with a synced node, a maintained stratum server, and realistic expectations, you will learn more about how Bitcoin actually works than most miners ever do. If you need the income, use a regular pool, and keep the solo pool as the project it is.</p>
+
+        <p>For the odds in detail, read the <a href="/blog/what-is-solo-bitcoin-mining">solo mining guide</a> and the <a href="/blog/pool-mining-vs-solo-mining">pool vs. solo comparison</a>.</p>
+<p>Before you spend anything, run your numbers through the free <a href="https://tools.faithmining.net/bitcoin-miner-roi/">Faith Mining ROI calculator</a> with your real hashrate, wattage, and electricity rate.</p>
+        <div class="cta-box">
+          <h3>Check the solo odds first</h3>
+          <p>The solo mining guide works through the expected time to find a block at your hashrate, with current network numbers.</p>
+          <a href="/blog/what-is-solo-bitcoin-mining" class="btn-primary">Read the solo mining guide →</a>
+        </div>
+
+
+      <div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+      <p>Want your own numbers? Run them through the <a href="https://tools.faithmining.net/solo-mining-odds/">Solo Mining Odds Calculator</a> to see your probability of finding a block over a day, week, month, and year at your hashrate.</p>
+
+        </div><!-- /prose -->
+
+      <div class="related-section">
+        <h3>More from Faith Mining</h3>
+        <div class="related-grid">
+          <a href="/blog/what-is-solo-bitcoin-mining" class="related-card">
+            <h4>What Is Solo Bitcoin Mining — And Is It Worth It?</h4>
+            <p>The lottery math behind solo mining, and when it actually makes sense over a pool.</p>
+          </a>
+          <a href="/blog/pool-mining-vs-solo-mining" class="related-card">
+            <h4>Pool Mining vs. Solo Mining: A Complete Comparison</h4>
+            <p>Variance, cash flow, and when each approach actually makes sense.</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© <span id="year"></span> Faith Mining LLC</p>
+      <nav class="footer-links">
+        <a href="/">Home</a>
+        <a href="/#blog">Blog</a>
+        <a href="/about">About</a>
+        <a href="mailto:info@faithmining.net">Contact</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Use</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

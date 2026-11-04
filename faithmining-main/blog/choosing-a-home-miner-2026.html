@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choosing a Home Miner in 2026 — Faith Mining</title>
+  <meta name="description" content="How to pick a home-scale Bitcoin miner in 2026 using manufacturer-published specs, with honest profitability math at October 2026 numbers.">
+  <link rel="canonical" href="https://www.faithmining.net/blog/choosing-a-home-miner-2026">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733; --orange-glow: rgba(247,147,26,0.10);
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo:hover { color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color var(--transition); }
+    .nav-link:hover { color: var(--text); }
+
+    /* Article hero */
+    .article-hero { padding: 64px 0 48px; text-align: center; position: relative; }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse at center top, rgba(247,147,26,0.15) 0%, rgba(247,147,26,0.05) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .article-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); background: var(--orange-glow); border: 1px solid var(--border-orange); padding: 4px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .article-hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; max-width: 780px; margin-left: auto; margin-right: auto; }
+    .article-meta { display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 0.82rem; color: var(--text-muted); flex-wrap: wrap; }
+    .article-meta span { display: flex; align-items: center; gap: 5px; }
+
+    /* Article body */
+    .article-body { padding: 0 0 80px; }
+    .prose h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin: 48px 0 16px; line-height: 1.3; }
+    .prose h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+    .prose p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .prose p strong { color: var(--text); font-weight: 600; }
+    .prose ul, .prose ol { padding-left: 24px; margin-bottom: 20px; }
+    .prose li { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 8px; }
+    .prose li strong { color: var(--text); }
+    .prose a { color: var(--orange); }
+    .prose a:hover { color: var(--orange-light); }
+
+    /* Formula box */
+    .formula-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 28px 32px; margin: 32px 0; text-align: center; }
+    .formula-box .formula-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 12px; }
+    .formula-box .formula { font-family: var(--font-mono); font-size: 1rem; color: var(--orange); line-height: 1.8; }
+
+    /* Example table */
+    .data-table { width: 100%; border-collapse: collapse; margin: 24px 0 32px; font-size: 0.9rem; }
+    .data-table th { text-align: left; padding: 10px 16px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 12px 16px; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+    .data-table td:last-child { font-family: var(--font-mono); color: var(--orange); }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Ad unit */
+    .ad-unit { margin: 40px 0; text-align: center; }
+    .ad-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 6px; }
+
+    /* CTA box */
+    .cta-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 32px; margin: 48px 0; text-align: center; }
+    .cta-box h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .cta-box p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #000 !important; font-weight: 600; font-size: 0.95rem; padding: 11px 22px; border-radius: var(--radius); transition: background var(--transition); }
+    .btn-primary:hover { background: var(--orange-light); color: #000 !important; }
+
+    /* Related */
+    .related-section { border-top: 1px solid var(--border); padding: 48px 0; }
+    .related-section h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 20px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .related-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: border-color var(--transition); }
+    .related-card:hover { border-color: var(--border-orange); }
+    .related-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+    .related-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+    /* Footer */
+    .site-footer { border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.8rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    @media (max-width: 640px) {
+      .article-hero { padding: 48px 0 36px; }
+      .formula-box { padding: 20px; }
+      .formula-box .formula { font-size: 0.85rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  .update-note{background:var(--bg-surface);border:1px solid var(--border-orange);border-radius:var(--radius);padding:14px 20px;margin:0 0 28px;font-size:0.9rem;color:var(--text-secondary);}.update-note strong{color:var(--orange);}</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">F</span>
+        Faith Mining
+      </a>
+      <nav style="display:flex;gap:24px;align-items:center;">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#blog" class="nav-link">Blog</a>
+        <a href="/about" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-hero">
+    <div class="container">
+      <div class="article-eyebrow">⛏ Buyer’s Guide</div>
+      <h1>Choosing a Home Miner in 2026</h1>
+      <div class="article-meta">
+        <span>✍️ Chris Johnson — Faith Mining LLC</span>
+        <span>📅 October 2026</span>
+        <span>⏱ 5 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <div class="container">
+      <div class="prose">
+
+        <p>Picking a home miner in 2026 is mostly a process of elimination. The market is full of machines that look reasonable until you check them against your electricity rate, your noise tolerance, and the space you actually have. This guide narrows the field to home-scale units, compares them on manufacturer-published specifications only, and runs the October 2026 math honestly, so you can see which category fits your situation before you spend anything.</p>
+
+        <p>One rule governs everything below: specifications quoted here are manufacturer or project-published figures for hashrate, watts, and noise. They describe what the hardware is rated to do, not what you will earn. Actual hashrate varies with temperature, firmware, and power supply, and earnings vary with Bitcoin price and network difficulty, both of which move constantly. Verify the current spec sheet before buying, because manufacturers revise models without changing the name on the box.</p>
+
+        <h2>Start with your goal, not the hardware</h2>
+
+        <p>Home miners generally buy for one of three reasons, and the right machine is different for each. Learning and hobby mining means you want a real miner you can watch, configure, and understand, and earnings are secondary. Lottery-style solo mining means you accept tiny odds in exchange for a shot at a whole block, and you want the lowest running cost per ticket. Production mining means you want the best return on the machine and the power, and you are willing to build the space for it. Be honest about which one you are. A production machine bought for a hobby goal will annoy your household. A hobby machine bought for a production goal will disappoint your wallet.</p>
+
+        <p>Then check the three hard constraints, in this order: electricity rate, noise location, and power supply. Your electricity rate decides whether any machine can cover its own power cost. Your location decides whether a loud machine is even operable in your home. Your electrical panel decides whether a full-size machine can plug in at all, since most need a dedicated 240-volt circuit. A machine that fails any of these three is out, no matter how good its spec sheet looks.</p>
+
+        <div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <h2>The home-scale lineup, by category</h2>
+
+        <p>At the small end sit desktop units built for a desk or a shelf. The best-known example is the Bitaxe Gamma, an open-source single-chip miner. Project-published specifications put it at roughly 1.2 terahashes per second at roughly 17 to 20 watts, or about 15 to 17 joules per terahash, with a small fan that its builders describe as near-silent. It connects over Wi-Fi, runs open-source firmware, and draws less power than a laptop charger. Its hashrate is tiny against the network, so its role is learning and lottery-style solo mining, not income.</p>
+
+        <p>A step up is the compact home unit, typified by Canaan's Avalon Nano 3. Canaan's published specifications list it at 4 terahashes per second with power consumption up to 140 watts, about 35 joules per terahash, and noise rated around 33 to 36 decibels. That noise level is comparable to a quiet room, not to a vacuum cleaner, which is why this category exists at all: it is a real ASIC you can run in a living space without soundproofing a room. It also doubles as a small space heater, which is a genuine benefit in winter and a genuine problem in summer.</p>
+
+        <p>At the full-size end are the production ASICs, typified by Bitmain's Antminer S21 Pro. Bitmain's published specifications list it at 234 terahashes per second at 3,510 watts, about 15 joules per terahash. That efficiency is roughly twice as good as the compact unit's, which is why it is the machine serious operators buy. The cost is everything else: 70 to 80 decibels of fan noise, about 12,000 BTU per hour of heat, and a dedicated 240-volt circuit. This is not a desk machine. It belongs in a garage, an outbuilding, or a dedicated room with ducted exhaust.</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Unit</th>
+              <th>Published hashrate</th>
+              <th>Published power</th>
+              <th>Published noise</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Bitaxe Gamma (open-source project specs)</td><td>~1.2 TH/s</td><td>~17–20 W</td><td>Near-silent (small fan)</td></tr>
+            <tr><td>Canaan Avalon Nano 3 (manufacturer specs)</td><td>4 TH/s</td><td>Up to 140 W</td><td>~33–36 dB</td></tr>
+            <tr><td>Bitmain Antminer S21 Pro (manufacturer specs)</td><td>234 TH/s</td><td>3,510 W</td><td>~70–80 dB class</td></tr>
+          </tbody>
+        </table>
+
+        <p>Read that table as categories, not as a ranking. The full-size machine wins on efficiency and hashrate and loses on livability. The desktop units win on livability and lose on hashrate. There is no unit that wins on all three, and anyone selling you one is leaving something out of the spec sheet.</p>
+
+        <h2>The October 2026 math, worked honestly</h2>
+
+        <p>Using October 28, 2026 inputs — Bitcoin around $81,000, network difficulty 140.58 trillion, block reward 3.125 BTC — the revenue formula gives about $0.0362 per terahash per day. Apply that to each category and the picture is blunt.</p>
+
+        <p>A Bitaxe Gamma at 1.2 terahashes earns about $0.04 per day in gross revenue. At 18 watts and $0.12 per kilowatt-hour, its power costs about $0.05 per day, so it roughly breaks even. At $0.07 per kilowatt-hour, power costs about $0.03 per day, leaving roughly a penny a day. Nobody buys this machine for the penny. They buy it to learn, to tinker, and to hold a very long lottery ticket.</p>
+
+        <p>An Avalon Nano 3 at 4 terahashes earns about $0.14 per day in gross revenue. At 140 watts and $0.12 per kilowatt-hour, power costs about $0.40 per day, so it loses about $0.26 per day in a pool. At $0.07 per kilowatt-hour, power costs about $0.24 per day, still a loss. At a very low rate, around $0.04 per kilowatt-hour, power costs about $0.13 per day and it roughly breaks even. That is the honest shape of compact home mining in late 2026: a quiet, educational, heat-producing device that is not a profit machine at residential rates, and anyone telling you otherwise is using old difficulty numbers or ignoring the power bill.</p>
+
+        <p>An Antminer S21 Pro at 234 terahashes earns about $8.48 per day in gross revenue. At 3,510 watts and $0.07 per kilowatt-hour, power costs $5.90 per day, leaving about $2.58 per day. At $0.10 per kilowatt-hour, power costs $8.42 per day, leaving about $0.05 per day, effectively break-even. At $0.12 per kilowatt-hour, it loses about $1.63 per day. So the production machine is profitable only where power is cheap and the space exists to run it. That combination, cheap power plus a suitable outbuilding, is rarer than the marketing suggests, and it is the real filter for this category.</p>
+
+        <p>Two cautions apply to all three calculations. First, difficulty rises over time on average, which shrinks revenue per terahash even if price holds still. A machine that barely breaks even today is likely underwater in a year unless price rises to compensate. Second, these figures are gross of everything except electricity: no pool fees, no hardware cost, no repairs, no ventilation equipment. Payback math has to include all of that, and it is covered in the <a href="/blog/mining-payback-period">payback period guide</a>.</p>
+
+        <h2>What to check before you buy any of them</h2>
+
+        <p>Verify the spec sheet against the manufacturer's current page, not a reseller listing. Resellers sometimes carry old revisions, and model names get reused across years with different chips inside. Check the power supply situation: some small units ship with one, some expect you to supply a suitable one, and an undersized or cheap power supply is a common cause of instability and, in bad cases, a safety hazard. Use the supply the maker specifies, with headroom, and never substitute a random adapter because the plug fits.</p>
+
+        <p>For full-size machines, buy new or buy carefully used. A used machine can be a good deal, but ask for hash board diagnostics and fan condition, verify the serial number and model against the manufacturer's records where possible, and remember that no warranty usually means the first repair is yours. For small open-source units, check that the seller is shipping the revision they advertise, since board revisions change firmware compatibility, and confirm what support exists if a board arrives dead.</p>
+
+        <p>Also check the return and warranty terms before ordering, and the total delivered cost, not just the headline price. Shipping, import duties, and taxes on a machine ordered internationally can add a large percentage to a small unit's price, and they count in the payback calculation just like the machine itself does. A bargain that doubles in price by the time it reaches your door was not a bargain.</p>
+
+        <h2>Matching the machine to the situation</h2>
+
+        <p>If you live in an apartment or a home where a loud machine is not an option, and your goal is learning or lottery mining, a desktop unit is the honest choice. Accept that pool earnings will be negligible, point it at a pool or a solo pool for the experience, and enjoy it for what it is. If you have a garage or outbuilding, a suitable electrical circuit, and power at or below about $0.07 per kilowatt-hour, a full-size current-generation machine is the only category with a plausible production case, and even then the margin is thin and depends on price holding up.</p>
+
+        <p>If you are between those two situations — a house with no outbuilding, or power at residential rates — the most profitable home mining decision in 2026 is often to buy no miner at all, or to buy a small quiet unit purely as a hobby and skip the production dream. That is not a failure. It is the math telling you that buying Bitcoin directly costs less than manufacturing it at a loss in your living room. The guides on this site will keep saying that, because it stays true even when it is unwelcome.</p>
+
+        <p>The home unit I actually run is the Avalon Q — 90 TH/s in Super mode, around 60 TH/s in eco mode — and it's the biggest single unit in my home setup, alongside four Nano 3S boxes and a Bitaxe Gamma. I picked it because it fits the constraint this guide keeps coming back to: a single box I can run in a living space, with an eco mode that trades a little hashrate for liveable noise and heat, instead of a full-size production machine that would need a garage and cheap power to make sense.</p>
+
+        <h2>The bottom line</h2>
+
+        <p>Choose by constraint, not by enthusiasm. Electricity rate first, noise and space second, efficiency third, hashrate last. Run the October 2026 numbers for your rate before ordering, include shipping and setup costs, and assume difficulty rises. If the machine still makes sense under those conditions, buy it. If it only makes sense under perfect conditions, wait.</p>
+
+        <p>For setup and noise planning, see the <a href="/blog/home-bitcoin-mining-setup">home setup guide</a> and the <a href="/blog/home-bitcoin-mining-noise-heat-management">noise and heat management guide</a>.</p>
+<p>Before you spend anything, run your numbers through the free <a href="https://tools.faithmining.net/bitcoin-miner-roi/">Faith Mining ROI calculator</a> with your real hashrate, wattage, and electricity rate.</p>
+        <div class="cta-box">
+          <h3>Compare full-size machines too</h3>
+          <p>The ASIC buyer's guide covers efficiency, used-vs-new checks, and the seven questions to answer before any purchase.</p>
+          <a href="/blog/how-to-choose-asic-miner" class="btn-primary">Read the buyer's guide →</a>
+        </div>
+
+
+      <div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+      </div><!-- /prose -->
+
+      <div class="related-section">
+        <h3>More from Faith Mining</h3>
+        <div class="related-grid">
+          <a href="/blog/home-bitcoin-mining-setup" class="related-card">
+            <h4>Home Bitcoin Mining Setup: What You Actually Need to Get Started</h4>
+            <p>Hardware, electrical work, cooling, and the honest math on home mining.</p>
+          </a>
+          <a href="/blog/home-bitcoin-mining-noise-heat-management" class="related-card">
+            <h4>Home Bitcoin Mining Noise and Heat Management</h4>
+            <p>Ventilation, soundproofing, safety, and neighbor considerations for home miners.</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© <span id="year"></span> Faith Mining LLC</p>
+      <nav class="footer-links">
+        <a href="/">Home</a>
+        <a href="/#blog">Blog</a>
+        <a href="/about">About</a>
+        <a href="mailto:info@faithmining.net">Contact</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Use</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -100,7 +100,7 @@
       .comparison-grid { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
     }
-  </style>
+  .update-note{background:var(--bg-surface);border:1px solid var(--border-orange);border-radius:var(--radius);padding:14px 20px;margin:0 0 28px;font-size:0.9rem;color:var(--text-secondary);}.update-note strong{color:var(--orange);}</style>
 </head>
 <body>
 
@@ -124,7 +124,7 @@
       <h1>What Is Solo Bitcoin Mining — And Is It Worth It?</h1>
       <div class="article-meta">
         <span>✍️ Chris Johnson — Faith Mining LLC</span>
-        <span>📅 May 2026</span>
+        <span>📅 October 2026</span>
         <span>⏱ 6 min read</span>
       </div>
     </div>
@@ -135,12 +135,23 @@
       <div class="prose">
 
         <p>Every Bitcoin miner eventually asks the same question: should I mine in a pool, or go solo? The answer depends entirely on your hashrate, your risk tolerance, and whether you actually understand what you're signing up for. This guide explains both approaches honestly — including the parts that solo mining advocates tend to gloss over.</p>
+        <div class="update-note"><strong>Figures updated October 28, 2026.</strong> Market examples in this guide now use BTC ~$81,000, network difficulty 140.58 trillion (set October 16, 2026), block reward 3.125 BTC, and network hashrate roughly 1.07&ndash;1.09 ZH/s. Market numbers move constantly &mdash; re-run your own inputs before acting on them.</div>
 
         <h2>How Bitcoin Mining Works (The Quick Version)</h2>
 
         <p>Bitcoin miners compete to find a hash — a number — that falls below a target set by the network. The process is essentially a lottery: you generate billions of random guesses per second (that's what your hashrate measures), and occasionally one of those guesses wins. The winner gets to add the next block to the blockchain and collects the block reward — currently <strong>3.125 BTC</strong> after the April 2024 halving — plus any transaction fees in that block.</p>
 
-        <p>The network adjusts the difficulty of this lottery every 2,016 blocks (roughly every two weeks) to keep the average block time at 10 minutes regardless of how much total hashrate is competing. As of early 2025, the total network hashrate is around 800–850 exahashes per second (EH/s).</p>
+        <p>The network adjusts the difficulty of this lottery every 2,016 blocks (roughly every two weeks) to keep the average block time at 10 minutes regardless of how much total hashrate is competing. As of October 2026, the total network hashrate is roughly 1.08 zettahashes per second (ZH/s), about 1,080 EH/s.</p>
+
+        <div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
 
         <h2>Pool Mining vs. Solo Mining</h2>
 
@@ -169,31 +180,21 @@
 
         <p>The key insight: <strong>the expected value is essentially the same.</strong> Whether you pool mine or solo mine, the long-run BTC you earn per unit of hashrate is approximately equal (minus pool fees). The difference is entirely about variance — how smooth or lumpy your earnings are.</p>
 
-        <div class="ad-unit">
-          <div class="ad-label">Advertisement</div>
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-4198818748800027"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-
         <h2>The Lottery Math — What Are Your Actual Odds?</h2>
 
-        <p>This is where solo mining gets brutally honest. Let's calculate the expected time to find a block for a single Antminer S21 Pro at 234 TH/s against a network running at 800 EH/s.</p>
+        <p>This is where solo mining gets brutally honest. Let's calculate the expected time to find a block for a single Antminer S21 Pro at 234 TH/s against a network running at 1,080 EH/s.</p>
 
-        <p>Your share of the network hashrate: 234 TH/s ÷ 800,000,000 TH/s = <strong>0.0000293%</strong></p>
+        <p>Your share of the network hashrate: 234 TH/s ÷ 1,080,000,000 TH/s = <strong>0.0000217%</strong></p>
 
         <p>At 6 blocks per hour (144 per day), your expected time to find one block:</p>
 
         <div class="callout-box">
-          <p>Expected days to find a block = 1 ÷ (0.000000293 × 144) ≈ <strong>23,700 days — about 65 years.</strong></p>
+          <p>Expected days to find a block = 1 ÷ (0.000000217 × 144) ≈ <strong>32,100 days — about 88 years.</strong></p>
         </div>
 
-        <p>That's not a typo. A single S21 Pro solo mining against today's network would statistically take 65 years to find a block. You might get lucky and find one in a week — or go 130 years without one. That's what variance means at low hashrates.</p>
+        <p>That's not a typo. A single S21 Pro solo mining against today's network would statistically take about 88 years to find a block. You might get lucky and find one in a week — or go twice the expected time without one. That's what variance means at low hashrates.</p>
 
-        <p>To get your expected time down to a more reasonable range, you need serious hashrate. At 10 PH/s (roughly 43 S21 Pros), the expected time drops to about 550 days. At 100 PH/s, you're looking at ~55 days on average. Still high variance, but starting to become a real strategy.</p>
+        <p>To get your expected time down to a more reasonable range, you need serious hashrate. At 10 PH/s (roughly 43 S21 Pros), the expected time drops to about 750 days. At 100 PH/s, you're looking at ~75 days on average. Still high variance, but starting to become a real strategy.</p>
 
         <h2>When Solo Mining Actually Makes Sense</h2>
 
@@ -201,7 +202,7 @@
 
         <ul>
           <li><strong>You have significant hashrate.</strong> If you're running multiple petahashes, the variance becomes manageable enough that solo mining is a legitimate strategy. Below a few petahashes, you're playing a very long lottery.</li>
-          <li><strong>You're playing for the jackpot.</strong> Some miners specifically <em>want</em> the all-or-nothing nature of solo mining. Finding a block at 3.125 BTC (currently worth ~$260,000+) is a life-changing event for a small operation. Some people find that exciting and are willing to accept lower expected utility for higher potential upside.</li>
+          <li><strong>You're playing for the jackpot.</strong> Some miners specifically <em>want</em> the all-or-nothing nature of solo mining. Finding a block at 3.125 BTC (currently worth ~$253,000 plus transaction fees at $81,000/BTC) is a life-changing event for a small operation. Some people find that exciting and are willing to accept lower expected utility for higher potential upside.</li>
           <li><strong>You have a very long time horizon.</strong> If you plan to mine for 10+ years and don't need the income, the variance matters less over long time periods.</li>
           <li><strong>You're philosophically opposed to pools.</strong> Large mining pools represent a centralization risk to Bitcoin. Some miners solo mine as a matter of principle, accepting lower expected income to support network decentralization.</li>
         </ul>
@@ -220,13 +221,15 @@
 
         <p>If you have significant hashrate, a long time horizon, and genuinely understand that you might not find a block for years — solo mining is a legitimate and exciting strategy. Just go in with eyes open.</p>
 
+        <p>Run your own numbers instead of trusting any single example: the free <a href="https://tools.faithmining.net/bitcoin-miner-roi/">Faith Mining ROI calculator</a> lets you enter your hardware, electricity rate, and price assumptions and see the payback math for yourself.</p>
+
         <div class="cta-box">
-          <h3>Faith Mining Solo Pool — coming soon</h3>
-          <p>A transparent, low-fee Bitcoin solo pool built by a real operator. Get notified when it goes live.</p>
+          <h3>Faith Mining Solo Pool</h3>
+          <p>A transparent, low-fee Bitcoin solo pool built by a real operator. It is live now.</p>
           <a href="https://solo.faithmining.net" class="btn-primary">Visit solo.faithmining.net →</a>
         </div>
 
-        <div class="ad-unit">
+<div class="ad-unit">
           <div class="ad-label">Advertisement</div>
           <ins class="adsbygoogle"
                style="display:block"
@@ -236,7 +239,9 @@
           <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
-      </div>
+<p>Want your own numbers? Run them through the <a href="https://tools.faithmining.net/solo-mining-odds/">Solo Mining Odds Calculator</a> to see your probability of finding a block over a day, week, month, and year at your hashrate.</p>
+
+              </div>
 
       <div class="related-section">
         <h3>More from Faith Mining</h3>
@@ -262,6 +267,7 @@
         <a href="/">Home</a>
         <a href="/#blog">Blog</a>
         <a href="/about">About</a>
+        <a href="mailto:info@faithmining.net">Contact</a>
         <a href="/privacy">Privacy Policy</a>
         <a href="/terms">Terms of Use</a>
       </nav>

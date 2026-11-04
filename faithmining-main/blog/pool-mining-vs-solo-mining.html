@@ -87,7 +87,7 @@
     .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
 
     @media (max-width: 600px) { .compare-grid { grid-template-columns: 1fr; } }
-  </style>
+  .update-note{background:var(--bg-surface);border:1px solid var(--border-orange);border-radius:var(--radius);padding:14px 20px;margin:0 0 28px;font-size:0.9rem;color:var(--text-secondary);}.update-note strong{color:var(--orange);}</style>
 </head>
 <body>
 
@@ -110,7 +110,7 @@
         <div class="article-meta">
           <span>By Chris Johnson</span>
           <span>·</span>
-          <span>May 2026</span>
+          <span>October 2026</span>
           <span>·</span>
           <span>12 min read</span>
         </div>
@@ -120,9 +120,10 @@
     <div class="article-body">
       <div class="container prose">
 
-        <p>Every Bitcoin miner faces the same fundamental choice: join a pool and earn small, predictable payouts every day, or mine solo and accept zero income most days with a tiny chance of winning an entire block worth 3.125 BTC (~$244,000 at current prices).</p>
+        <p>Every Bitcoin miner faces the same fundamental choice: join a pool and earn small, predictable payouts every day, or mine solo and accept zero income most days with a tiny chance of winning an entire block worth 3.125 BTC (~$253,000 at $81,000/BTC, plus transaction fees).</p>
 
         <p>Both approaches produce the same expected value over infinite time. The difference is the variance — and variance has real practical consequences for real people with real bills to pay. This guide breaks down how each approach works, the math behind the choice, and when each one actually makes sense.</p>
+        <div class="update-note"><strong>Figures updated October 28, 2026.</strong> Market examples in this guide now use BTC ~$81,000, network difficulty 140.58 trillion (set October 16, 2026), block reward 3.125 BTC, and network hashrate roughly 1.07&ndash;1.09 ZH/s. Market numbers move constantly &mdash; re-run your own inputs before acting on them.</div>
 
         <h2>How pool mining works</h2>
 
@@ -144,19 +145,19 @@
 
         <p>In solo mining, your hardware points directly at the Bitcoin network (or at a solo mining pool that forwards your work directly to the network without aggregating with others). You earn nothing until your hardware finds a valid block — at which point you keep the entire 3.125 BTC block reward for yourself.</p>
 
-        <p>The probability of finding a block depends on your share of the network's total hashrate. With 104 TH/s (an S19j Pro) and a network hashrate of 978 EH/s (978,000,000 TH/s), your probability of finding any given block is:</p>
+        <p>The probability of finding a block depends on your share of the network's total hashrate. With 104 TH/s (an S19j Pro) and a network hashrate of 1,080 EH/s (1,080,000,000 TH/s), your probability of finding any given block is:</p>
 
         <div class="math-block">
           Your hashrate / Network hashrate<br>
-          = 104 TH/s / 978,000,000 TH/s<br>
-          = <span class="result">0.0000001064%</span> per block<br><br>
+          = 104 TH/s / 1,080,000,000 TH/s<br>
+          = <span class="result">about 1 chance in 10.4 million</span> per block<br><br>
           Expected time to find a block:<br>
-          978,000,000 / 104 = 9,403,846 blocks<br>
-          At 10 min/block = 94,038,461 minutes<br>
-          = <span class="result">~178.8 years on average</span>
+          1,080,000,000 / 104 = 10,384,615 blocks<br>
+          At 10 min/block = 103,846,150 minutes<br>
+          = <span class="result">~197.6 years on average</span>
         </div>
 
-        <p>That's not a typo. A single S19j Pro pointed at solo mining would, on average, take nearly 179 years to find a block. It might find one tomorrow — that's the nature of probability. But on average, you'd run that machine continuously for over a century and a half before hitting the jackpot.</p>
+        <p>That's not a typo. A single S19j Pro pointed at solo mining would, on average, take nearly 198 years to find a block. It might find one tomorrow — that's the nature of probability. But on average, you'd run that machine continuously for over a century and a half before hitting the jackpot.</p>
 
         <div class="callout">
           <p><strong>Important:</strong> "On average" doesn't mean "guaranteed after that time." Each block attempt is an independent random event. You could mine solo for 200 years and never find one. Or you could find one in the first hour. The expected value is the same over infinite trials, but real operators have finite equipment lifespans and finite budgets.</p>
@@ -182,7 +183,7 @@
         <p>There are specific situations where solo mining is rational:</p>
 
         <h3>Very large hashrate operations</h3>
-        <p>At industrial scale — tens of thousands of TH/s — the expected time to find a block drops dramatically. At 100,000 TH/s (100 PH/s), the expected time to a solo block is about 186 days. At 1,000 PH/s (1 EH/s), it's about 18 days. Industrial miners sometimes solo mine or run their own private pools precisely to avoid sharing block rewards with others.</p>
+        <p>At industrial scale — tens of thousands of TH/s — the expected time to find a block drops dramatically. At 100,000 TH/s (100 PH/s), the expected time to a solo block is about 75 days. At 1,000 PH/s (1 EH/s), it's about 7–8 days. Industrial miners sometimes solo mine or run their own private pools precisely to avoid sharing block rewards with others.</p>
 
         <h3>As a lottery ticket mentality</h3>
         <p>Some small miners solo mine with full awareness that they probably won't find a block. They treat the electricity cost as the price of a lottery ticket — a small chance at a large payout. If this framing works for your psychology and budget, it's a valid choice, as long as you're honest with yourself that the expected financial outcome is negative (pool mining earnings minus zero solo earnings until the statistical miracle).</p>
@@ -241,25 +242,25 @@
 
         <p>If you're running one to ten machines at home, use a pool. It's not even close.</p>
 
+        <p>Run your own numbers instead of trusting any single example: the free <a href="https://tools.faithmining.net/bitcoin-miner-roi/">Faith Mining ROI calculator</a> lets you enter your hardware, electricity rate, and price assumptions and see the payback math for yourself.</p>
+
         <div class="cta-box">
           <h3>Understand your specific mining economics</h3>
           <p>The solo mining guide goes deeper on the probability math — including how to calculate your own expected solo block time.</p>
           <a href="/blog/what-is-solo-bitcoin-mining" class="btn-primary">Read the solo mining guide →</a>
         </div>
 
-        <!-- Ad unit -->
-        <div style="margin: 48px 0 0; text-align:center;">
-          <ins class="adsbygoogle"
+      </div>
+    </div>
+  <ins class="adsbygoogle"
                style="display:block"
                data-ad-client="ca-pub-4198818748800027"
                data-ad-format="auto"
                data-full-width-responsive="true"></ins>
           <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
+  <p>Want your own numbers? Run them through the <a href="https://tools.faithmining.net/solo-mining-odds/">Solo Mining Odds Calculator</a> to see your probability of finding a block over a day, week, month, and year at your hashrate.</p>
 
-      </div>
-    </div>
-  </article>
+        </article>
 
   <footer class="site-footer">
     <div class="container">
@@ -269,6 +270,7 @@
           <a href="/">Home</a>
           <a href="/#blog">Blog</a>
           <a href="/about">About</a>
+        <a href="mailto:info@faithmining.net">Contact</a>
           <a href="/privacy">Privacy Policy</a>
           <a href="/terms">Terms of Use</a>
         </nav>

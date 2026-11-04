@@ -87,7 +87,7 @@
     .footer-links a { font-size: 0.82rem; color: var(--text-muted); transition: color var(--transition); }
     .footer-links a:hover { color: var(--orange); }
     .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
-  </style>
+  .update-note{background:var(--bg-surface);border:1px solid var(--border-orange);border-radius:var(--radius);padding:14px 20px;margin:0 0 28px;font-size:0.9rem;color:var(--text-secondary);}.update-note strong{color:var(--orange);}</style>
 </head>
 <body>
 
@@ -110,7 +110,7 @@
         <div class="article-meta">
           <span>By Chris Johnson</span>
           <span>·</span>
-          <span>May 2026</span>
+          <span>October 2026</span>
           <span>·</span>
           <span>12 min read</span>
         </div>
@@ -123,6 +123,7 @@
         <p>Of all the variables that determine whether Bitcoin mining is profitable — BTC price, network difficulty, hardware cost, equipment efficiency — electricity is the one you can actually control. It's also the one most miners underestimate or miscalculate.</p>
 
         <p>This guide shows you exactly how to calculate your power costs, how to find your break-even electricity rate, and what rate actually makes mining viable in 2026 with current hardware and network conditions.</p>
+        <div class="update-note"><strong>Figures updated October 28, 2026.</strong> Market examples in this guide now use BTC ~$81,000, network difficulty 140.58 trillion (set October 16, 2026), block reward 3.125 BTC, and network hashrate roughly 1.07&ndash;1.09 ZH/s. Market numbers move constantly &mdash; re-run your own inputs before acting on them.</div>
 
         <h2>Why electricity dominates the math</h2>
 
@@ -144,7 +145,7 @@
           (3,068 ÷ 1,000) × 24 × $0.16 = <span class="result">$11.78/day</span>
         </div>
 
-        <p>At current network conditions (hashrate ~978 EH/s, BTC ~$78,281), an S19j Pro generates approximately $3.75/day in gross revenue. You can see immediately that even at $0.07/kWh, this machine is operating at a loss ($5.15 in costs vs $3.75 in revenue).</p>
+        <p>At current network conditions (difficulty 140.58T, BTC ~$81,000), an S19j Pro generates approximately $3.77/day in gross revenue. You can see immediately that even at $0.07/kWh, this machine is operating at a loss ($5.15 in costs vs $3.77 in revenue).</p>
 
         <p>This isn't unique to the S19j Pro — it's representative of what the market looks like for mid-tier and legacy hardware right now. Only top-tier hardware at very low electricity rates is profitable at current conditions.</p>
 
@@ -166,7 +167,7 @@
 
         <h2>Profitability by electricity rate — current conditions</h2>
 
-        <p>Using current network data (hashrate: 978 EH/s, BTC price: $78,281, post-halving block reward: 3.125 BTC), here's what a top-tier miner (Antminer S21 Pro, 234 TH/s, 3,510W) earns vs. what it costs at various electricity rates:</p>
+        <p>Using current network data (difficulty: 140.58T, BTC price: $81,000, post-halving block reward: 3.125 BTC), here's what a top-tier miner (Antminer S21 Pro, 234 TH/s, 3,510W) earns vs. what it costs at various electricity rates:</p>
 
         <table class="data-table">
           <thead>
@@ -181,58 +182,58 @@
           <tbody>
             <tr>
               <td>$0.04/kWh</td>
-              <td>$8.41</td>
+              <td>$8.48</td>
               <td>$3.37</td>
-              <td class="profitable">+$5.04</td>
+              <td class="profitable">+$5.11</td>
               <td class="profitable">Profitable</td>
             </tr>
             <tr>
               <td>$0.05/kWh</td>
-              <td>$8.41</td>
+              <td>$8.48</td>
               <td>$4.21</td>
-              <td class="profitable">+$4.20</td>
+              <td class="profitable">+$4.26</td>
               <td class="profitable">Profitable</td>
             </tr>
             <tr>
               <td>$0.06/kWh</td>
-              <td>$8.41</td>
+              <td>$8.48</td>
               <td>$5.05</td>
-              <td class="profitable">+$3.36</td>
+              <td class="profitable">+$3.42</td>
               <td class="profitable">Profitable</td>
             </tr>
             <tr>
               <td>$0.07/kWh</td>
-              <td>$8.41</td>
+              <td>$8.48</td>
               <td>$5.89</td>
-              <td class="marginal">+$2.52</td>
+              <td class="marginal">+$2.58</td>
               <td class="marginal">Marginal</td>
             </tr>
             <tr>
               <td>$0.08/kWh</td>
-              <td>$8.41</td>
+              <td>$8.48</td>
               <td>$6.74</td>
-              <td class="marginal">+$1.67</td>
+              <td class="marginal">+$1.74</td>
               <td class="marginal">Thin margin</td>
             </tr>
             <tr>
               <td>$0.10/kWh</td>
-              <td>$8.41</td>
+              <td>$8.48</td>
               <td>$8.42</td>
-              <td class="unprofitable">-$0.01</td>
+              <td class="profitable">+$0.05</td>
               <td class="unprofitable">Break-even</td>
             </tr>
             <tr>
               <td>$0.12/kWh</td>
-              <td>$8.41</td>
-              <td>$10.10</td>
-              <td class="unprofitable">-$1.69</td>
+              <td>$8.48</td>
+              <td>$10.11</td>
+              <td class="unprofitable">-$1.63</td>
               <td class="unprofitable">Unprofitable</td>
             </tr>
             <tr>
               <td>$0.16/kWh</td>
-              <td>$8.41</td>
+              <td>$8.48</td>
               <td>$13.48</td>
-              <td class="unprofitable">-$5.07</td>
+              <td class="unprofitable">-$5.00</td>
               <td class="unprofitable">Deeply unprofitable</td>
             </tr>
           </tbody>
@@ -247,7 +248,7 @@
         <div class="math-block">
           Break-even $/kWh = Daily revenue ÷ ((Wattage ÷ 1,000) × 24)<br><br>
           S21 Pro example:<br>
-          $8.41 ÷ ((3,510 ÷ 1,000) × 24) = $8.41 ÷ 84.24 = <span class="result">$0.0998/kWh</span>
+          $8.48 ÷ ((3,510 ÷ 1,000) × 24) = $8.48 ÷ 84.24 = <span class="result">$0.1006/kWh</span>
         </div>
 
         <p>Any electricity rate above $0.10/kWh means the S21 Pro is losing money every day it runs at current conditions. Any rate below $0.10/kWh means it's at least covering its power costs.</p>
@@ -278,24 +279,22 @@
           <p><strong>Need to calculate your specific situation?</strong> The payback period guide walks through the complete profitability formula for any hardware and electricity rate combination — including what BTC price you'd need to reach break-even.</p>
         </div>
 
+        <p>Run your own numbers instead of trusting any single example: the free <a href="https://tools.faithmining.net/bitcoin-miner-roi/">Faith Mining ROI calculator</a> lets you enter your hardware, electricity rate, and price assumptions and see the payback math for yourself.</p>
+
         <div class="cta-box">
           <h3>Calculate your break-even BTC price and payback period</h3>
           <p>Enter your hardware specs and electricity rate to see exactly when (and whether) your miner pays back.</p>
           <a href="/blog/mining-payback-period" class="btn-primary">Read the payback guide →</a>
         </div>
 
-        <!-- Ad unit -->
-        <div style="margin: 48px 0 0; text-align:center;">
-          <ins class="adsbygoogle"
+      </div>
+    </div>
+  <ins class="adsbygoogle"
                style="display:block"
                data-ad-client="ca-pub-4198818748800027"
                data-ad-format="auto"
                data-full-width-responsive="true"></ins>
           <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-
-      </div>
-    </div>
   </article>
 
   <footer class="site-footer">
@@ -306,6 +305,7 @@
           <a href="/">Home</a>
           <a href="/#blog">Blog</a>
           <a href="/about">About</a>
+        <a href="mailto:info@faithmining.net">Contact</a>
           <a href="/privacy">Privacy Policy</a>
           <a href="/terms">Terms of Use</a>
         </nav>

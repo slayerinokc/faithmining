@@ -3,88 +3,114 @@
 
   <!-- Core pages -->
   <url>
-    <loc>https://faithmining.net/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <loc>https://www.faithmining.net/</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://faithmining.net/about</loc>
-    <lastmod>2026-05-24</lastmod>
+    <loc>https://www.faithmining.net/about</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://faithmining.net/privacy</loc>
-    <lastmod>2026-05-03</lastmod>
+    <loc>https://www.faithmining.net/privacy</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://faithmining.net/terms</loc>
-    <lastmod>2026-05-03</lastmod>
+    <loc>https://www.faithmining.net/terms</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <!-- Blog articles -->
   <url>
-    <loc>https://faithmining.net/blog/mining-payback-period</loc>
-    <lastmod>2026-05-24</lastmod>
+    <loc>https://www.faithmining.net/blog/mining-payback-period</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://faithmining.net/blog/what-is-solo-bitcoin-mining</loc>
-    <lastmod>2026-05-24</lastmod>
+    <loc>https://www.faithmining.net/blog/what-is-solo-bitcoin-mining</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://faithmining.net/blog/bitcoin-mining-2025-numbers</loc>
-    <lastmod>2026-05-24</lastmod>
+    <loc>https://www.faithmining.net/blog/bitcoin-mining-2025-numbers</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://faithmining.net/blog/how-to-choose-asic-miner</loc>
-    <lastmod>2026-05-24</lastmod>
+    <loc>https://www.faithmining.net/blog/how-to-choose-asic-miner</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://faithmining.net/blog/bitcoin-mining-difficulty-explained</loc>
-    <lastmod>2026-05-24</lastmod>
+    <loc>https://www.faithmining.net/blog/bitcoin-mining-difficulty-explained</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://faithmining.net/blog/home-bitcoin-mining-setup</loc>
-    <lastmod>2026-05-24</lastmod>
+    <loc>https://www.faithmining.net/blog/home-bitcoin-mining-setup</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://faithmining.net/blog/electricity-costs-mining-profitability</loc>
-    <lastmod>2026-05-24</lastmod>
+    <loc>https://www.faithmining.net/blog/electricity-costs-mining-profitability</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://faithmining.net/blog/bitcoin-halving-explained</loc>
-    <lastmod>2026-05-24</lastmod>
+    <loc>https://www.faithmining.net/blog/bitcoin-halving-explained</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://faithmining.net/blog/cloud-mining-worth-it</loc>
-    <lastmod>2026-05-24</lastmod>
+    <loc>https://www.faithmining.net/blog/cloud-mining-worth-it</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://faithmining.net/blog/pool-mining-vs-solo-mining</loc>
-    <lastmod>2026-05-24</lastmod>
+    <loc>https://www.faithmining.net/blog/pool-mining-vs-solo-mining</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- New guides (added 2026-10-28) -->
+  <url>
+    <loc>https://www.faithmining.net/blog/home-bitcoin-mining-noise-heat-management</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.faithmining.net/blog/how-to-set-up-a-solo-mining-pool-at-home</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.faithmining.net/blog/choosing-a-home-miner-2026</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.faithmining.net/blog/bitcoin-mining-taxes-record-keeping-basics</loc>
+    <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>

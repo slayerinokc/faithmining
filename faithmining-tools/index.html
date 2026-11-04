@@ -267,6 +267,12 @@
       line-height: 1.6;
     }
 
+    /* ── Ad placeholders (reserved, empty) ── */
+    .ad-placeholder {
+      /* Reserved for future AdSense units. Empty by design: no ad code, no fake ads. */
+      margin-bottom: var(--space-12);
+    }
+
     /* ── Footer ── */
     .site-footer {
       border-top: 1px solid var(--border);
@@ -344,6 +350,9 @@
         </div>
       </section>
 
+      <!-- Ad placement placeholder: reserved for a future AdSense unit. Empty by design — no ad code loaded. -->
+      <div class="ad-placeholder"></div>
+
       <!-- Tools -->
       <p class="section-label">Available tools</p>
       <div class="tool-grid">
@@ -387,7 +396,33 @@
           </div>
         </a>
 
+        <a href="/solo-mining-odds/" class="tool-card live">
+          <div class="card-top">
+            <div class="tool-icon">🎲</div>
+            <span class="badge badge-orange">Live</span>
+          </div>
+          <h2>Solo Mining Odds Calculator</h2>
+          <p>Your probability of finding a Bitcoin block on your own over a day, week, month, and year — plus expected time to a block — at any hashrate and difficulty. An honest probability estimate, not a promise of earnings.</p>
+          <div class="card-footer">
+            <span class="card-cta">Open calculator</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
       </div>
+
+      <!-- Support this site -->
+      <section class="about-strip">
+        <div class="about-avatar">♥</div>
+        <div>
+          <h3>Support this site</h3>
+          <p>These tools are free and always will be. If they saved you time or helped you make a better decision, you can help keep them running.</p>
+          <p style="margin-top:8px;"><a href="https://ko-fi.com/faithmining">Support Faith Mining on Ko-fi</a></p>
+        </div>
+      </section>
+
+      <!-- Ad placement placeholder: reserved for a future AdSense unit. Empty by design — no ad code loaded. -->
+      <div class="ad-placeholder"></div>
 
       <!-- About strip -->
       <div class="about-strip">
@@ -406,6 +441,7 @@
       <p class="footer-copy">© <span id="year"></span> Faith Mining LLC · <a href="mailto:info@faithmining.net" style="color:inherit;">info@faithmining.net</a></p>
       <nav class="footer-links">
         <a href="https://faithmining.net">faithmining.net</a>
+        <a href="https://faithmining.net/about">About</a>
         <a href="https://faithmining.net/#blog">Blog</a>
         <a href="https://solo.faithmining.net">Solo Pool</a>
         <a href="mailto:info@faithmining.net">Contact</a>

@@ -90,7 +90,7 @@
     .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
 
     @media (max-width: 600px) { .compare-grid { grid-template-columns: 1fr; } }
-  </style>
+  .update-note{background:var(--bg-surface);border:1px solid var(--border-orange);border-radius:var(--radius);padding:14px 20px;margin:0 0 28px;font-size:0.9rem;color:var(--text-secondary);}.update-note strong{color:var(--orange);}</style>
 </head>
 <body>
 
@@ -113,7 +113,7 @@
         <div class="article-meta">
           <span>By Chris Johnson</span>
           <span>·</span>
-          <span>May 2026</span>
+          <span>October 2026</span>
           <span>·</span>
           <span>12 min read</span>
         </div>
@@ -126,6 +126,7 @@
         <p>Cloud mining is the idea that you can participate in Bitcoin mining without buying or operating physical hardware. You pay a company for a "hashrate contract" — they mine on your behalf using their equipment, and you receive Bitcoin payouts proportional to the hashrate you purchased, minus their fees.</p>
 
         <p>It sounds simple. And some legitimate cloud mining platforms do exist. But the space has historically been dominated by scams, unsustainable economics, and contracts that look profitable on paper but aren't in practice. This guide gives you the honest framework to evaluate any cloud mining offer.</p>
+        <div class="update-note"><strong>Figures updated October 28, 2026.</strong> Market examples in this guide now use BTC ~$81,000, network difficulty 140.58 trillion (set October 16, 2026), block reward 3.125 BTC, and network hashrate roughly 1.07&ndash;1.09 ZH/s. Market numbers move constantly &mdash; re-run your own inputs before acting on them.</div>
 
         <h2>How cloud mining actually works</h2>
 
@@ -212,15 +213,15 @@
         <p>Let's look at a simplified example. Suppose a cloud mining provider offers 1 TH/s for $20 with no ongoing maintenance fee for one year. At current conditions:</p>
 
         <ul>
-          <li>Daily revenue per TH/s: ~$0.036</li>
-          <li>Annual revenue: $0.036 × 365 = ~$13.14</li>
+          <li>Daily revenue per TH/s: ~$0.0362</li>
+          <li>Annual revenue: $0.0362 × 365 = ~$13.22</li>
           <li>Contract cost: $20</li>
-          <li>Net result: <strong>-$6.86 (a loss)</strong></li>
+          <li>Net result: <strong>-$6.78 (a loss)</strong></li>
         </ul>
 
-        <p>And this assumes difficulty stays constant — which it won't. If difficulty grows 20% over the year, annual revenue drops to around $10.95, and the loss deepens.</p>
+        <p>And this assumes difficulty stays constant — which it won't. If difficulty grows 20% over the year, annual revenue drops to around $11.02, and the loss deepens.</p>
 
-        <p>For a cloud mining contract to break even at current conditions, the contract price per TH/s would need to be roughly $13 or less for a one-year term, with no maintenance fees. Most market offerings are priced above this.</p>
+        <p>For a cloud mining contract to break even at current conditions, the contract price per TH/s would need to be roughly $13.22 or less for a one-year term, with no maintenance fees — and under $11.02 if difficulty grows 20% over that year. Most market offerings are priced above this.</p>
 
         <div class="callout">
           <p><strong>The honest answer:</strong> At current difficulty and BTC price, cloud mining contracts rarely break even at typical market pricing. They may make sense if BTC price rises significantly over the contract period — but that's speculation, not a business case. If you want BTC exposure without mining complexity, buying BTC directly is simpler and more straightforward.</p>
@@ -250,24 +251,22 @@
 
         <p>Cloud mining can be a legitimate way to participate in mining without dealing with hardware. But it has to be evaluated with the same rigor as any other investment — not as a passive income shortcut.</p>
 
+        <p>Run your own numbers instead of trusting any single example: the free <a href="https://tools.faithmining.net/bitcoin-miner-roi/">Faith Mining ROI calculator</a> lets you enter your hardware, electricity rate, and price assumptions and see the payback math for yourself.</p>
+
         <div class="cta-box">
           <h3>Understand the mining numbers before you invest</h3>
           <p>The Bitcoin Mining in 2026 article shows the current real-world revenue and profitability environment for any type of mining.</p>
           <a href="/blog/bitcoin-mining-2025-numbers" class="btn-primary">See the 2026 numbers →</a>
         </div>
 
-        <!-- Ad unit -->
-        <div style="margin: 48px 0 0; text-align:center;">
-          <ins class="adsbygoogle"
+      </div>
+    </div>
+  <ins class="adsbygoogle"
                style="display:block"
                data-ad-client="ca-pub-4198818748800027"
                data-ad-format="auto"
                data-full-width-responsive="true"></ins>
           <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-
-      </div>
-    </div>
   </article>
 
   <footer class="site-footer">
@@ -278,6 +277,7 @@
           <a href="/">Home</a>
           <a href="/#blog">Blog</a>
           <a href="/about">About</a>
+        <a href="mailto:info@faithmining.net">Contact</a>
           <a href="/privacy">Privacy Policy</a>
           <a href="/terms">Terms of Use</a>
         </nav>

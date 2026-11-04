@@ -81,7 +81,7 @@
     .footer-links a { font-size: 0.82rem; color: var(--text-muted); transition: color var(--transition); }
     .footer-links a:hover { color: var(--orange); }
     .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
-  </style>
+  .update-note{background:var(--bg-surface);border:1px solid var(--border-orange);border-radius:var(--radius);padding:14px 20px;margin:0 0 28px;font-size:0.9rem;color:var(--text-secondary);}.update-note strong{color:var(--orange);}</style>
 </head>
 <body>
 
@@ -104,7 +104,7 @@
         <div class="article-meta">
           <span>By Chris Johnson</span>
           <span>·</span>
-          <span>May 2026</span>
+          <span>October 2026</span>
           <span>·</span>
           <span>12 min read</span>
         </div>
@@ -117,6 +117,7 @@
         <p>Buying an ASIC miner is one of the largest capital decisions in Bitcoin mining. Get it right and you have a machine that earns for years. Get it wrong and you have a very loud, very hot paperweight that costs more to run than it makes.</p>
 
         <p>This guide walks through every spec that actually matters, explains what the numbers mean in practice, and gives you a framework for evaluating any machine — not just the ones that are popular right now.</p>
+        <div class="update-note"><strong>Figures updated October 28, 2026.</strong> Market examples in this guide now use BTC ~$81,000, network difficulty 140.58 trillion (set October 16, 2026), block reward 3.125 BTC, and network hashrate roughly 1.07&ndash;1.09 ZH/s. Market numbers move constantly &mdash; re-run your own inputs before acting on them.</div>
 
         <h2>The spec that matters most: efficiency</h2>
 
@@ -211,7 +212,7 @@
         </table>
 
         <div class="callout">
-          <p><strong>Important note on profitability:</strong> At current BTC price (~$78K) and network hashrate (~978 EH/s), even top-tier machines are operating at thin margins unless electricity costs are well below $0.07/kWh. The table above shows specs only — always run your own numbers before purchasing.</p>
+          <p><strong>Important note on profitability:</strong> At current BTC price (~$81K) and network difficulty (140.58T), even top-tier machines are operating on thin margins — about +$2.58/day for an S21 Pro at $0.07/kWh — and mid-tier machines are underwater at that same rate. The table above shows specs only — always run your own numbers before purchasing.</p>
         </div>
 
         <h2>New vs. used: what to consider</h2>
@@ -259,24 +260,22 @@
 
         <p>If you can't answer all seven questions before buying, you're not ready to buy. The mining industry has a long history of people purchasing hardware based on enthusiasm and then discovering the economics don't work. Run the numbers first, every time.</p>
 
+        <p>Run your own numbers instead of trusting any single example: the free <a href="https://tools.faithmining.net/bitcoin-miner-roi/">Faith Mining ROI calculator</a> lets you enter your hardware, electricity rate, and price assumptions and see the payback math for yourself.</p>
+
         <div class="cta-box">
           <h3>Calculate your payback period before you buy</h3>
           <p>Use the free Faith Mining payback calculator to model your specific hardware and electricity rate — no login required.</p>
           <a href="/blog/mining-payback-period" class="btn-primary">Read the payback guide →</a>
         </div>
 
-        <!-- Ad unit -->
-        <div style="margin: 48px 0 0; text-align:center;">
-          <ins class="adsbygoogle"
+      </div>
+    </div>
+  <ins class="adsbygoogle"
                style="display:block"
                data-ad-client="ca-pub-4198818748800027"
                data-ad-format="auto"
                data-full-width-responsive="true"></ins>
           <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-
-      </div>
-    </div>
   </article>
 
   <footer class="site-footer">
@@ -287,6 +286,7 @@
           <a href="/">Home</a>
           <a href="/#blog">Blog</a>
           <a href="/about">About</a>
+        <a href="mailto:info@faithmining.net">Contact</a>
           <a href="/privacy">Privacy Policy</a>
           <a href="/terms">Terms of Use</a>
         </nav>

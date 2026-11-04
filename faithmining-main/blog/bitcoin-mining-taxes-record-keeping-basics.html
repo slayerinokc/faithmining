@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitcoin Mining Taxes and Record-Keeping Basics — Faith Mining</title>
+  <meta name="description" content="A general educational overview of record-keeping for Bitcoin miners: payouts, expenses, disposals, and year-end organization. Not tax advice.">
+  <link rel="canonical" href="https://www.faithmining.net/blog/bitcoin-mining-taxes-record-keeping-basics">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733; --orange-glow: rgba(247,147,26,0.10);
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo:hover { color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color var(--transition); }
+    .nav-link:hover { color: var(--text); }
+
+    /* Article hero */
+    .article-hero { padding: 64px 0 48px; text-align: center; position: relative; }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse at center top, rgba(247,147,26,0.15) 0%, rgba(247,147,26,0.05) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .article-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); background: var(--orange-glow); border: 1px solid var(--border-orange); padding: 4px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .article-hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; max-width: 780px; margin-left: auto; margin-right: auto; }
+    .article-meta { display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 0.82rem; color: var(--text-muted); flex-wrap: wrap; }
+    .article-meta span { display: flex; align-items: center; gap: 5px; }
+
+    /* Article body */
+    .article-body { padding: 0 0 80px; }
+    .prose h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin: 48px 0 16px; line-height: 1.3; }
+    .prose h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+    .prose p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .prose p strong { color: var(--text); font-weight: 600; }
+    .prose ul, .prose ol { padding-left: 24px; margin-bottom: 20px; }
+    .prose li { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 8px; }
+    .prose li strong { color: var(--text); }
+    .prose a { color: var(--orange); }
+    .prose a:hover { color: var(--orange-light); }
+
+    /* Formula box */
+    .formula-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 28px 32px; margin: 32px 0; text-align: center; }
+    .formula-box .formula-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 12px; }
+    .formula-box .formula { font-family: var(--font-mono); font-size: 1rem; color: var(--orange); line-height: 1.8; }
+
+    /* Example table */
+    .data-table { width: 100%; border-collapse: collapse; margin: 24px 0 32px; font-size: 0.9rem; }
+    .data-table th { text-align: left; padding: 10px 16px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 12px 16px; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+    .data-table td:last-child { font-family: var(--font-mono); color: var(--orange); }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Ad unit */
+    .ad-unit { margin: 40px 0; text-align: center; }
+    .ad-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 6px; }
+
+    /* CTA box */
+    .cta-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 32px; margin: 48px 0; text-align: center; }
+    .cta-box h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .cta-box p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #000 !important; font-weight: 600; font-size: 0.95rem; padding: 11px 22px; border-radius: var(--radius); transition: background var(--transition); }
+    .btn-primary:hover { background: var(--orange-light); color: #000 !important; }
+
+    /* Related */
+    .related-section { border-top: 1px solid var(--border); padding: 48px 0; }
+    .related-section h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 20px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .related-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: border-color var(--transition); }
+    .related-card:hover { border-color: var(--border-orange); }
+    .related-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+    .related-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+    /* Footer */
+    .site-footer { border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.8rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    @media (max-width: 640px) {
+      .article-hero { padding: 48px 0 36px; }
+      .formula-box { padding: 20px; }
+      .formula-box .formula { font-size: 0.85rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  .update-note{background:var(--bg-surface);border:1px solid var(--border-orange);border-radius:var(--radius);padding:14px 20px;margin:0 0 28px;font-size:0.9rem;color:var(--text-secondary);}.update-note strong{color:var(--orange);}</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">F</span>
+        Faith Mining
+      </a>
+      <nav style="display:flex;gap:24px;align-items:center;">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#blog" class="nav-link">Blog</a>
+        <a href="/about" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-hero">
+    <div class="container">
+      <div class="article-eyebrow">📋 Education</div>
+      <h1>Bitcoin Mining Taxes and Record-Keeping Basics</h1>
+      <div class="article-meta">
+        <span>✍️ Chris Johnson — Faith Mining LLC</span>
+        <span>📅 October 2026</span>
+        <span>⏱ 5 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <div class="container">
+      <div class="prose">
+
+        <div class="callout" style="background:var(--bg-surface);border-left:3px solid var(--orange);border-radius:0 10px 10px 0;padding:20px 24px;margin:0 0 32px;">
+        <p style="margin:0;"><strong>Not tax advice.</strong> This guide is general educational information about record-keeping for Bitcoin miners. Tax rules differ by country, change over time, and depend on your individual situation. Nothing here is tax, legal, or financial advice. Before you file anything or make decisions based on this guide, talk to a qualified tax professional who understands cryptocurrency in your jurisdiction.</p>
+        </div>
+
+        <p>Most miners think about taxes once a year, usually in a panic, usually while digging through a year's worth of pool dashboards, wallet transactions, and electricity bills. That is the expensive way to do it. Good records, kept as you go, do three things for you: they make filing cheaper and less stressful, they protect you if your return is ever questioned, and they give you a true picture of whether your operation is actually profitable, which is a question many miners answer from feeling rather than from numbers.</p>
+
+        <p>This guide covers what to record, how to organize it, and which habits matter most. It does not tell you how your mining income should be classified, what deductions you can take, or what you owe. Those answers belong to a tax professional looking at your full situation. What this guide can do is make sure that when you sit down with that professional, you bring them something usable instead of a shoebox of screenshots.</p>
+
+        <h2>Why mining creates a paperwork problem</h2>
+
+        <p>Mining produces a large number of small events. A pool may pay you daily, or several times a day, in fractions of a Bitcoin. Each payout is a separate event with its own date, amount, and dollar value at the time you received it. Over a year, that can be hundreds of lines. Add hardware purchases, electricity bills, repairs, pool fees, and any Bitcoin you later sell or spend, and you have a bookkeeping job that looks nothing like a normal salary, where one employer sends one summary at year end.</p>
+
+        <p>The second problem is that the information lives in several places that do not talk to each other. Your pool knows your payouts but not your electricity bill. Your utility knows your power usage but not your Bitcoin. Your wallet knows your transactions but not what you paid for the hardware. Nobody sends you a single clean summary. If you do not build that summary yourself, as you go, reconstructing it later means re-downloading exports, re-reading old bills, and guessing at prices from months ago. Guessing is where errors and audit risk come from.</p>
+
+        <div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <h2>What to record for every payout</h2>
+
+        <p>For each mining payout, record the same set of fields, every time. Date and time received, amount of Bitcoin received, the dollar value of that Bitcoin at the time you received it, the pool or source it came from, the wallet address it went to, and any fee deducted before it reached you. The dollar value at receipt matters because, in many tax systems, mining rewards are treated as income when received, measured at their market value at that moment. That is a general description of how several jurisdictions approach it, not a ruling about yours. Your tax professional will tell you how it applies to you, but they can only do that math if you kept the values.</p>
+
+        <p>Where do you get the dollar value? Use a consistent, defensible source and note which one you used. A major exchange's daily price, a price index, or your pool's own payout valuation are all commonly used. Consistency matters more than picking the perfect source, because a return built on one source all year is explainable, while a return built on whichever source gave the lowest number each month is not. If your pool provides a payout history export, download it regularly. Pools change, close, or lose old data, and an export you saved is yours forever.</p>
+
+        <p>Also record what happens to the Bitcoin afterward. If you hold it, that is the end of the story for now. If you sell it, trade it, or spend it, record the date, the amount, the proceeds, and the fees of that second event, because that disposal is typically a separate taxable event from the mining itself in many systems, with its own gain or loss measured against the value you recorded when you received it. This is where most miners' records fall apart: they track the mining carefully and then treat a sale as if it were not a separate event at all.</p>
+
+        <h2>What to record for expenses</h2>
+
+        <p>Expenses are the other half of the picture, and they are just as scattered as income. Keep receipts and records for hardware purchases, including the machine, power supplies, networking gear, and ventilation equipment. Keep repair and replacement part receipts, including fans and power supply units, which are the most common repairs. Keep hosting or colocation invoices if you use them, pool fees if they are charged separately rather than deducted from payouts, and any software or monitoring subscriptions tied to the operation.</p>
+
+        <p>Electricity deserves special attention because it is usually your largest expense and the hardest to prove cleanly. If your miner runs on a shared household bill, the mining portion is not simply the whole bill. Practical approaches include a dedicated meter or submeter for the mining circuit, which gives you a clean reading, or a calculation from the miner's wattage and uptime applied to your utility rate, kept alongside the actual bills. Either way, keep the utility bills themselves, note your rate structure including any tiered or time-of-use pricing, and be able to show how you arrived at the mining share. A round number with no supporting paperwork is the kind of thing that does not survive scrutiny.</p>
+
+        <p>Shared costs need a reasonable allocation method, and the method should be written down. If a room serves both mining and another purpose, or an internet connection serves the whole house, decide on a defensible split, apply it consistently, and note why you chose it. The same applies to a vehicle trip to buy parts or a home office arrangement. You do not need a perfect method. You need a consistent, documented, reasonable one that you can explain without embarrassment.</p>
+
+        <h2>How to organize it without hating the process</h2>
+
+        <p>The system that works is the one you will actually maintain, so keep it simple. A spreadsheet with one tab for payouts, one tab for expenses, and one tab for disposals covers most home operations. Each row is one event, each column is one of the fields above, and the file is backed up somewhere other than the computer sitting next to the miner. If you prefer dedicated software, several cryptocurrency tax tools can import pool and exchange data and compute summaries, but treat their output as a draft, not a verdict. Check a sample of their calculations against your own records before trusting the totals, especially around payout valuations and fee handling.</p>
+
+        <p>Build two habits and the rest mostly takes care of itself. First, a monthly close: once a month, download the pool payout export, enter any expenses from the month, and reconcile the Bitcoin received against your wallet. Fifteen minutes a month beats fifteen hours in filing season, and it catches problems, like a missing payout or a misaddressed payment, while they are still fixable. Second, a year-end snapshot: at year end, save copies of everything in one folder — pool exports, wallet transaction histories, utility bills, hardware receipts, and the spreadsheet itself — and note the price source you used. Label the folder by tax year. Future you will be grateful.</p>
+
+        <p>Keep records longer than you think you need to. Retention rules vary by jurisdiction, but several years after filing is a common expectation, and cryptocurrency records are exactly the kind of thing that gets asked about late, because blockchains are permanent and examiners can look back. Digital copies are fine in most cases, provided they are complete and readable. A folder of blurry phone photos of receipts that you cannot read in three years is not a record. Scan or photograph receipts promptly, back them up, and check that the backup actually opens.</p>
+
+        <h2>Business, hobby, and other questions for your professional</h2>
+
+        <p>Several questions come up for nearly every miner, and all of them deserve a professional's answer rather than a blog post's. One is whether your mining is treated as a business or a hobby in your jurisdiction, because that distinction can change which expenses count and how losses are treated. Another is how self-employment or similar taxes apply, if at all. A third is what happens when you are paid in Bitcoin and later sell it at a different price, and how long you held it affects the result. A fourth is whether any part of your operation triggers reporting obligations beyond the income tax return itself, such as for foreign accounts or exchanges.</p>
+
+        <p>Bring your records to that conversation and ask these questions explicitly, rather than assuming the answers from something you read online. Tax guidance for cryptocurrency is still evolving, enforcement positions change, and general articles, including this one, go out of date. A short paid consultation that answers your specific questions is cheaper than a mistake carried across several tax years. If your operation grows beyond a machine or two, that consultation stops being optional and becomes part of the cost of doing business.</p>
+
+        <h2>A simple year-end checklist</h2>
+
+        <ul>
+          <li><strong>Total Bitcoin mined:</strong> sum of all payouts for the year, with dates and receipt values.</li>
+          <li><strong>Total proceeds from sales or disposals:</strong> every sale, trade, or spend, with dates and amounts.</li>
+          <li><strong>Total expenses:</strong> hardware, electricity, repairs, fees, hosting, and subscriptions, each with supporting documents.</li>
+          <li><strong>Year-end holdings:</strong> how much Bitcoin you still hold and where it is held.</li>
+          <li><strong>Price source note:</strong> which source you used for receipt values, applied consistently.</li>
+          <li><strong>Allocation notes:</strong> how you split any shared costs, written down in plain language.</li>
+          <li><strong>Backups:</strong> a complete copy of the year's folder, stored somewhere other than the mining machine.</li>
+        </ul>
+
+        <p>That checklist fits on one page, and it is the difference between a filing season that takes an afternoon and one that takes a month. It is also, quietly, a profitability report: total mined value minus total expenses, over a year, is a far better measure of your operation than any single good week.</p>
+
+        <h2>The bottom line</h2>
+
+        <p>You do not need to become an accountant to mine Bitcoin. You need a spreadsheet, a monthly habit, and a professional to call when the questions get specific. Record every payout with its value at receipt, record every expense with its receipt, record every sale as its own event, and keep it all backed up. Do that, and taxes become paperwork. Skip it, and taxes become archaeology.</p>
+
+        <p>This guide is general educational information only and is not tax advice. For advice about your situation, consult a qualified tax professional in your jurisdiction.</p>
+
+        <p>For the cost side of your operation, see the <a href="/blog/electricity-costs-mining-profitability">electricity costs guide</a> and the <a href="/blog/mining-payback-period">payback period guide</a>.</p>
+<p>Before you spend anything, run your numbers through the free <a href="https://tools.faithmining.net/bitcoin-miner-roi/">Faith Mining ROI calculator</a> with your real hashrate, wattage, and electricity rate.</p>
+        <div class="cta-box">
+          <h3>Know your real costs first</h3>
+          <p>The electricity guide shows how to find your true rate and your break-even point — the numbers your records should prove.</p>
+          <a href="/blog/electricity-costs-mining-profitability" class="btn-primary">Read the electricity guide →</a>
+        </div>
+
+
+      <div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+      </div><!-- /prose -->
+
+      <div class="related-section">
+        <h3>More from Faith Mining</h3>
+        <div class="related-grid">
+          <a href="/blog/electricity-costs-mining-profitability" class="related-card">
+            <h4>Electricity Costs and Bitcoin Mining Profitability: The Full Breakdown</h4>
+            <p>How to find your true electricity rate and your break-even point.</p>
+          </a>
+          <a href="/blog/mining-payback-period" class="related-card">
+            <h4>How to Calculate Your Bitcoin Miner Payback Period</h4>
+            <p>The exact formula — and why most miners calculate it wrong.</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© <span id="year"></span> Faith Mining LLC</p>
+      <nav class="footer-links">
+        <a href="/">Home</a>
+        <a href="/#blog">Blog</a>
+        <a href="/about">About</a>
+        <a href="mailto:info@faithmining.net">Contact</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Use</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

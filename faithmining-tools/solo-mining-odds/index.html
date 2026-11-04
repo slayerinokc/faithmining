@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solo Mining Odds Calculator — Your Chance of Finding a Bitcoin Block | Faith Mining</title>
+  <meta name="description" content="Estimate your probability of finding a Bitcoin block solo over a day, week, month, and year, plus your expected time to find a block. Free, no login, calculated in your browser.">
+  <meta name="keywords" content="solo mining odds calculator, solo bitcoin mining probability, bitcoin solo mining chance, expected time to find a block">
+  <link rel="canonical" href="https://tools.faithmining.net/solo-mining-odds/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tools.faithmining.net/solo-mining-odds/">
+  <meta property="og:title" content="Solo Mining Odds Calculator — Free Tool from Faith Mining">
+  <meta property="og:description" content="Your probability of finding a Bitcoin block solo over a day, week, month, and year, plus expected time to a block. A probability estimate, not a promise of earnings.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/design-system.css">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Solo Mining Odds Calculator",
+    "url": "https://tools.faithmining.net/solo-mining-odds/",
+    "description": "Estimate the probability of finding a Bitcoin block solo over a day, week, month, and year, and the expected time to find a block.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "Faith Mining LLC", "url": "https://faithmining.net" }
+  }
+  </script>
+
+  <style>
+    /* ─── Page styles, following the existing tool pages ─── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(12,12,15,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .logo:hover { color: var(--text); text-decoration: none; }
+    .logo-mark {
+      width: 30px;
+      height: 30px;
+      background: var(--orange);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: #000;
+      flex-shrink: 0;
+      box-shadow: 0 0 16px var(--orange-glow-md);
+    }
+    .top-nav { display: flex; align-items: center; gap: 4px; }
+    .top-nav a {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      transition: color 120ms, background 120ms;
+    }
+    .top-nav a:hover { color: var(--text); background: rgba(255,255,255,0.05); text-decoration: none; }
+
+    .hero { padding: 48px 0 32px; text-align: center; }
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--orange);
+      background: var(--orange-glow);
+      border: 1px solid var(--border-orange);
+      border-radius: 100px;
+      padding: 4px 12px;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .hero .lede {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 820px) {
+      .calc-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.75rem; }
+      .top-nav { display: none; }
+    }
+
+    .panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+    .panel-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .field label .hint {
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+    .field input, .field select {
+      width: 100%;
+      padding: 9px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      transition: border-color 120ms, box-shadow 120ms;
+      appearance: none;
+    }
+    .field input:focus, .field select:focus {
+      outline: none;
+      border-color: var(--orange);
+      box-shadow: var(--shadow-orange);
+    }
+    .field input[readonly] { color: var(--text-secondary); }
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239292A0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 34px;
+    }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field-note {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-top: 6px;
+    }
+    .field-note strong { color: var(--text); }
+
+    .headline-result {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .headline-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .headline-value {
+      font-family: var(--font-mono);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .headline-sub {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: 6px;
+    }
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+    .result-row:last-child { border-bottom: none; }
+    .result-label { color: var(--text-secondary); font-size: 0.875rem; }
+    .result-value {
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .results-section-head {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 14px 0 6px;
+      border-top: 1px solid var(--border);
+      margin-top: 4px;
+    }
+    .error-banner {
+      background: var(--red-bg);
+      border: 1px solid rgba(242,85,85,0.25);
+      color: var(--red);
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .error-banner.visible { display: block; }
+
+    .content-section { padding: 32px 0; border-top: 1px solid var(--border); }
+    .content-section h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 12px; }
+    .content-section h3 { font-size: 1rem; font-weight: 700; color: var(--orange); margin: 24px 0 8px; }
+    .content-section p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; max-width: 740px; margin-bottom: 8px; }
+    .content-section code {
+      font-family: var(--font-mono);
+      font-size: 0.85em;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: var(--orange-light);
+    }
+    .callout {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--orange);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      margin: 0 0 32px;
+    }
+    .callout h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .callout p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 6px; line-height: 1.65; }
+
+    .faq-list { margin-top: 16px; }
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .faq-item summary {
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 14px 18px;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: '+'; font-size: 1.1rem; color: var(--text-muted); flex-shrink: 0; }
+    .faq-item[open] summary::after { content: '−'; color: var(--orange); }
+    .faq-item p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      padding: 0 18px 16px;
+      line-height: 1.7;
+      max-width: none;
+      margin: 0;
+    }
+    .faq-item[open] { border-color: var(--border-strong); }
+
+    .about-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .about-avatar {
+      width: 48px;
+      height: 48px;
+      background: var(--orange-glow-md);
+      border: 2px solid var(--border-orange);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+    .about-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; margin-bottom: 8px; }
+    .about-card p:last-child { margin-bottom: 0; }
+
+    .site-footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg-surface);
+      padding: 40px 0 28px;
+      margin-top: 48px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 660px) { .footer-grid { grid-template-columns: 1fr; } }
+    .footer-grid h4 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .footer-grid p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.65; }
+    .footer-grid ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-grid li a { color: var(--text-secondary); font-size: 0.875rem; }
+    .footer-grid li a:hover { color: var(--orange); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .footer-bottom p { color: var(--text-muted); font-size: 0.8rem; }
+    .footer-disclaimer { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">F</span>
+        Faith Mining Tools
+      </a>
+      <nav class="top-nav">
+        <a href="https://faithmining.net">faithmining.net</a>
+        <a href="/">All tools</a>
+        <a href="https://solo.faithmining.net" target="_blank" rel="noopener">Solo Pool</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero">
+      <div class="hero-label">⛏ Free Tool</div>
+      <h1>Solo Mining Odds Calculator</h1>
+      <p class="lede">What are your real chances of finding a Bitcoin block on your own? Enter your hashrate and the current difficulty to see the odds over a day, a week, a month, and a year — and how long a block would take on average.</p>
+    </section>
+
+    <!-- ═══ ERROR BANNER ═══ -->
+    <div id="errorBanner" class="error-banner"></div>
+
+    <!-- ═══ CALCULATOR ═══ -->
+    <section class="calc-grid">
+
+      <!-- INPUTS PANEL -->
+      <div class="panel">
+        <div class="panel-title">Your setup</div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="hashrate">Hashrate</label>
+            <input type="number" id="hashrate" value="200" min="0" step="any">
+          </div>
+          <div class="field">
+            <label for="hashrateUnit">Unit</label>
+            <select id="hashrateUnit">
+              <option value="1e9">GH/s</option>
+              <option value="1e12" selected>TH/s</option>
+              <option value="1e15">PH/s</option>
+            </select>
+          </div>
+        </div>
+        <p class="field-note">The example above, 200 TH/s, is roughly one current-generation ASIC. Change it to match your own miner, or your combined hashrate if you run more than one.</p>
+
+        <div class="field">
+          <label for="difficulty">Network difficulty <span class="hint">in trillions</span></label>
+          <input type="number" id="difficulty" value="140.58" min="0" step="any">
+          <p class="field-note">Difficulty as of October 28, 2026; update this field as difficulty changes. Difficulty retargets about every two weeks, so a number from months ago will give you the wrong odds. Enter difficulty in trillions — for example, enter 140.58, not 140,580,000,000,000.</p>
+        </div>
+
+        <div class="field">
+          <label for="blockReward">Block reward <span class="hint">BTC — fixed</span></label>
+          <input type="number" id="blockReward" value="3.125" readonly aria-readonly="true">
+          <p class="field-note">This is the current protocol reward for finding a block, set by the April 2024 halving. It is not something you change here. It does not change your odds of finding a block — it only sets how much a block pays if you do find one.</p>
+        </div>
+
+        <p class="field-note"><strong>Privacy:</strong> all calculation happens in your browser, in plain JavaScript with no external libraries. Nothing you enter is sent anywhere.</p>
+      </div>
+
+      <!-- RESULTS PANEL -->
+      <div class="panel">
+        <div class="panel-title">Results</div>
+
+        <div class="headline-result">
+          <div class="headline-label">Expected time to find a block</div>
+          <div class="headline-value" id="expectedTime">—</div>
+          <div class="headline-sub" id="expectedTimeFriendly">—</div>
+        </div>
+
+        <div class="results-section-head">Probability of finding at least one block</div>
+
+        <div class="result-row">
+          <span class="result-label">Over 1 day</span>
+          <span class="result-value" id="probDay">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Over 1 week (7 days)</span>
+          <span class="result-value" id="probWeek">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Over 1 month (30 days)</span>
+          <span class="result-value" id="probMonth">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Over 1 year (365 days)</span>
+          <span class="result-value" id="probYear">—</span>
+        </div>
+
+        <div class="results-section-head">Long-run average</div>
+
+        <div class="result-row">
+          <span class="result-label">Expected blocks per year</span>
+          <span class="result-value" id="blocksPerYear">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Same odds, in plain words (1 year)</span>
+          <span class="result-value" id="oddsYear">—</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ HONEST WARNING ═══ -->
+    <div class="callout">
+      <h3>Read this before you get excited — or discouraged</h3>
+      <p>This page gives a <strong>probability estimate, not a prediction and not a promise of earnings</strong>. An expected time of, say, 96 years does not mean you will find a block in 96 years. It means that, on average, a miner with that hashrate at that difficulty would find one block in that span — and most miners with those odds will find nothing at all in their lifetime, while a lucky few find one much sooner.</p>
+      <p>That is the whole story of solo mining for a small miner: the average is long, and the spread around it is enormous. If you need steady income from mining, solo mining is the wrong tool for that job. A regular pool pays small, steady amounts instead. Solo mining is a lottery ticket with a very long wait, not a paycheck.</p>
+    </div>
+
+    <!-- ═══ HOW IT WORKS ═══ -->
+    <section class="content-section">
+      <h2>What solo mining odds actually mean</h2>
+      <p>Bitcoin mining is a guessing game. Your miner makes trillions of guesses per second, and each guess has a tiny chance of being the one that solves a block. The network difficulty sets how hard that guess has to be. Your odds come down to one simple comparison: your guesses per second, against the guesses the whole network would need to make to solve a block at the current difficulty.</p>
+
+      <h3>1. Expected time to a block</h3>
+      <p>At a given difficulty, the network as a whole expects to need <code>difficulty × 2³²</code> guesses to solve one block. Divide that by your own guesses per second (your hashrate) and you get the expected time, in seconds:</p>
+      <p><code>expected time (seconds) = difficulty × 2³² ÷ your hashrate (hashes per second)</code></p>
+      <p>The 2³² is not a magic number — it comes from how Bitcoin defines difficulty. Difficulty 1 means a target that takes about 2³² guesses on average, and higher difficulty scales that directly.</p>
+
+      <h3>2. Probability over a period</h3>
+      <p>Blocks do not arrive on a schedule. Finding one is a random event, so the right question is not "when will I find one?" but "what is the chance I find at least one in this much time?" That chance is:</p>
+      <p><code>probability = 1 − exp(−your hashrate × time ÷ (difficulty × 2³²))</code></p>
+      <p>In plain language: first work out how many blocks you would expect to find in that period (your hashrate × time, divided by the guesses needed per block). Then the chance of finding at least one is one minus e raised to the negative of that expected number. When the expected number is small, the probability is close to the expected number itself — which is why a 0.0104 expected blocks in a year works out to about a 1.04% chance, not exactly 1.04% but close.</p>
+
+      <h3>3. Why variance is extreme for small miners</h3>
+      <p>Think of it this way: if your chance in a year is 1%, that does not mean you will find a block after 100 years of trying. Each year is a fresh roll with the same 1% chance. You could find one in your first month. You could also mine for 200 years and find nothing — that outcome is actually more likely than finding one, at those odds. The smaller your share of the network, the more the result is dominated by luck rather than by your average.</p>
+      <p>That is also why "expected blocks per year" can be a confusing number. An expected 0.01 blocks per year does not mean you get a hundredth of a block each year. Blocks are all or nothing: you get 0 blocks in most years, and a full block (currently 3.125 BTC plus fees) in a rare year. There is no partial credit.</p>
+
+      <h3>4. What this calculator leaves out</h3>
+      <p>It assumes difficulty stays where you entered it, your miner runs 100% of the time, and your hashrate never drops. In real life, difficulty usually rises over time (which makes odds worse), miners go offline for heat, reboots, and maintenance, and fees on top of the block reward are not counted here. Treat the result as a best-case snapshot at today's difficulty, not a forecast.</p>
+    </section>
+
+    <!-- ═══ FAQ ═══ -->
+    <section class="content-section">
+      <h2>Frequently asked questions</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Does a higher hashrate change the math, or just the numbers?</summary>
+          <p>Just the numbers. Double your hashrate and you halve your expected time and roughly double your probability over any short period. The formulas stay the same — your hashrate is the only part of the equation you control.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Why is the one-year chance not just 365 times the one-day chance?</summary>
+          <p>Because the chances overlap. You cannot find the same block twice, and the formula counts "at least one block," not "one block per day added up." For small probabilities the difference is tiny, but it grows as the odds get larger — the formula handles it correctly, simple multiplication does not.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Should I solo mine or join a pool?</summary>
+          <p>That depends on what you want. A pool smooths out the luck and pays you regularly for your share of the work. Solo mining keeps the whole block reward if you get lucky, but for most small miners that means long stretches with nothing. Read the guides below before deciding — they walk through the trade-off in plain terms.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Where do I get the current difficulty?</summary>
+          <p>Any Bitcoin block explorer shows it, and this site's other tools use live difficulty. Whatever source you use, enter it here in trillions and double-check the date — difficulty moves every couple of weeks.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ═══ GUIDES ═══ -->
+    <section class="content-section">
+      <h2>Keep reading</h2>
+      <p>These guides on the main site explain solo mining in more depth:</p>
+      <p><a href="https://www.faithmining.net/blog/what-is-solo-bitcoin-mining">What is solo Bitcoin mining?</a></p>
+      <p><a href="https://www.faithmining.net/blog/pool-mining-vs-solo-mining">Pool mining vs. solo mining</a></p>
+      <p><a href="/">← Back to all Faith Mining tools</a></p>
+    </section>
+
+    <!-- ═══ ABOUT ═══ -->
+    <section class="content-section">
+      <h2>About this tool</h2>
+      <div class="about-card">
+        <div class="about-avatar">CJ</div>
+        <div>
+          <p>Built by <strong>Chris Johnson</strong> at Faith Mining LLC — a real operator documenting the real numbers behind small-scale Bitcoin mining. Everything here is free, open, and built on real numbers from a real operation. No login, no tracking, no fluff.</p>
+          <p>Found a bug or have a suggestion? Email <a href="mailto:info@faithmining.net">info@faithmining.net</a> — feedback actually gets read.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>Faith Mining Tools</h4>
+          <p>Free, no-login calculators for crypto miners. Built by a miner running a real mining operation — not a marketing team.</p>
+          <p class="footer-disclaimer" style="margin-top:8px;">Not financial advice. Bitcoin mining carries real risk of loss. Do your own research. Solo mining odds on this page are probability estimates, not predictions or promises of earnings.</p>
+        </div>
+        <div>
+          <h4>Tools</h4>
+          <ul>
+            <li><a href="/bitcoin-miner-roi/">Bitcoin Miner ROI</a></li>
+            <li><a href="/hashrate-converter/">Hashrate Converter</a></li>
+            <li><a href="/profitability-comparator/">Profitability Comparator</a></li>
+            <li><a href="/solo-mining-odds/">Solo Mining Odds</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>More</h4>
+          <ul>
+            <li><a href="https://faithmining.net">faithmining.net</a></li>
+            <li><a href="https://faithmining.net/about">About</a></li>
+            <li><a href="https://solo.faithmining.net" target="_blank" rel="noopener">Solo Mining Pool</a></li>
+            <li><a href="mailto:info@faithmining.net">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span id="year"></span> Faith Mining LLC · <a href="mailto:info@faithmining.net" style="color:inherit;">info@faithmining.net</a></p>
+        <p style="color:var(--text-muted); font-size:0.78rem;"><a href="/privacy" style="color:var(--text-muted);">Privacy Policy</a> · <a href="/terms" style="color:var(--text-muted);">Terms of Use</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // ============================================================
+  // Solo Mining Odds Calculator — vanilla JS, no dependencies.
+  // All computation is client-side. Nothing is sent anywhere.
+  //
+  // Formulas:
+  //   expected time (seconds) = difficulty * 2^32 / hashrate (H/s)
+  //   probability over t seconds = 1 - exp(-hashrate * t / (difficulty * 2^32))
+  // Periods: 1 day = 86,400 s; 1 week = 7 days; 1 month = 30 days;
+  //          1 year = 365 days (stated on the page).
+  // ============================================================
+  var SECONDS_PER_DAY = 86400;
+  var TWO_POW_32 = Math.pow(2, 32);
+  var BLOCK_REWARD = 3.125; // BTC, fixed; shown read-only on the page.
+
+  function fmtInt(n) {
+    return Math.round(n).toLocaleString('en-US');
+  }
+
+  function fmtPct(p) {
+    if (!isFinite(p) || p < 0) return '—';
+    if (p <= 0) return '0%';
+    var pct = p * 100;
+    if (pct >= 1) return pct.toFixed(2) + '%';
+    if (pct >= 0.01) return pct.toFixed(4) + '%';
+    return Number(pct.toPrecision(3)) + '%';
+  }
+
+  function fmtOneIn(p) {
+    if (!isFinite(p) || p <= 0) return '—';
+    return '1 in ' + fmtInt(1 / p);
+  }
+
+  function fmtBlocksPerYear(n) {
+    if (!isFinite(n) || n < 0) return '—';
+    if (n >= 1) return n.toFixed(2);
+    if (n >= 0.01) return n.toFixed(4);
+    return Number(n.toPrecision(3)).toString();
+  }
+
+  // Human-friendly form of an expected time given in days.
+  function fmtFriendly(days) {
+    if (days < 1) return '~' + (days * 24).toFixed(1) + ' hours';
+    if (days < 30) return '~' + days.toFixed(1) + ' days';
+    if (days < 365) return '~' + (days / 30).toFixed(1) + ' months';
+    return '~' + (days / 365).toFixed(1) + ' years';
+  }
+
+  function showError(msg) {
+    var el = document.getElementById('errorBanner');
+    el.textContent = msg;
+    el.classList.add('visible');
+  }
+  function hideError() {
+    document.getElementById('errorBanner').classList.remove('visible');
+  }
+
+  function calculate() {
+    var hashrateValue = parseFloat(document.getElementById('hashrate').value);
+    var unit = parseFloat(document.getElementById('hashrateUnit').value);
+    var difficultyTrillions = parseFloat(document.getElementById('difficulty').value);
+
+    if (!isFinite(hashrateValue) || hashrateValue <= 0 ||
+        !isFinite(difficultyTrillions) || difficultyTrillions <= 0) {
+      showError('Enter a hashrate above zero and a difficulty above zero to see your odds.');
+      document.getElementById('expectedTime').textContent = '—';
+      document.getElementById('expectedTimeFriendly').textContent = '—';
+      ['probDay', 'probWeek', 'probMonth', 'probYear', 'blocksPerYear', 'oddsYear'].forEach(function (id) {
+        document.getElementById(id).textContent = '—';
+      });
+      return;
+    }
+    hideError();
+
+    var hashrateHs = hashrateValue * unit;          // hashes per second
+    var difficulty = difficultyTrillions * 1e12;    // raw difficulty
+
+    // Expected time to find one block.
+    var expectedSeconds = difficulty * TWO_POW_32 / hashrateHs;
+    var expectedDays = expectedSeconds / SECONDS_PER_DAY;
+    document.getElementById('expectedTime').textContent = fmtInt(expectedDays) + ' days';
+    document.getElementById('expectedTimeFriendly').textContent = fmtFriendly(expectedDays);
+
+    // Probability of at least one block over each period.
+    function probOver(days) {
+      var t = days * SECONDS_PER_DAY;
+      var expectedBlocks = hashrateHs * t / (difficulty * TWO_POW_32);
+      return 1 - Math.exp(-expectedBlocks);
+    }
+    var pDay = probOver(1);
+    var pWeek = probOver(7);
+    var pMonth = probOver(30);
+    var pYear = probOver(365);
+
+    document.getElementById('probDay').textContent = fmtPct(pDay);
+    document.getElementById('probWeek').textContent = fmtPct(pWeek);
+    document.getElementById('probMonth').textContent = fmtPct(pMonth);
+    document.getElementById('probYear').textContent = fmtPct(pYear);
+    document.getElementById('oddsYear').textContent = fmtOneIn(pYear);
+
+    // Expected blocks per year = 365 days / expected time in days.
+    document.getElementById('blocksPerYear').textContent = fmtBlocksPerYear(365 / expectedDays);
+  }
+
+  ['hashrate', 'hashrateUnit', 'difficulty'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', calculate);
+    document.getElementById(id).addEventListener('change', calculate);
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+  calculate();
+  </script>
+
+</body>
+</html>
