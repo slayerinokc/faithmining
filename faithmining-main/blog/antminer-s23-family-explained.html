@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Antminer S23 Family, Explained — Faith Mining</title>
+  <meta name="description" content="Bitmain's Antminer S23 is not one machine — six variants from 318 TH/s air to 1.16 PH/s rack hydro. Specs, prices, and honest November 2026 profitability math.">
+  <link rel="canonical" href="https://www.faithmining.net/blog/antminer-s23-family-explained">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733; --orange-glow: rgba(247,147,26,0.10);
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo:hover { color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color var(--transition); }
+    .nav-link:hover { color: var(--text); }
+
+    .article-hero { padding: 64px 0 48px; text-align: center; position: relative; }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse at center top, rgba(247,147,26,0.15) 0%, rgba(247,147,26,0.05) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .article-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); background: var(--orange-glow); border: 1px solid var(--border-orange); padding: 4px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .article-hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; max-width: 780px; margin-left: auto; margin-right: auto; }
+    .article-meta { display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 0.82rem; color: var(--text-muted); flex-wrap: wrap; }
+
+    .article-body { padding: 0 0 80px; }
+    .prose h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin: 48px 0 16px; line-height: 1.3; }
+    .prose h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+    .prose p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .prose p strong { color: var(--text); font-weight: 600; }
+    .prose ul, .prose ol { padding-left: 24px; margin-bottom: 20px; }
+    .prose li { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 8px; }
+    .prose li strong { color: var(--text); }
+
+    .callout-box { background: var(--bg-surface); border-left: 3px solid var(--orange); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 32px 0; }
+    .callout-box p { margin: 0; font-size: 0.95rem; }
+
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0; }
+    .comparison-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+    .comparison-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 14px; }
+    .comparison-card.pool h3 { color: #60A5FA; }
+    .comparison-card.solo h3 { color: var(--orange); }
+    .comparison-card ul { padding-left: 16px; }
+    .comparison-card li { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; }
+
+    .ad-unit { margin: 40px 0; text-align: center; }
+    .ad-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 6px; }
+
+    .cta-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 32px; margin: 48px 0; text-align: center; }
+    .cta-box h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .cta-box p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #000 !important; font-weight: 600; font-size: 0.95rem; padding: 11px 22px; border-radius: var(--radius); transition: background var(--transition); }
+    .btn-primary:hover { background: var(--orange-light); color: #000 !important; }
+
+    .related-section { border-top: 1px solid var(--border); padding: 48px 0; }
+    .related-section h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 20px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .related-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: border-color var(--transition); }
+    .related-card:hover { border-color: var(--border-orange); }
+    .related-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+    .related-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+    .site-footer { border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.8rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    @media (max-width: 640px) {
+      .article-hero { padding: 48px 0 36px; }
+      .comparison-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  .data-table { width: 100%; border-collapse: collapse; margin: 24px 0 32px; font-size: 0.9rem; }
+    .data-table th { text-align: left; padding: 10px 16px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 12px 16px; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+    .data-table td:last-child { font-family: var(--font-mono); color: var(--orange); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .update-note{background:var(--bg-surface);border:1px solid var(--border-orange);border-radius:var(--radius);padding:14px 20px;margin:0 0 28px;font-size:0.9rem;color:var(--text-secondary);}.update-note strong{color:var(--orange);}</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">F</span>
+        Faith Mining
+      </a>
+      <nav style="display:flex;gap:24px;align-items:center;">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#blog" class="nav-link">Blog</a>
+        <a href="/about" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-hero">
+    <div class="container">
+      <div class="article-eyebrow">⛏️ Buyer's Guide</div>
+      <h1>The Antminer S23 Family, Explained: Bitmain's New Flagship Generation</h1>
+      <div class="article-meta">
+        <span>✍️ Chris Johnson — Faith Mining LLC</span>
+        <span>📅 November 10, 2026</span>
+        <span>⏱ 6 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <div class="container">
+      <div class="prose">
+<p>Bitmain's Antminer S23 is the current flagship generation of Bitcoin ASICs, announced May 27, 2025 at the World Digital Mining Summit in Las Vegas and shipping since January 2026. It is the first generation to push efficiency below 10 joules per terahash, and it comes in more variants than any Bitmain generation before it: air, hydro, immersion, and rack-mount versions that range from 318 TH/s to over 1 PH/s in a single unit.</p>
+        <div class="update-note"><strong>Figures updated November 10, 2026.</strong> Market examples in this guide use BTC ~$74,300, network difficulty 148.36 trillion (set October 29, 2026), block reward 3.125 BTC, and network hashrate roughly 990 EH/s. That works out to gross revenue of about $0.0315 per TH/s per day. Market numbers move constantly &mdash; re-run your own inputs before acting on them.</div>
+
+        <p>That variety is the point of this guide. "The S23" is not one machine. Which one makes sense depends on your power, your space, and your electrical service &mdash; and for most home miners, the answer is narrower than the marketing suggests.</p>
+
+        <h2>What J/TH means, and why it is the number that matters</h2>
+
+        <p>Efficiency is measured in joules per terahash (J/TH): how much energy it takes to do one trillion hashes. Lower is better, because electricity is the one cost that never stops. A machine at 9.5 J/TH spends roughly a third less on power per unit of work than a machine at 15 J/TH, and that gap is the difference between a machine that survives the next difficulty rise and one that gets switched off.</p>
+
+        <p>There is a simple rule for turning efficiency into a decision. Divide the hashprice &mdash; the daily revenue per PH/s, currently about $31.50 &mdash; by (24 &times; J/TH) and you get the highest electricity price, in dollars per kWh, at which the machine still covers its own power bill. Above that price, it loses money every day it runs, no matter what you paid for it.</p>
+
+        <h2>The S23 family at a glance</h2>
+
+        <table class="data-table">
+          <thead>
+            <tr><th>Model</th><th>Hashrate</th><th>Power</th><th>Efficiency</th><th>Cooling</th><th>Price range*</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>S23 Air</td><td>318 TH/s</td><td>3,498 W</td><td>11.0 J/TH</td><td>Air</td><td>$4,905&ndash;$6,899</td></tr>
+            <tr><td>S23 Hydro</td><td>580 TH/s</td><td>5,510 W</td><td>9.5 J/TH</td><td>Hydro</td><td>$12,299&ndash;$14,599</td></tr>
+            <tr><td>S23 Immersion</td><td>442 TH/s</td><td>5,304 W</td><td>12.0 J/TH</td><td>Immersion</td><td>$10,289&ndash;$11,096</td></tr>
+            <tr><td>S23 XP Hydro</td><td>600 TH/s</td><td>5,340 W</td><td>8.9 J/TH</td><td>Hydro</td><td>$15,300&ndash;$16,999</td></tr>
+            <tr><td>S23 Hyd 3U</td><td>1,160 TH/s</td><td>11,020 W</td><td>9.5 J/TH</td><td>Hydro, 3U rack</td><td>$28,399&ndash;$28,768</td></tr>
+            <tr><td>S23e Hyd 2U</td><td>865 TH/s</td><td>8,650 W</td><td>10.0 J/TH</td><td>Hydro, 2U rack</td><td>~$19,440</td></tr>
+          </tbody>
+        </table>
+
+        <p style="font-size:0.85rem;color:var(--text-muted);">*Prices are reseller listings and move constantly. The S23 Air range was re-checked November 10, 2026; other models were checked November 5, 2026. Prices exclude shipping, duties, and taxes unless the seller says otherwise. The S23 XP Hydro was announced August 28, 2026 with delivery from November 2026, so treat its price as a launch/futures figure until stock is confirmed.</p>
+
+        <p>Two things to notice. First, the efficiency leader is the S23 XP Hydro at 8.9 J/TH &mdash; the best efficiency Bitmain has ever shipped in a production machine. Second, the Air model is the only one in the family that runs on ordinary single-phase power (220&ndash;277V, up to 20A). Every hydro and rack variant needs 380&ndash;415V three-phase industrial power, which rules them out of almost every home before the conversation even starts.</p>
+
+        <p>One caution on the S23 Air's power figure: most sources, including Bitmain's own spec sheet as carried by AsicProfit and MillionMiner, list 3,498 W, which is consistent with 318 TH/s at 11.0 J/TH. At least one reseller page currently shows 4,129 W for the same model. Confirm the shipped unit's wattage before sizing a circuit or running profitability math &mdash; 600 extra watts changes the answer.</p>
+
+<div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <h2>The November 2026 math, worked honestly</h2>
+
+        <p>Using November 10, 2026 inputs &mdash; BTC ~$74,300, difficulty 148.36T, gross revenue ~$0.0315 per TH/s per day &mdash; here is what each model earns and spends. Power costs are shown at $0.07/kWh (cheap residential or hosting power) and at $0.11/kWh (an assumed rate used for illustration throughout this site; check your own bill).</p>
+
+        <table class="data-table">
+          <thead>
+            <tr><th>Model</th><th>Daily revenue</th><th>Power/day</th><th>Profit at $0.07/kWh</th><th>Profit at $0.11/kWh</th><th>Break-even power price</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>S23 Air</td><td>$10.01</td><td>83.95 kWh</td><td>$4.13</td><td>$0.78</td><td>$0.119/kWh</td></tr>
+            <tr><td>S23 Hydro</td><td>$18.26</td><td>132.24 kWh</td><td>$9.00</td><td>$3.71</td><td>$0.138/kWh</td></tr>
+            <tr><td>S23 XP Hydro</td><td>$18.89</td><td>128.16 kWh</td><td>$9.92</td><td>$4.79</td><td>$0.147/kWh</td></tr>
+            <tr><td>S23 Immersion</td><td>$13.92</td><td>127.30 kWh</td><td>$5.00</td><td>&minus;$0.09</td><td>$0.109/kWh</td></tr>
+            <tr><td>S23 Hyd 3U</td><td>$36.52</td><td>264.48 kWh</td><td>$18.01</td><td>$7.43</td><td>$0.138/kWh</td></tr>
+            <tr><td>S21 Pro (previous gen)</td><td>$7.37</td><td>84.24 kWh</td><td>$1.47</td><td>&minus;$1.90</td><td>$0.087/kWh</td></tr>
+          </tbody>
+        </table>
+
+        <p>The S23 Air at $0.07/kWh earns about $4.13 a day after power. At a $6,899 purchase price that is a payback of roughly 1,670 days, about 4.6 years &mdash; and that is before pool fees, repairs, ventilation, and the difficulty rises that will shrink revenue over that span. At the lowest listed price of $4,905, payback is about 1,186 days, still over three years. At $0.11/kWh the same machine earns about $0.78 a day, and payback stretches past a decade. The S23 is a better machine than the S21 Pro it replaces &mdash; compare the Air's $4.13/day against the S21 Pro's $1.47/day at the same power price &mdash; but "better" and "profitable at your rate" are different claims, and only the second one pays the bill.</p>
+
+        <p>The hydro models earn more per day, but only where the infrastructure exists. A 580 TH/s S23 Hydro needs a three-phase supply, a coolant loop, and somewhere to put roughly 18,800 BTU/h of heat. That is a small facility, not a spare room.</p>
+
+        <h2>How MicroBT answers: the WhatsMiner M66 line</h2>
+
+        <p>Bitmain is not the only option at this scale. MicroBT's current hydro line is the WhatsMiner M66S++ (356 TH/s, 5,518 W, 15.5 J/TH, best price around $2,959 as of November 10, 2026) and the older M66S (298 TH/s, 5,513 W, 18.5 J/TH, around $1,969).</p>
+
+        <p>Run the same math: the M66S++ earns about $11.21 a day and spends $9.27 on power at $0.07/kWh, leaving about $1.94 a day &mdash; less than half the S23 Air's daily profit, but on a machine that costs roughly half as much. Its payback at $0.07/kWh is about 1,527 days, comparable to the S23 Air's. Its break-even power price is $0.085/kWh, well below the S23 Air's $0.119/kWh, so it is the first to go underwater when power gets expensive or difficulty rises.</p>
+
+        <p>That is the real shape of the choice. The S23 generation wins on efficiency and survives harsher conditions. The M66 line wins on entry price and loses on efficiency. Neither one prints money at residential power rates, and the difference between them is measured in years of payback, not months.</p>
+
+        <h2>What to check before buying any S23</h2>
+
+        <p>Verify the spec sheet against Bitmain's current page, not a reseller listing &mdash; model names and wattages get mixed up, as the S23 Air's conflicting power figures show. Confirm the cooling format you are actually buying: an "S23 Hydro" without a coolant loop, dry cooler, and three-phase supply is a very expensive paperweight. For the XP Hydro, confirm delivery dates and whether the price is a futures price or in-stock. And check the total delivered cost, including shipping, duties, and taxes &mdash; on a machine in this price range, those can add thousands.</p>
+
+        <p>For home buyers specifically: the S23 Air is the only model that belongs in the conversation, and even it needs a dedicated 220V circuit, a place to put about 12,000 BTU/h of heat, and tolerance for roughly 75 dB of fan noise. That is garage or outbuilding territory, not a living room. If you do not have that space and that circuit, the honest answer is the same one this site keeps giving: the most profitable home mining decision is often to buy no large miner at all.</p>
+
+        <h2>The bottom line</h2>
+
+        <p>The S23 family is a genuine step forward &mdash; 8.9 J/TH at the top end, 318 TH/s in a single-phase air-cooled box, and a full range of cooling options for serious operators. At November 2026 numbers, the Air model earns about $4.13 a day after power at $0.07/kWh and about $0.78 a day at $0.11/kWh, with payback measured in years either way. Buy it if you have cheap power, the right circuit, and somewhere to put the heat and noise. If you are missing any of those three, wait &mdash; the next generation will be more efficient, and the price of this one will come down.</p>
+
+        <div class="cta-box">
+          <h3>Run your numbers first</h3>
+          <p>Before you spend anything, run your hashrate, wattage, and electricity rate through the free Faith Mining ROI calculator.</p>
+          <a href="https://tools.faithmining.net/bitcoin-miner-roi/" class="btn-primary">Open the ROI calculator &rarr;</a>
+        </div>
+
+        <p style="font-size:0.85rem;color:var(--text-muted);">Sources: Bitmain S23 series specifications as carried by AsicProfit (checked November 10, 2026) and MillionMiner; S23 family overview and price references from MiningFAQ.org; S23 XP Hydro specifications and pricing from Altair Technologies; WhatsMiner M66S/M66S++ specifications and prices from AsicProfit (November 10, 2026); network figures (difficulty 148.36T, next adjustment ~November 13, 2026, hashrate ~990 EH/s) from NodeWitness; BTC price ~$74,300 from CoinDesk and CoinMarketCap, November 10, 2026. Revenue figures are the author's own calculations from the standard formula; see the <a href="/blog/mining-payback-period">payback period guide</a> for the full formula.</p>
+
+              </div>
+
+      <div class="related-section">
+        <h3>More from Faith Mining</h3>
+        <div class="related-grid">
+<a href="/blog/mining-payback-period" class="related-card">
+            <h4>How to Calculate Your Bitcoin Miner Payback Period</h4>
+            <p>The exact formula — and why most miners calculate it wrong.</p>
+          </a>
+          <a href="/blog/how-to-choose-asic-miner" class="related-card">
+            <h4>How to Choose an ASIC Miner in 2026</h4>
+            <p>Every spec that actually matters, which machines are worth buying, and what to avoid.</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© <span id="year"></span> Faith Mining LLC</p>
+      <nav class="footer-links">
+        <a href="/">Home</a>
+        <a href="/#blog">Blog</a>
+        <a href="/about">About</a>
+        <a href="mailto:info@faithmining.net">Contact</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Use</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
