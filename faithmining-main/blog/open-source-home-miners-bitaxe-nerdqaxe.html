@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open-Source Home Miners: Bitaxe, NerdQaxe++ — Faith Mining</title>
+  <meta name="description" content="Bitaxe, NerdQaxe++, and NerdOctaxe Gamma explained honestly: real specs, real prices, pool pennies, and lottery-ticket solo odds at November 2026 numbers.">
+  <link rel="canonical" href="https://www.faithmining.net/blog/open-source-home-miners-bitaxe-nerdqaxe">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733; --orange-glow: rgba(247,147,26,0.10);
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo:hover { color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color var(--transition); }
+    .nav-link:hover { color: var(--text); }
+
+    .article-hero { padding: 64px 0 48px; text-align: center; position: relative; }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse at center top, rgba(247,147,26,0.15) 0%, rgba(247,147,26,0.05) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .article-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); background: var(--orange-glow); border: 1px solid var(--border-orange); padding: 4px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .article-hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; max-width: 780px; margin-left: auto; margin-right: auto; }
+    .article-meta { display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 0.82rem; color: var(--text-muted); flex-wrap: wrap; }
+
+    .article-body { padding: 0 0 80px; }
+    .prose h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin: 48px 0 16px; line-height: 1.3; }
+    .prose h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+    .prose p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .prose p strong { color: var(--text); font-weight: 600; }
+    .prose ul, .prose ol { padding-left: 24px; margin-bottom: 20px; }
+    .prose li { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 8px; }
+    .prose li strong { color: var(--text); }
+
+    .callout-box { background: var(--bg-surface); border-left: 3px solid var(--orange); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 32px 0; }
+    .callout-box p { margin: 0; font-size: 0.95rem; }
+
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0; }
+    .comparison-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+    .comparison-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 14px; }
+    .comparison-card.pool h3 { color: #60A5FA; }
+    .comparison-card.solo h3 { color: var(--orange); }
+    .comparison-card ul { padding-left: 16px; }
+    .comparison-card li { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; }
+
+    .ad-unit { margin: 40px 0; text-align: center; }
+    .ad-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 6px; }
+
+    .cta-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 32px; margin: 48px 0; text-align: center; }
+    .cta-box h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .cta-box p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #000 !important; font-weight: 600; font-size: 0.95rem; padding: 11px 22px; border-radius: var(--radius); transition: background var(--transition); }
+    .btn-primary:hover { background: var(--orange-light); color: #000 !important; }
+
+    .related-section { border-top: 1px solid var(--border); padding: 48px 0; }
+    .related-section h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 20px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .related-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: border-color var(--transition); }
+    .related-card:hover { border-color: var(--border-orange); }
+    .related-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+    .related-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+    .site-footer { border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.8rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    @media (max-width: 640px) {
+      .article-hero { padding: 48px 0 36px; }
+      .comparison-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  .data-table { width: 100%; border-collapse: collapse; margin: 24px 0 32px; font-size: 0.9rem; }
+    .data-table th { text-align: left; padding: 10px 16px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 12px 16px; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+    .data-table td:last-child { font-family: var(--font-mono); color: var(--orange); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .update-note{background:var(--bg-surface);border:1px solid var(--border-orange);border-radius:var(--radius);padding:14px 20px;margin:0 0 28px;font-size:0.9rem;color:var(--text-secondary);}.update-note strong{color:var(--orange);}</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">F</span>
+        Faith Mining
+      </a>
+      <nav style="display:flex;gap:24px;align-items:center;">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#blog" class="nav-link">Blog</a>
+        <a href="/about" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-hero">
+    <div class="container">
+      <div class="article-eyebrow">⛏️ Buyer's Guide</div>
+      <h1>Open-Source Home Miners: Bitaxe, NerdQaxe++, and What They're Actually For</h1>
+      <div class="article-meta">
+        <span>✍️ Chris Johnson — Faith Mining LLC</span>
+        <span>📅 November 13, 2026</span>
+        <span>⏱ 6 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <div class="container">
+      <div class="prose">
+
+        <p>There is a corner of Bitcoin mining where the hardware designs are public, the firmware is open source, and a complete miner costs less than a dinner out. The Bitaxe family and the NerdQaxe++ are the best-known examples: small boards built around Bitmain's BM1370 ASIC chips, running open-source AxeOS firmware over Wi-Fi, designed by a community called Open Source Miners United (OSMU) and sold by a dozen small shops.</p>
+        <div class="update-note"><strong>Figures updated November 13, 2026.</strong> Market examples in this guide use BTC ~$69,000, network difficulty 148.36 trillion (set October 29, 2026; a downward adjustment of roughly 8% is expected around November 13&ndash;14), block reward 3.125 BTC (about $215,600), and network hashrate roughly 975 EH/s. That works out to gross revenue of about $0.0292 per TH/s per day. Market numbers move constantly &mdash; re-run your own inputs before acting on them.</div>
+
+        <p>They are real miners. They hash, they submit shares, and occasionally one of them finds a block. They are also, by any normal measure, terrible investments &mdash; and understanding why they exist anyway is the point of this guide.</p>
+
+        <h2>What "open source" actually means here</h2>
+
+        <p>For these miners, open source is not a marketing word. The schematics, PCB layouts, and firmware are published on GitHub, mostly under the MIT license. Anyone can build one, modify one, or audit the code that runs it. There is no manufacturer account, no cloud dashboard, and no firmware that phones home. You point the miner at any pool or solo pool you like &mdash; public pool, CKPool, your own node &mdash; and it works.</p>
+
+        <p>That matters for two reasons. First, it means the device is yours in a way a closed appliance is not: nobody can brick it with a forced update or lock you into their pool. Second, it means the community iterates fast. New board revisions appear every few months, each one fixing power delivery or adding headroom, and the improvements are public for anyone to copy.</p>
+
+<div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <h2>The lineup, by board</h2>
+
+        <table class="data-table">
+          <thead>
+            <tr><th>Miner</th><th>Chips</th><th>Stock hashrate</th><th>Stock power</th><th>Efficiency</th><th>Typical price*</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Bitaxe Gamma 601/602</td><td>1&times; BM1370</td><td>1.2&ndash;1.3 TH/s</td><td>~15&ndash;20 W</td><td>~15 J/TH</td><td>$45&ndash;$150</td></tr>
+            <tr><td>Bitaxe GT 801</td><td>2&times; BM1370</td><td>2.15 TH/s</td><td>~43 W</td><td>~18&ndash;20 J/TH</td><td>~$197</td></tr>
+            <tr><td>NerdQaxe++ Rev 7</td><td>4&times; BM1370</td><td>4.8 TH/s</td><td>69.5 W</td><td>~14.5 J/TH</td><td>~$350</td></tr>
+            <tr><td>NerdOctaxe Gamma</td><td>8&times; BM1370</td><td>9.6&ndash;12 TH/s</td><td>~160&ndash;183 W</td><td>~17&ndash;19 J/TH</td><td>~$425&ndash;$850</td></tr>
+            <tr><td>Bitaxe Hex</td><td>6&times; BM1366/1368</td><td>3.0&ndash;4.2 TH/s</td><td>75&ndash;90 W</td><td>~25&ndash;30 J/TH</td><td>Varies by seller</td></tr>
+          </tbody>
+        </table>
+
+        <p style="font-size:0.85rem;color:var(--text-muted);">*Prices checked November 13, 2026, from Solo Satoshi, D-Central, Bitaxe Radar, and AsicProfit listings. They move constantly, vary by seller, and often exclude the power supply, shipping, and tax. The Bitaxe GT 801 price is D-Central's CAD $269.99 listing, about US$197. The Bitaxe Hex uses older-generation chips and is less efficient than the newer boards &mdash; it is included here because it still circulates, not because it is a good buy.</p>
+
+        <p>The pattern is simple: one chip, two chips, four chips, eight chips. The Bitaxe Gamma is the entry point &mdash; a single BM1370, about the size of a coaster, drawing less power than a laptop charger. The NerdQaxe++ packs four of the same chips onto one board for about four times the hashrate, and the NerdOctaxe Gamma doubles that again to eight chips. Efficiency stays roughly the same across the family, around 14&ndash;19 J/TH, with the Octaxe running a little hotter per hash than the smaller boards, because they are all the same silicon. What changes is how many lottery tickets you hold.</p>
+
+        <p>The NerdQaxe++ Revision 7, the current version, is worth a closer look because it shows how fast this community moves. It redesigned the voltage regulator circuit around a two-phase layout borrowed from the Bitaxe GT, and the stock firmware now allows overclocking to 1,000 MHz &mdash; about 8.1 TH/s at 140 W with an upgraded power supply and extra cooling. That overclock is not guaranteed on every unit, and the stock 10-amp power supply cannot feed it, so treat the headline number as a ceiling, not a promise.</p>
+
+        <p>For comparison, the closed-appliance alternative in this size class is Canaan's Avalon Nano 3S: 6 TH/s at up to 140 W (23.3 J/TH), 30&ndash;40 dB, with a power supply included, for $215&ndash;$299. It is quieter to set up and less efficient per hash than the open boards, and you cannot modify it. Which of those trade-offs matters to you says a lot about why you are buying.</p>
+
+        <h2>The pool math: pennies, honestly</h2>
+
+        <p>At November 13, 2026 numbers, here is what these boards earn in a pool, before pool fees:</p>
+
+        <table class="data-table">
+          <thead>
+            <tr><th>Miner</th><th>Daily revenue</th><th>Power/day</th><th>Net at $0.07/kWh</th><th>Net at $0.11/kWh&dagger;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Bitaxe Gamma (1.2 TH/s)</td><td>$0.035</td><td>0.43 kWh</td><td>&asymp; $0.00</td><td>&minus;$0.01</td></tr>
+            <tr><td>NerdQaxe++ stock (4.8 TH/s)</td><td>$0.140</td><td>1.67 kWh</td><td>+$0.02</td><td>&minus;$0.04</td></tr>
+            <tr><td>NerdOctaxe Gamma (9.6 TH/s)</td><td>$0.281</td><td>~4.1 kWh</td><td>&minus;$0.01</td><td>&minus;$0.17</td></tr>
+            <tr><td>Avalon Nano 3S (6 TH/s)</td><td>$0.175</td><td>3.36 kWh</td><td>&minus;$0.06</td><td>&minus;$0.19</td></tr>
+          </tbody>
+        </table>
+
+        <p style="font-size:0.85rem;color:var(--text-muted);">&dagger;$0.11/kWh is an assumed rate used for illustration throughout this site, not a measured figure. Check your own bill.</p>
+
+        <p>Read that table plainly: in a pool, every one of these devices earns pennies a day at best and loses money at typical residential rates. A Bitaxe Gamma at $0.07/kWh nets about half a cent a day, which means it takes roughly 50 years to pay back a $90 purchase &mdash; and difficulty will have risen many times over by then. Nobody should buy any of these expecting pool income. If a seller tells you otherwise, they are using old difficulty numbers or ignoring the power bill.</p>
+
+        <h2>The solo math: a lottery ticket with real odds</h2>
+
+        <p>These boards are almost always pointed at a solo pool instead, where the payout is not pennies a day but a whole block &mdash; 3.125 BTC, about $215,600 at today's price &mdash; if your machine happens to find one. The odds are the whole story, so here they are, computed at current difficulty and network hashrate:</p>
+
+        <table class="data-table">
+          <thead>
+            <tr><th>Miner</th><th>Hashrate</th><th>Average time to a block</th><th>Chance in any given year</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Bitaxe Gamma</td><td>1.2 TH/s</td><td>~16,800 years</td><td>~0.006% (1 in ~16,800)</td></tr>
+            <tr><td>Bitaxe GT 801</td><td>2.15 TH/s</td><td>~9,400 years</td><td>~0.011%</td></tr>
+            <tr><td>NerdQaxe++ stock</td><td>4.8 TH/s</td><td>~4,200 years</td><td>~0.024%</td></tr>
+            <tr><td>NerdQaxe++ overclocked</td><td>8.1 TH/s</td><td>~2,500 years</td><td>~0.040%</td></tr>
+            <tr><td>NerdOctaxe Gamma</td><td>9.6 TH/s</td><td>~2,100 years</td><td>~0.048%</td></tr>
+            <tr><td>Avalon Nano 3S</td><td>6 TH/s</td><td>~3,400 years</td><td>~0.030%</td></tr>
+          </tbody>
+        </table>
+
+        <p>Those are averages, not guarantees. Averages over thousands of years mean the real experience is binary: almost certainly nothing, ever, with a vanishingly small chance of a life-changing day. That is exactly what a lottery ticket is, and the honest way to think about these boards is as lottery tickets that cost a few dollars a year in electricity and teach you how mining works while you hold them.</p>
+
+        <p>It is worth saying plainly that these odds have gotten worse over time. Difficulty climbed through the fall &mdash; up 5.9% on October 16 and another 5.5% on October 29, to 148.36 trillion &mdash; and the long-term trend is up, even with a downward adjustment of roughly 8% expected around November 13&ndash;14. A board that held a 0.01% annual chance two years ago holds less today. The ticket gets thinner over time; only the price of the prize keeps it interesting.</p>
+
+        <h2>What they're actually for</h2>
+
+        <p>If the pool math is pennies and the solo math is a lottery ticket, why do tens of thousands of people run these boards? Four honest reasons:</p>
+
+        <p><strong>Learning.</strong> A Bitaxe is the cheapest way to run a real SHA-256 miner you fully control. You configure the pool, watch shares arrive, see difficulty and hashrate in real time, and understand what a mining pool actually does &mdash; for about $100 and 20 watts. No simulator teaches it the same way.</p>
+
+        <p><strong>Tinkering.</strong> Open hardware invites modification: better cooling, voltage tuning, custom firmware, your own 3D-printed case. The community shares all of it. If you like building things, this is the most accessible hardware project in Bitcoin.</p>
+
+        <p><strong>Sovereignty.</strong> No account, no KYC, no manufacturer cloud. Point it at your own node or a solo pool and you are mining on your own terms, with no intermediary deciding what you can do. For some buyers that is the entire point.</p>
+
+        <p><strong>The ticket.</strong> A small chance at a whole block is a real thing to want, as long as you price it honestly: a few dollars a year in power, a one-time hardware cost, and odds you can calculate yourself. Buy it as a lottery ticket and you will not be disappointed. Buy it as an income stream and you will be.</p>
+
+        <h2>What to check before you buy</h2>
+
+        <p>Board revision matters more than brand. A NerdQaxe++ Rev 7 and a Rev 5 are different boards with different power delivery and different overclocking headroom, and sellers do not always label them clearly. Confirm the revision, the included power supply, and what the price actually covers &mdash; some listings are board-only, and a missing power supply adds $20&ndash;$40.</p>
+
+        <p>Buy from sellers with a track record. The open-source nature of these boards means anyone can build and sell them, including people who should not be. Established sellers like Solo Satoshi, D-Central, and Altair Technologies have sold tens of thousands of units and stand behind them; a random marketplace listing with no reviews is a gamble on top of a gamble.</p>
+
+        <p>And check the power supply before overclocking. The NerdQaxe++ ships with a 10-amp supply that is fine at stock settings but cannot safely feed an 8 TH/s overclock. Upgraded power and cooling are required, and the board will not warn you politely when the supply is the limit &mdash; it will simply become unstable.</p>
+
+        <h2>The bottom line</h2>
+
+        <p>Open-source home miners are the most honest corner of Bitcoin mining hardware: cheap, quiet, fully yours, and almost entirely unprofitable in a pool. A Bitaxe Gamma earns about three and a half cents a day in gross revenue and holds about a 0.006% chance of finding a block in a year. A NerdQaxe++ quadruples both numbers and still rounds to a lottery ticket. Buy one to learn, to tinker, or to hold a ticket &mdash; and run the numbers yourself first, because the sellers selling the dream are not the ones paying your power bill.</p>
+
+        <div class="cta-box">
+          <h3>See your own odds</h3>
+          <p>The free Faith Mining Solo Mining Odds Calculator computes your chance of finding a block over a day, week, month, and year at any hashrate, at current difficulty.</p>
+          <a href="https://tools.faithmining.net/solo-mining-odds/" class="btn-primary">Open the odds calculator &rarr;</a>
+        </div>
+
+<div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <p style="font-size:0.85rem;color:var(--text-muted);">Sources: NerdQaxe++ Rev 7 specifications from Solo Satoshi (solosatoshi.com) and D-Central (d-central.tech); Bitaxe Gamma 601/602 specifications and prices from AsicProfit, Solo Satoshi, and Bitaxe Radar (checked November 13, 2026); NerdOctaxe Gamma and Bitaxe Hex figures from D-Central's Bitaxe guide and product pages; Avalon Nano 3S specifications and prices from AsicProfit, Altair Technologies, and the Canaan shop (November 13, 2026); network figures (difficulty 148.36T, hashrate ~975 EH/s, next adjustment estimated &minus;8% around November 13&ndash;14) from NodeWitness; BTC price ~$69,000 from CoinDesk and Finnhub, November 13, 2026. Solo odds and revenue figures are the author's own calculations at current difficulty; see the <a href="/blog/what-is-solo-bitcoin-mining">solo mining guide</a> for the full method.</p>
+
+              </div>
+
+      <div class="related-section">
+        <h3>More from Faith Mining</h3>
+        <div class="related-grid">
+          <a href="/blog/what-is-solo-bitcoin-mining" class="related-card">
+            <h4>What Is Solo Bitcoin Mining — And Is It Worth It?</h4>
+            <p>Pool mining vs. solo Bitcoin mining explained honestly. The math behind the lottery, the real risks, and when solo mining actually makes sense.</p>
+          </a>
+          <a href="/blog/choosing-a-home-miner-2026" class="related-card">
+            <h4>Choosing a Home Miner in 2026</h4>
+            <p>Hashrate, watts, noise, and price — how to pick a home-scale miner without overpaying for specs you don't need.</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© <span id="year"></span> Faith Mining LLC</p>
+      <nav class="footer-links">
+        <a href="/">Home</a>
+        <a href="/#blog">Blog</a>
+        <a href="/about">About</a>
+        <a href="mailto:info@faithmining.net">Contact</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Use</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
