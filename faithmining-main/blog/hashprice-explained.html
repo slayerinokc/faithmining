@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hashprice Explained: The One Number That Tells You What Your Miner Earns — Faith Mining</title>
+  <meta name="description" content="Hashprice ($/PH/day) is the one number that tells you what a miner earns. How it's calculated, what moved it in 2026, and the break-even power price for common miners at November 2026 numbers.">
+  <link rel="canonical" href="https://www.faithmining.net/blog/hashprice-explained">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733; --orange-glow: rgba(247,147,26,0.10);
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo:hover { color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color var(--transition); }
+    .nav-link:hover { color: var(--text); }
+
+    .article-hero { padding: 64px 0 48px; text-align: center; position: relative; }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse at center top, rgba(247,147,26,0.15) 0%, rgba(247,147,26,0.05) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .article-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); background: var(--orange-glow); border: 1px solid var(--border-orange); padding: 4px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .article-hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; max-width: 780px; margin-left: auto; margin-right: auto; }
+    .article-meta { display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 0.82rem; color: var(--text-muted); flex-wrap: wrap; }
+
+    .article-body { padding: 0 0 80px; }
+    .prose h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin: 48px 0 16px; line-height: 1.3; }
+    .prose h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+    .prose p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .prose p strong { color: var(--text); font-weight: 600; }
+    .prose ul, .prose ol { padding-left: 24px; margin-bottom: 20px; }
+    .prose li { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 8px; }
+    .prose li strong { color: var(--text); }
+
+    .callout-box { background: var(--bg-surface); border-left: 3px solid var(--orange); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 32px 0; }
+    .callout-box p { margin: 0; font-size: 0.95rem; }
+
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0; }
+    .comparison-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+    .comparison-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 14px; }
+    .comparison-card.pool h3 { color: #60A5FA; }
+    .comparison-card.solo h3 { color: var(--orange); }
+    .comparison-card ul { padding-left: 16px; }
+    .comparison-card li { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; }
+
+    .ad-unit { margin: 40px 0; text-align: center; }
+    .ad-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 6px; }
+
+    .cta-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 32px; margin: 48px 0; text-align: center; }
+    .cta-box h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .cta-box p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #000 !important; font-weight: 600; font-size: 0.95rem; padding: 11px 22px; border-radius: var(--radius); transition: background var(--transition); }
+    .btn-primary:hover { background: var(--orange-light); color: #000 !important; }
+
+    .related-section { border-top: 1px solid var(--border); padding: 48px 0; }
+    .related-section h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 20px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .related-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: border-color var(--transition); }
+    .related-card:hover { border-color: var(--border-orange); }
+    .related-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+    .related-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+    .site-footer { border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.8rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    @media (max-width: 640px) {
+      .article-hero { padding: 48px 0 36px; }
+      .comparison-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  .data-table { width: 100%; border-collapse: collapse; margin: 24px 0 32px; font-size: 0.9rem; }
+    .data-table th { text-align: left; padding: 10px 16px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 12px 16px; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+    .data-table td:last-child { font-family: var(--font-mono); color: var(--orange); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .update-note{background:var(--bg-surface);border:1px solid var(--border-orange);border-radius:var(--radius);padding:14px 20px;margin:0 0 28px;font-size:0.9rem;color:var(--text-secondary);}.update-note strong{color:var(--orange);}</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">F</span>
+        Faith Mining
+      </a>
+      <nav style="display:flex;gap:24px;align-items:center;">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#blog" class="nav-link">Blog</a>
+        <a href="/about" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-hero">
+    <div class="container">
+      <div class="article-eyebrow">📊 Mining Guide</div>
+      <h1>Hashprice Explained: The One Number That Tells You What Your Miner Earns</h1>
+      <div class="article-meta">
+        <span>✍️ Chris Johnson — Faith Mining LLC</span>
+        <span>📅 November 17, 2026</span>
+        <span>⏱ 7 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <div class="container">
+      <div class="prose">
+
+        <p>Ask a miner what their machine earns and you will usually get two numbers: the hashrate and the power bill. Neither one answers the question on its own. Hashrate tells you how much work the machine does. The power bill tells you what that work costs. What is missing is the price of the work itself &mdash; what one unit of hashrate is actually worth today. That number has a name: hashprice.</p>
+        <div class="update-note"><strong>Figures updated November 17, 2026.</strong> Market examples in this guide use BTC ~$64,900, network difficulty 134.82 trillion (set November 14, 2026, down 9.13% from 148.36T), block reward 3.125 BTC plus fees (about 3.14 BTC per block on average), network hashrate roughly 979 EH/s (7-day average), and hashprice ~$30.30 per PH/s per day (independent trackers, November 16&ndash;17). Market numbers move constantly &mdash; re-run your own inputs before acting on them.</div>
+
+        <p>Hashprice is the expected daily revenue from one petahash per second (PH/s) of hashing power, before any costs. It was coined by Luxor, whose Hashrate Index publishes it as the industry-standard reading, in dollars per PH/s per day and in bitcoin per PH/s per day. If hashprice is $30.30 per PH/s per day, then 1 PH/s of hashrate is expected to earn about $30.30 in gross revenue over a day &mdash; before pool fees, electricity, hosting, repairs, or anything else. Your machine's daily revenue is then just its hashrate times hashprice. That is the whole trick, and it is why hashprice is the first number to check before buying, selling, or switching off a miner.</p>
+
+        <h2>Hashrate is not hashprice</h2>
+
+        <p>The two words sound alike and get mixed up constantly, so keep them apart. Hashrate is how much work a machine does, measured in terahashes per second (TH/s) or petahashes per second (PH/s). Hashprice is what that work is worth, measured in dollars per PH/s per day. A machine with a big hashrate and a low hashprice can earn less than a small machine did when hashprice was high. Hashrate pays nothing on its own; only hashprice converts it into dollars.</p>
+
+        <p>The units stack in thousands: 1 PH/s is 1,000 TH/s, and 1 EH/s is 1,000 PH/s. A home miner at 6 TH/s is 0.006 PH/s. A flagship ASIC at 1,160 TH/s is 1.16 PH/s. The whole Bitcoin network, at roughly 979 EH/s on a 7-day average, is about 979,000 PH/s.</p>
+
+        <h2>How hashprice is calculated</h2>
+
+        <p>Hashprice comes from four inputs, and the formula is simple once you see it:</p>
+
+        <div class="callout-box">
+          <p><strong>Hashprice ($/PH/day) = 144 &times; average block reward (BTC) &times; BTC price &divide; network hashrate (PH/s)</strong></p>
+        </div>
+
+        <p>The 144 is the number of blocks in a day at the 10-minute target. The average block reward is the subsidy &mdash; 3.125 BTC since the April 2024 halving &mdash; plus transaction fees, averaged over recent blocks (Luxor uses a 144-block average to smooth out fee spikes). Multiply by the bitcoin price to get dollars, divide by the network hashrate, and you have revenue per unit of hashrate.</p>
+
+        <p>A worked example at today's numbers: at difficulty 134.82T, 1 PH/s earns about 0.00047 BTC a day. At a bitcoin price of ~$64,900, that is about $30.30 a day &mdash; matching the ~$30.30 readings from independent hashprice trackers on November 16&ndash;17. The same calculation on November 14, with bitcoin near $67,165, gave about $31.60. The difference is almost entirely the price move, which is the point: hashprice tracks the market in real time.</p>
+
+        <p>Four things move it, and they move independently:</p>
+
+        <ul>
+          <li><strong>Bitcoin price.</strong> The biggest lever. Miner revenue is paid in bitcoin, so when the price rises, the dollar value of every block rises with it.</li>
+          <li><strong>Transaction fees.</strong> Busy blocks pay more. Fees are a small slice right now &mdash; roughly 0.7% of block revenue in mid-November &mdash; so they rarely drive hashprice on their own, but they matter when the network is congested.</li>
+          <li><strong>Block subsidy.</strong> The newly minted bitcoin per block, currently 3.125 BTC. It halves roughly every four years, and the next halving is expected around April 2028, cutting this input to 1.5625 BTC overnight. Unless price or fees double to compensate, hashprice roughly halves with it.</li>
+          <li><strong>Network difficulty.</strong> The only input that pushes hashprice down. As more hashrate competes, difficulty rises and each machine wins a smaller slice of the same daily reward. Difficulty only changes every 2,016 blocks, about every two weeks, so it moves in steps &mdash; and a single large step can lift or cut hashprice for everyone at once.</li>
+        </ul>
+
+<div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <h2>What hashprice has done in 2026</h2>
+
+        <p>This year has been a lesson in how fast the number moves. Hashprice hit a low near $27.70 per PH/s per day in June. After bitcoin recovered toward $77,000, hashprice climbed back to roughly $38, and most operators moved back above cash breakeven. Then the market turned again: hashprice was $31.89 on November 9, about $31.60 on November 14, $30.65 on November 15, and about $30.30 on November 16&ndash;17.</p>
+
+        <p>The November 14 difficulty adjustment is a good example of the step effect. Difficulty fell 9.13% at block 975,744, from 148.36T to 134.82T &mdash; the largest cut since June &mdash; because hashrate had dropped by roughly 100 EH/s as miners switched machines off. A difficulty cut like that raises expected revenue per hash by about 10%, all else equal. But all else was not equal: bitcoin fell from about $75,577 to about $67,292 over the same week, and to an intraday low near $61,947 on November 15. The price fall absorbed almost all of the relief, leaving hashprice roughly where it started, near $31 &mdash; and it has since eased to about $30.30 as bitcoin settled near $64,900. That is hashprice doing its job &mdash; collapsing two opposing forces into one number you can actually use. The next adjustment is currently estimated at roughly +11%, which would push hashprice back down unless the price rises to offset it.</p>
+
+        <h2>Using hashprice to price any miner in seconds</h2>
+
+        <p>Daily gross revenue is hashrate times hashprice. At $30.30 per PH/s per day &mdash; $0.0303 per TH/s per day &mdash; here is what common machines earn before costs:</p>
+
+        <table class="data-table">
+          <thead>
+            <tr><th>Miner</th><th>Hashrate</th><th>Daily gross revenue</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1 TH/s (unit rate)</td><td>1 TH/s</td><td>$0.03</td></tr>
+            <tr><td>Avalon Nano 3S</td><td>6 TH/s</td><td>$0.18</td></tr>
+            <tr><td>NerdQaxe++ (stock)</td><td>4.8 TH/s</td><td>$0.15</td></tr>
+            <tr><td>Antminer S21 XP</td><td>270 TH/s</td><td>$8.18</td></tr>
+            <tr><td>Antminer S23 Hydro 3U</td><td>1,160 TH/s (1.16 PH/s)</td><td>$35.15</td></tr>
+          </tbody>
+        </table>
+
+        <p>Revenue is only half the story. The other half is the power bill, and hashprice gives you a shortcut for that too: the break-even power price. Divide hashprice by 24 hours and by the machine's efficiency in joules per terahash (J/TH), and you get the highest electricity price that machine can pay before it loses money on power alone:</p>
+
+        <div class="callout-box">
+          <p><strong>Break-even power price ($/kWh) = hashprice ($/PH/day) &divide; (24 &times; efficiency in J/TH)</strong></p>
+        </div>
+
+        <p>At today's $30.30 hashprice:</p>
+
+        <table class="data-table">
+          <thead>
+            <tr><th>Miner</th><th>Efficiency</th><th>Break-even power price</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Antminer S23 Hydro 3U</td><td>9.5 J/TH</td><td>~$0.133/kWh</td></tr>
+            <tr><td>Antminer S21 XP</td><td>13.5 J/TH</td><td>~$0.094/kWh</td></tr>
+            <tr><td>NerdQaxe++</td><td>14.5 J/TH</td><td>~$0.087/kWh</td></tr>
+            <tr><td>Avalon Nano 3S</td><td>23.3 J/TH</td><td>~$0.054/kWh</td></tr>
+            <tr><td>Antminer S19j Pro (older gen)</td><td>~29.5 J/TH</td><td>~$0.043/kWh</td></tr>
+          </tbody>
+        </table>
+
+        <p>Read that table as a sorting test. At a residential rate of $0.11/kWh &mdash; the assumed rate used for illustration throughout this site, not a measured figure; check your own bill &mdash; only the newest machines clear the bar on electricity alone. The S23 Hydro 3U breaks even at about 13.3 cents, so it still earns at 11 cents. The S21 XP breaks even at about 9.4 cents, so at 11 cents it loses money on power before any other cost. The Nano 3S breaks even at about 5.4 cents, which is why it loses roughly $0.19 a day in a pool at residential rates &mdash; the same conclusion the open-source home miners guide reached with November 5 numbers.</p>
+
+        <p>A worked example makes the point concrete. An S21 XP at 270 TH/s earns $8.18 a day gross. It draws 3,645 W, or 87.5 kWh a day. At $0.11/kWh that is $9.62 in power, for a net of about &minus;$1.44 a day. At $0.07/kWh the power costs $6.12, for a net of about +$2.06 a day. Same machine, same hashprice, opposite answer &mdash; the only thing that changed was the power price. That is why two miners can look at the same hashprice and reach different decisions, and why anyone quoting a miner's earnings without naming the power price is not giving you a complete number.</p>
+
+        <h2>What hashprice does not tell you</h2>
+
+        <p>Hashprice is an expectation, not a promise. It is gross revenue before pool fees (typically 1&ndash;2% on a pool, 0.5% for solo on Mining Dutch), before hosting, maintenance, downtime, hardware failure, and financing. A real miner lands above or below it on any given day because of luck: blocks do not arrive on schedule, and a solo miner in particular can go months earning nothing and then earn a whole block at once. Hashprice also assumes today's difficulty and price hold still, and they never do &mdash; difficulty retargets every two weeks, and the price moves every minute.</p>
+
+        <p>It also says nothing about whether to buy a machine. Hashprice tells you what hashrate earns today. Whether a miner is worth buying depends on what you pay for it, how long it runs, what power costs you, and what hashprice does over that whole period &mdash; including the April 2028 halving, which will cut the subsidy in half. A machine that earns at today's hashprice can still be a bad purchase if you overpay for it or if hashprice falls for a year. Run the payback math with a range of hashprices, not just today's, before spending money.</p>
+
+        <h2>The bottom line</h2>
+
+        <p>Hashprice is the one number that turns a miner's hashrate into dollars: expected daily revenue per PH/s, before costs. At $30.30 per PH/s per day in mid-November 2026, a petahash earns about thirty dollars a day, a 270 TH/s S21 XP earns about $8.18, and a 6 TH/s Nano 3S earns about eighteen cents. Divide hashprice by 24 times your machine's efficiency and you get the power price it can afford &mdash; about 13 cents for the newest hardware, about 5 cents for a Nano 3S, about 4 cents for an older S19. If your power costs more than that number, the machine loses money on electricity alone, no matter how impressive its hashrate looks on the box.</p>
+
+        <p>Check hashprice before you buy, before you switch a machine on, and before you switch one off. It is the market rate for the one thing a miner actually produces, and everything else in mining economics is arithmetic built on top of it.</p>
+
+        <div class="cta-box">
+          <h3>Run your own numbers</h3>
+          <p>The free Faith Mining Bitcoin Miner ROI Calculator prices a machine at current network figures, so you can test it at today's hashprice &mdash; and at a lower one, before you buy.</p>
+          <a href="https://tools.faithmining.net/bitcoin-miner-roi/" class="btn-primary">Open the ROI calculator &rarr;</a>
+        </div>
+
+<div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <p>If you want to run your own numbers, the free <a href="https://tools.faithmining.net/bitcoin-miner-roi/">Faith Mining Bitcoin Miner ROI Calculator</a> prices a machine at current network figures, and the <a href="https://tools.faithmining.net/solo-mining-odds/">Solo Mining Odds Calculator</a> computes your chance of finding a whole block at current difficulty.</p>
+
+        <p style="font-size:0.85rem;color:var(--text-muted);">Sources: Hashprice ~$30.30/PH/day on November 16, 2026 from Maketo's daily hashprice record, with independent trackers reading $30.23&ndash;$30.50 on November 17 (Endless Mining, Orange Abacus, CryptoToolbox); Hashrate Index weekly roundup November 9, 2026: hashprice $31.89/PH/day, BTC ~$74,624; difficulty 134.82T after a 9.13% cut at block 975,744 on November 14, 2026, from 148.36T, and BTC ~$64,900 with an intraday low near $61,947 on November 15, from mempool.space and Coinbase data via Simple Mining, read November 17, 2026, 9:02 AM CT; 1 PH/s earning ~0.00047 BTC/day at the new difficulty, hashprice ~$31.60 at BTC $67,165 on November 14, hashprice low near $27.70 in June and ~$38 after BTC recovered toward $77,000, and S21 XP (13.5 J/TH) and S19j Pro efficiency figures from Hashrate Index spec pages, as reported November 14, 2026; 7-day network hashrate 979.2 EH/s, fee share ~0.68% (0.0218 BTC per block, 7-day average), next difficulty adjustment estimated +10.98% in 1,471 blocks, block 976,289, as of November 17, 2026, 9:02 AM CT (Simple Mining / mempool.space); hashprice formula (144 &times; average block reward &times; BTC price &divide; network hashrate) and break-even power price rule (hashprice &divide; (24 &times; J/TH)), and Luxor coining the term in 2019, from Hashrate Index / Luxor explainer material; next halving around April 2028 (subsidy to 1.5625 BTC); S23 Hydro 3U specifications (1,160 TH/s, 11,020 W, 9.5 J/TH) and Nano 3S (6 TH/s, 140 W, 23.3 J/TH) and NerdQaxe++ (4.8 TH/s, 69.5 W, 14.5 J/TH) from the site's earlier guides. Revenue and break-even figures are the author's own calculations at the stated hashprice; see the <a href="/blog/bitcoin-mining-difficulty-explained">difficulty guide</a> for how difficulty and hashrate relate.</p>
+
+              </div>
+
+      <div class="related-section">
+        <h3>More from Faith Mining</h3>
+        <div class="related-grid">
+          <a href="/blog/bitcoin-mining-difficulty-explained" class="related-card">
+            <h4>Bitcoin Mining Difficulty, Explained</h4>
+            <p>What Bitcoin network difficulty actually is, how the adjustment works, and exactly how rising difficulty eats into your mining revenue — explained with real numbers.</p>
+          </a>
+          <a href="/blog/mining-payback-period" class="related-card">
+            <h4>How to Calculate Your Bitcoin Miner Payback Period</h4>
+            <p>The exact formula — and why most miners calculate it wrong.</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© <span id="year"></span> Faith Mining LLC</p>
+      <nav class="footer-links">
+        <a href="/">Home</a>
+        <a href="/#blog">Blog</a>
+        <a href="/about">About</a>
+        <a href="mailto:info@faithmining.net">Contact</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Use</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
