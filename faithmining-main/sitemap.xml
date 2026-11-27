@@ -144,5 +144,11 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+  <url>
+    <loc>https://www.faithmining.net/blog/heating-your-home-with-a-bitcoin-miner</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
 </urlset>

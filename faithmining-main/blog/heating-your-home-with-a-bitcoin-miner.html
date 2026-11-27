@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heating Your Home With a Bitcoin Miner: The Winter Math — Faith Mining</title>
+  <meta name="description" content="A Bitcoin miner is a space heater that pays you back. The BTU math, cost per unit of heat vs. a space heater and gas, and which home miners actually warm a room — with November 2026 numbers.">
+  <link rel="canonical" href="https://www.faithmining.net/blog/heating-your-home-with-a-bitcoin-miner">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4198818748800027" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #0C0C0F; --bg-surface: #141418; --bg-elevated: #1C1C23;
+      --border: rgba(255,255,255,0.06); --border-orange: rgba(247,147,26,0.35);
+      --text: #EDEDF0; --text-secondary: #9292A0; --text-muted: #4A4A5A;
+      --orange: #F7931A; --orange-light: #FFA733; --orange-glow: rgba(247,147,26,0.10);
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 10px; --radius-lg: 14px; --transition: 150ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { color: var(--orange-light); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .prose { max-width: 720px; margin: 0 auto; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(12,12,15,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
+    .logo:hover { color: var(--text); }
+    .logo-mark { width: 30px; height: 30px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color var(--transition); }
+    .nav-link:hover { color: var(--text); }
+
+    .article-hero { padding: 64px 0 48px; text-align: center; position: relative; }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 400px;
+      background: radial-gradient(ellipse at center top, rgba(247,147,26,0.15) 0%, rgba(247,147,26,0.05) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .article-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); background: var(--orange-glow); border: 1px solid var(--border-orange); padding: 4px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .article-hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; max-width: 780px; margin-left: auto; margin-right: auto; }
+    .article-meta { display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 0.82rem; color: var(--text-muted); flex-wrap: wrap; }
+
+    .article-body { padding: 0 0 80px; }
+    .prose h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin: 48px 0 16px; line-height: 1.3; }
+    .prose h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+    .prose p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+    .prose p strong { color: var(--text); font-weight: 600; }
+    .prose ul, .prose ol { padding-left: 24px; margin-bottom: 20px; }
+    .prose li { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 8px; }
+    .prose li strong { color: var(--text); }
+
+    .callout-box { background: var(--bg-surface); border-left: 3px solid var(--orange); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin: 32px 0; }
+    .callout-box p { margin: 0; font-size: 0.95rem; }
+
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0; }
+    .comparison-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+    .comparison-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 14px; }
+    .comparison-card.pool h3 { color: #60A5FA; }
+    .comparison-card.solo h3 { color: var(--orange); }
+    .comparison-card ul { padding-left: 16px; }
+    .comparison-card li { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; }
+
+    .ad-unit { margin: 40px 0; text-align: center; }
+    .ad-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 6px; }
+
+    .cta-box { background: var(--bg-surface); border: 1px solid var(--border-orange); border-radius: var(--radius-lg); padding: 32px; margin: 48px 0; text-align: center; }
+    .cta-box h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .cta-box p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #000 !important; font-weight: 600; font-size: 0.95rem; padding: 11px 22px; border-radius: var(--radius); transition: background var(--transition); }
+    .btn-primary:hover { background: var(--orange-light); color: #000 !important; }
+
+    .related-section { border-top: 1px solid var(--border); padding: 48px 0; }
+    .related-section h3 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 20px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .related-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: border-color var(--transition); }
+    .related-card:hover { border-color: var(--border-orange); }
+    .related-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+    .related-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+    .site-footer { border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.8rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    @media (max-width: 640px) {
+      .article-hero { padding: 48px 0 36px; }
+      .comparison-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  .data-table { width: 100%; border-collapse: collapse; margin: 24px 0 32px; font-size: 0.9rem; }
+    .data-table th { text-align: left; padding: 10px 16px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 12px 16px; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+    .data-table td:last-child { font-family: var(--font-mono); color: var(--orange); }
+    .data-table tr:last-child td { border-bottom: none; }
+  .update-note{background:var(--bg-surface);border:1px solid var(--border-orange);border-radius:var(--radius);padding:14px 20px;margin:0 0 28px;font-size:0.9rem;color:var(--text-secondary);}.update-note strong{color:var(--orange);}</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">F</span>
+        Faith Mining
+      </a>
+      <nav style="display:flex;gap:24px;align-items:center;">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#blog" class="nav-link">Blog</a>
+        <a href="/about" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="article-hero">
+    <div class="container">
+      <div class="article-eyebrow">🔥 Mining Guide</div>
+      <h1>Heating Your Home With a Bitcoin Miner: The Winter Math</h1>
+      <div class="article-meta">
+        <span>✍️ Chris Johnson — Faith Mining LLC</span>
+        <span>📅 November 27, 2026</span>
+        <span>⏱ 11 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <div class="container">
+      <div class="prose">
+<p>A Bitcoin miner is a space heater that pays you back. That is not a metaphor. Every watt a miner draws ends up as heat in the room &mdash; a miner does no mechanical work and gives off almost no light &mdash; so a 1,500 W miner heats exactly like a 1,500 W electric space heater, except it also earns bitcoin while it runs.</p>
+        <div class="update-note"><strong>Figures updated November 27, 2026.</strong> Market examples in this guide use BTC ~$59,260, network difficulty 145.09 trillion (up from 134.82T on November 24), and hashprice ~$26.89 per PH/s per day ($0.0269 per TH/s per day, Luxor Hashrate Index via Simple Mining, updated November 27, 5:00 AM CT). The next difficulty adjustment is estimated at roughly &minus;6% in about 1,958 blocks. Market numbers move constantly &mdash; re-run your own inputs before acting on them.<br><br>Electricity is priced at $0.11/kWh in this guide only as a labeled assumption &mdash; check your own bill. Gas figures use the EIA winter 2026&ndash;27 forecast below. All revenue and cost figures are the author&rsquo;s calculations at the stated hashprice, before pool fees, and assume the machine actually hits its rated hashrate.</div>
+
+        <p>The catch is the word &ldquo;exactly.&rdquo; A miner is not a more efficient heater than a resistive heater. It is the same heater, with a rebate attached. Whether that rebate makes the heat cheap or still expensive depends on three things: what the miner earns, what your electricity costs, and what you would have heated with instead. Run that math before winter, not after.</p>
+
+        <h2>The one conversion to learn</h2>
+
+        <p>Heat output follows directly from power draw:</p>
+
+        <div class="callout-box">
+          <p><strong>1 watt = 3.412 BTU per hour.</strong></p>
+        </div>
+
+        <p>So a miner&rsquo;s heat is just its watts times 3.412. No efficiency rating changes this &mdash; a more efficient miner earns more bitcoin per watt, but it does not make more heat per watt. Heat is heat.</p>
+
+        <table class="data-table">
+          <tr><th>Miner</th><th>Power</th><th>Heat output</th></tr>
+          <tr><td>Avalon Nano 3S, High</td><td>140 W</td><td>~478 BTU/h</td></tr>
+          <tr><td>Avalon Mini 3, Super</td><td>800 W</td><td>~2,730 BTU/h</td></tr>
+          <tr><td>Avalon Q, Eco</td><td>~850 W</td><td>~2,900 BTU/h</td></tr>
+          <tr><td>Avalon Q, Super</td><td>1,674 W</td><td>~5,712 BTU/h</td></tr>
+          <tr><td>Antminer S21 XP (full-size)</td><td>3,645 W</td><td>~12,437 BTU/h</td></tr>
+          <tr><td>Typical electric space heater</td><td>1,500 W</td><td>~5,118 BTU/h</td></tr>
+        </table>
+
+        <p>The Nano 3S at 478 BTU/h is a desk warmer, not a room heater. The Mini 3 at 2,730 BTU/h and the Avalon Q in Eco at about 2,900 BTU/h are in the same class as a small space heater. The Q in Super and a full-size S21 XP put out real room heat &mdash; and real noise and power draw to go with it.</p>
+
+        <p>As a rough sizing guide, a moderately insulated room needs roughly 20 BTU/h per square foot on a cold day, though insulation, windows, and climate move that number a lot. On that rule of thumb, the Mini 3 covers about 135 sq ft, the Q in Super about 285 sq ft, and the Nano 3S about 24 sq ft &mdash; a desk, not a living room. Treat the rule as a starting point, not a guarantee.</p>
+
+        <div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <h2>What the heat actually costs</h2>
+
+        <p>The right question is not &ldquo;does the miner earn more than its power costs?&rdquo; At today&rsquo;s hashprice, most home miners do not. The right question is &ldquo;what does this heat cost me, after the bitcoin it earns, compared with the heat I would have bought anyway?&rdquo;</p>
+
+        <p>The miner&rsquo;s net cost of heat is its electricity cost minus its mining revenue. Compare that with the alternative:</p>
+
+        <ul>
+          <li><strong>Against an electric space heater</strong>, the miner always wins by the amount of bitcoin it earns, because the heater&rsquo;s heat costs the full electricity bill and gives nothing back.</li>
+          <li><strong>Against a gas furnace</strong>, the miner wins only if its net heat cost beats the gas cost of the same heat. Gas is cheap per unit of heat, so this is the harder test &mdash; and the one that matters for most homes.</li>
+        </ul>
+
+        <p>Gas math, from the EIA&rsquo;s winter 2026&ndash;27 forecast: residential gas is forecast at $13.66 per Mcf. One Mcf holds about 1.037 million BTU, or about 10.37 therms, so that is about $1.32 per therm of fuel. A typical furnace delivers about 80% of that as heat into the house (80% AFUE), so delivered gas heat costs about $1.65 per therm, or about $0.056 per kWh of heat. Your furnace and your local gas price will differ &mdash; check both &mdash; but that is the benchmark used below.</p>
+
+        <p>Here is the comparison at $0.11/kWh electricity and ~$26.89/PH/day hashprice, running 24 hours a day:</p>
+
+        <table class="data-table">
+          <tr><th>Miner</th><th>Electricity / day</th><th>Bitcoin revenue / day</th><th>Net cost of heat / day</th><th>Same heat from gas / day</th></tr>
+          <tr><td>Nano 3S, High (140 W, 6 TH/s)</td><td>$0.37</td><td>$0.16</td><td>$0.21</td><td>$0.19</td></tr>
+          <tr><td>Mini 3, Super (800 W, 37.5 TH/s)</td><td>$2.11</td><td>$1.01</td><td>$1.10</td><td>$1.08</td></tr>
+          <tr><td>Avalon Q, Eco (850 W, 53 TH/s)</td><td>$2.24</td><td>$1.43</td><td>$0.82</td><td>$1.15</td></tr>
+          <tr><td>Avalon Q, Super (1,674 W, 90 TH/s)</td><td>$4.42</td><td>$2.42</td><td>$2.00</td><td>$2.26</td></tr>
+          <tr><td>S21 XP (3,645 W, 270 TH/s)</td><td>$9.62</td><td>$7.26</td><td>$2.36</td><td>$4.93</td></tr>
+        </table>
+
+        <p>Read the table this way. The Nano 3S and the Mini 3 roughly break even against gas heat: their net heat cost is about two cents a day more than the gas cost, so they are a wash on money and a win only if you value the bitcoin or already own the machine. The Avalon Q in Eco beats gas by about $0.33 a day, and in Super by about $0.26 a day, because it is the most efficient of the group at about 15&ndash;16 J/TH in Eco. The full-size S21 XP beats gas by the most in dollars &mdash; about $2.57 a day &mdash; because its efficient chips earn the most per watt, but it is also the loudest and hardest to live with, which is the next section.</p>
+
+        <p>Against electric heat, every row wins by its full revenue column: the Q in Eco, for example, gives you $2.24 of heat for a net $0.82 after the $1.43 of bitcoin. If your home heats with electric baseboards or space heaters, a miner is a straight upgrade on cost &mdash; same heat, plus the rebate.</p>
+
+        <p>Two warnings about the table. First, it assumes pool mining with steady daily revenue. If you solo mine, the expected revenue is the same on average but it arrives as nothing for months and then a whole block at once &mdash; do not count on a daily rebate that may not show up until spring. Second, hashprice moves. At $26.89/PH/day the margins above are thin; if hashprice falls to $20, the Q in Eco earns about $1.06 a day instead of $1.43, its net heat cost rises to about $1.18, and it no longer beats gas. Re-run the numbers at the hashprice on the day you decide, not the one in this guide.</p>
+
+        <h2>Which miner fits which room</h2>
+
+        <p><strong>Nano 3S &mdash; the desk heater.</strong> 6 TH/s on 140 W, 33&ndash;40 dB, and it plugs into a normal outlet with its supplied adapter. It will warm the air around a desk and take the edge off a small office. It will not heat a living room, and at today&rsquo;s hashprice its heat costs about the same as gas. Buy it to learn mining or to keep a small space warm, not to cut a heating bill.</p>
+
+        <p><strong>Avalon Mini 3 &mdash; the miner built to be a heater.</strong> 37.5 TH/s on up to 800 W, with a thermostat, tip-over protection, and three modes: Heater mode (Eco 500 W or Super 800 W) holds a room temperature by pausing and restarting like a thermostat, Mining mode runs flat out for the most hashrate, and Night mode keeps the fans quiet overnight at about 33 dB. At 800 W it runs on a standard household circuit. This is the only machine here designed around heating a room rather than tolerating it.</p>
+
+        <p><strong>Avalon Q &mdash; the most heat per dollar of rebate.</strong> 53 TH/s at about 850 W in Eco, 80 TH/s at about 1,414 W in Standard, and 90 TH/s at 1,674 W in Super. Eco is the pick for heating: quietest at about 39 dB, most efficient at about 15&ndash;16 J/TH, and it fits a standard 15-amp, 120 V circuit (about 7 amps). Standard is right at that circuit&rsquo;s continuous limit and Super is over it &mdash; Super needs a 20-amp circuit or 240 V. The Q is the best heater-miner here on the math, and the one that most needs the electrical check below.</p>
+
+        <p><strong>A full-size ASIC (S21-class) &mdash; the most heat, the worst roommate.</strong> 270 TH/s and over 12,000 BTU/h from one box, with the best net heat cost in the table. But it is loud &mdash; far louder than any home-series miner &mdash; it needs 240 V and a dedicated circuit, and it dumps all that heat in one spot. It belongs in a garage, a workshop, or a ventilated utility space, not a living room. If you already own one and heat a space like that, pointing its exhaust into the room in winter is nearly free heat. Buying one just to heat a house is the wrong way round.</p>
+
+        <h2>Safety and the electrical check</h2>
+
+        <p>Heat is the point, but a miner is still a continuous high load with hot exhaust air and spinning fans. A few rules before you run one as a heater:</p>
+
+        <ul>
+          <li><strong>Give it air.</strong> Keep the intake and exhaust clear. Do not cover the unit, push it against curtains or furniture, or block the fan. Dust builds up fast on a miner that runs all winter &mdash; clean the intake filter regularly, and a dusty miner runs hotter and louder.</li>
+          <li><strong>Do not sleep next to a full-size miner.</strong> The home-series machines have quiet modes for a reason, but a loud ASIC in a bedroom is a bad night&rsquo;s sleep and a hot, dry room. The Mini 3&rsquo;s Night mode is the exception that was designed for it; a full-size machine is not.</li>
+          <li><strong>Carbon monoxide is not the risk.</strong> A miner burns nothing, so there is no CO and no combustion exhaust. The risks are electrical and thermal: a hot exhaust, a blocked fan, and a circuit carrying a continuous load for months.</li>
+          <li><strong>Check the circuit before winter, not during it.</strong> A standard 15-amp, 120 V circuit should carry no more than about 1,440 W continuously (80% of its 1,800 W rating). The Q in Eco at about 850 W fits comfortably; the Q in Standard at 1,414 W is right at the limit as the sole load; the Q in Super at 1,674 W and any full-size ASIC are over it and need a 20-amp circuit or 240 V. Do not run a miner on a power strip or a light extension cord, and do not share the circuit with another heater. If you are unsure, ask an electrician &mdash; a winter of continuous load is exactly when a marginal circuit shows it.</li>
+          <li><strong>A thermostat helps, a timer helps more.</strong> Heater mode on the Mini 3 and Eco mode on the Q already throttle with temperature. If your miner has no thermostat mode, a smart plug or a simple schedule that runs it hardest on cold nights and idles it on mild days keeps the heat where it is wanted. Heat you do not need is still electricity you paid for, even with the bitcoin rebate.</li>
+        </ul>
+
+        <h2>The bottom line</h2>
+
+        <p>A miner does not make heat cheaper than a heater. It makes the same heat, and hands some of the cost back as bitcoin. At today&rsquo;s hashprice &mdash; about $26.89/PH/day &mdash; that rebate is enough for an efficient home miner like the Avalon Q to beat gas heat by roughly $0.26&ndash;$0.33 a day, and to beat electric heat by its full revenue, about $1.43 a day in Eco. A Nano 3S or a Mini 3 roughly ties gas and wins clearly against electric heat. A full-size ASIC beats gas by the most dollars and is the least livable machine in the house.</p>
+
+        <p>So the winter rule is simple: if you already heat with electricity, run the miner &mdash; the heat is the same and the bitcoin is a bonus. If you heat with gas, run an efficient miner in Eco and check the math at your power price and today&rsquo;s hashprice; a cheap-power home can win, an expensive-power home will not. And if you do not already own a miner, do not buy one just to heat a house &mdash; buy the heater, and let the miner be the one you already have earning its keep through winter.</p>
+
+        <p>If you want to run your own numbers first, the free <a href="https://tools.faithmining.net/bitcoin-miner-roi/">Faith Mining Bitcoin Miner ROI Calculator</a> prices a machine at current network figures, the <a href="https://tools.faithmining.net/solo-mining-odds/">Solo Mining Odds Calculator</a> computes your chance of finding a whole block at current difficulty, and the <a href="/blog/hashprice-explained">hashprice guide</a> explains the one number behind all of it.</p>
+
+        <div class="cta-box">
+          <h3>Faith Mining Solo Pool</h3>
+          <p>A transparent, low-fee Bitcoin solo pool built by a real operator. It is live now.</p>
+          <a href="https://solo.faithmining.net" class="btn-primary">Visit solo.faithmining.net &rarr;</a>
+        </div>
+
+<div class="ad-unit">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4198818748800027"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+<p style="font-size:0.85rem;color:var(--text-muted);">Sources: Miner specs &mdash; Avalon Nano 3S 6 TH/s, 140 W, 23.3 J/TH, 33&ndash;40 dB, Low/Medium/High modes 66/104/140 W (Canaan via Altair Tech home-series guide, https://altairtech.io/avalon-home-series-guide/; Hashrate Index, https://hashrateindex.com/blog/canaan-avalon-nano-3s-humble-heater-gets-a-hashrate-upgrade/); Avalon Mini 3 37.5 TH/s, 800 W, 21.3 J/TH, Heater/Mining/Night modes, Eco 500 W / Super 800 W, thermostat and tip-over protection (Altair Tech home-series guide, https://altairtech.io/avalon-home-series-guide/; CryptoCloaks Mini 3 guide, https://www.cryptocloaks.com/canaan-avalon-mini-3-home-miner/); Avalon Q 90 TH/s, Eco 53 TH/s at ~850 W, Standard 80 TH/s at 1,414 W, Super 90 TH/s at 1,674 W, 39&ndash;47 dB, 15&ndash;18.6 J/TH (Altair Tech home-series guide and Avalon Q product page, https://altairtech.io/avalon-home-series-guide/; MillionMiner Avalon Q review, https://millionminer.com/news/canaan-avalon-q-review). Network figures November 27, 2026 &mdash; BTC ~$59,260, difficulty 145.09T, 7-day hashrate 1,028.4 EH/s, fees 0.0210 BTC per block, next adjustment about &minus;6.1% in ~1,958 blocks, from Simple Mining stats read November 27, 2026, 9:11 AM CT (https://www.simplemining.io/stats); hashprice $26.89/PH/day ($0.0269/TH/day) from the Luxor Hashrate Index via Simple Mining, updated November 27, 5:00 AM CT (https://www.simplemining.io/hashprice). Gas &mdash; EIA Short-Term Energy Outlook, November 2026: residential gas forecast $13.66/Mcf for winter 2026&ndash;27, average gas household spend $640 for November&ndash;March (https://www.eia.gov/outlooks/steo/tables/pdf/5btab.pdf; https://homeenergyprices.com/guides/home-heating-costs-this-winter/); 1 Mcf &asymp; 1.037 MMBtu, 1 therm = 100,000 BTU = 29.3 kWh. Electrical &mdash; 15-amp, 120 V circuit continuous limit about 1,440 W (80% rule), Q Standard/Super circuit guidance (Altair Tech home-series guide). Revenue, power-cost, net-heat-cost, and gas-comparison figures are the author&rsquo;s own calculations at the stated hashprice and $0.11/kWh; see the <a href="/blog/hashprice-explained">hashprice guide</a> for the formula.</p>
+
+              </div>
+
+      <div class="related-section">
+        <h3>More from Faith Mining</h3>
+        <div class="related-grid">
+          <a href="/blog/home-bitcoin-mining-noise-heat-management" class="related-card">
+            <h4>Home Bitcoin Mining Noise and Heat Management</h4>
+            <p>Taming the two things that make home mining hard to live with: sound and hot air. Ducting, airflow, and realistic expectations.</p>
+          </a>
+          <a href="/blog/hashprice-explained" class="related-card">
+            <h4>Hashprice Explained: The One Number That Tells You What Your Miner Earns</h4>
+            <p>Hashprice ($/PH/day) collapses price, difficulty, and fees into a single number — learn to read it and you can price any miner in seconds.</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© <span id="year"></span> Faith Mining LLC</p>
+      <nav class="footer-links">
+        <a href="/">Home</a>
+        <a href="/#blog">Blog</a>
+        <a href="/about">About</a>
+        <a href="mailto:info@faithmining.net">Contact</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Use</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
